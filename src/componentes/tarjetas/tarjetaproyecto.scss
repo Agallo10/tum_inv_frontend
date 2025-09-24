@@ -1,0 +1,11 @@
+@import  "../../scss/style.scss";
+
+.border-start-select {
+    border-left: var(--cui-border-width) solid;
+    border-left-color: $violeta;
+}
+
+.icon-container:hover {
+    background-color: #5a6268;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade un sombreado cuando el mouse pasa por encima */
+  }

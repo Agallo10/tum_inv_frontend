@@ -1,0 +1,243 @@
+import React, { useState } from 'react'
+import {
+  CForm,
+  CRow,
+  CCol,
+  CFormInput,
+  CFormLabel,
+  CFormTextarea,
+  CButton,
+  CFormSelect,
+  CPopover,
+} from '@coreui/react-pro'
+import PlagasTable from './PlagasTable'
+import { getFechaActual, opcionesResponsable } from './helpers'
+import ContenedorPlagas from './ContenedorPlagas'
+
+
+const Plagas = () => {
+  const [formData, setFormData] = useState({
+    fecha: getFechaActual(),
+    arbolNumero: 1,
+    trips: '0',
+    moscaOvario: '0',
+    acaros: '0',
+    otrosInsectos: '0',
+    botrytis: '0',
+    phomosis: '0',
+    roña: '0',
+    otrosHongos: '0',
+    fusarium: '0',
+    fechaIntervencion: getFechaActual(),
+    observaciones: '',
+    responsable: '',
+  })
+
+  const [plagas, setPlagas] = useState([])
+  const [showPopover, setShowPopover] = useState(false)
+
+  const handleChange = (field, value) => {
+    setFormData({ ...formData, [field]: value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const nuevaObservacion = formData.observaciones.trim()
+    const ultima = plagas.at(-1)
+
+    const observacionesAcumuladas = ultima
+      ? nuevaObservacion
+        ? `${ultima.observaciones}\n● Árbol ${formData.arbolNumero}: ${nuevaObservacion}`
+        : ultima.observaciones
+      : nuevaObservacion
+        ? `● Árbol ${formData.arbolNumero}: ${nuevaObservacion}`
+        : ''
+
+    setPlagas((prev) => [
+      ...prev,
+      {
+        ...formData,
+        observaciones: observacionesAcumuladas,
+      },
+    ])
+
+    setFormData({
+      ...formData,
+      arbolNumero: 1,
+      trips: '0',
+      moscaOvario: '0',
+      acaros: '0',
+      otrosInsectos: '0',
+      botrytis: '0',
+      phomosis: '0',
+      roña: '0',
+      otrosHongos: '0',
+      fusarium: '0',
+      fechaIntervencion: getFechaActual(),
+      observaciones: '',
+      responsable: '',
+    })
+
+    setShowPopover(true)
+    setTimeout(() => setShowPopover(false), 2000)
+  }
+
+  return (
+    <CForm onSubmit={handleSubmit}>
+      <div className="p-3 border rounded shadow-sm bg-light">
+        <CRow className="mb-4">
+          <CCol md={3}>
+            <CFormLabel>Fecha</CFormLabel>
+            <CFormInput
+              type="date"
+              value={formData.fecha}
+              onChange={(e) => handleChange('fecha', e.target.value)}
+            />
+          </CCol>
+          <CCol md={3}>
+            <CFormLabel>Árbol N°</CFormLabel>
+            <CFormInput
+              type="number"
+              min={1}
+              max={15}
+              value={formData.arbolNumero}
+              onChange={(e) => handleChange('arbolNumero', e.target.value)}
+            />
+          </CCol>
+          <CCol md={3}>
+            <CFormLabel>Fusarium oxysporum</CFormLabel>
+            <CFormInput
+              value={formData.fusarium}
+              onChange={(e) => handleChange('fusarium', e.target.value)}
+            />
+          </CCol>
+          <CCol md={3}>
+            <CFormLabel>Fecha intervención/erradicación</CFormLabel>
+            <CFormInput
+              type="date"
+              value={formData.fechaIntervencion}
+              onChange={(e) => handleChange('fechaIntervencion', e.target.value)}
+            />
+          </CCol>
+        </CRow>
+
+        <CRow className="mb-4">
+          <CCol md={4}>
+            <div className="p-3 border rounded shadow-sm bg-light h-100">
+              <h6 className="fw-bold mb-3">Insectos, ácaros, moluscos, etc.</h6>
+              <CRow className="mb-3">
+                <CCol>
+                  <CFormLabel>Trips</CFormLabel>
+                  <CFormInput
+                    value={formData.trips}
+                    onChange={(e) => handleChange('trips', e.target.value)}
+                  />
+                </CCol>
+                <CCol>
+                  <CFormLabel>Mosca del ovario</CFormLabel>
+                  <CFormInput
+                    value={formData.moscaOvario}
+                    onChange={(e) => handleChange('moscaOvario', e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol>
+                  <CFormLabel>Ácaros</CFormLabel>
+                  <CFormInput
+                    value={formData.acaros}
+                    onChange={(e) => handleChange('acaros', e.target.value)}
+                  />
+                </CCol>
+                <CCol>
+                  <CFormLabel>Otros (Insectos)</CFormLabel>
+                  <CFormInput
+                    value={formData.otrosInsectos}
+                    onChange={(e) => handleChange('otrosInsectos', e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+            </div>
+          </CCol>
+
+          <CCol md={4}>
+            <div className="p-3 border rounded shadow-sm bg-light h-100">
+              <h6 className="fw-bold mb-3">Hongos, bacterias, virus, etc.</h6>
+              <CRow className="mb-3">
+                <CCol>
+                  <CFormLabel>Botrytis</CFormLabel>
+                  <CFormInput
+                    value={formData.botrytis}
+                    onChange={(e) => handleChange('botrytis', e.target.value)}
+                  />
+                </CCol>
+                <CCol>
+                  <CFormLabel>Phomosis</CFormLabel>
+                  <CFormInput
+                    value={formData.phomosis}
+                    onChange={(e) => handleChange('phomosis', e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol>
+                  <CFormLabel>Roña</CFormLabel>
+                  <CFormInput
+                    value={formData.roña}
+                    onChange={(e) => handleChange('roña', e.target.value)}
+                  />
+                </CCol>
+                <CCol>
+                  <CFormLabel>Otros (Hongos)</CFormLabel>
+                  <CFormInput
+                    value={formData.otrosHongos}
+                    onChange={(e) => handleChange('otrosHongos', e.target.value)}
+                  />
+                </CCol>
+              </CRow>
+            </div>
+          </CCol>
+
+          <CCol md={4}>
+            <div className="p-3 border rounded shadow-sm bg-light h-100 d-flex flex-column justify-content-between">
+              <div>
+                <h6 className="fw-bold mb-3">Observaciones</h6>
+                <CFormTextarea
+                  rows={6}
+                  value={formData.observaciones}
+                  onChange={(e) => handleChange('observaciones', e.target.value)}
+                  style={{ height: '80px' }} 
+                />
+              </div>
+
+              {/* Nueva fila con Select + Botón con Popover */}
+              <CRow className="mt-3">
+                <CCol md={5} className="d-flex align-items-end justify-content-end">
+                  <CPopover
+                    content="Diagnóstico agregado correctamente"
+                    placement="top"
+                    visible={showPopover}
+                  >
+                    <CButton type="submit" color="primary">
+                      Agregar Diagnóstico
+                    </CButton>
+                  </CPopover>
+                </CCol>
+              </CRow>
+            </div>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol>
+          <ContenedorPlagas plagas={plagas} />
+            {/* <PlagasTable plagas={plagas} /> */}
+          </CCol>
+        </CRow>
+      </div>
+    </CForm>
+  )
+}
+
+export default Plagas

@@ -1,0 +1,122 @@
+/* Estilos para el botón del menú desplegable */
+.dropdown-toggle-custom {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #497ca8;
+  color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-left: 15px;
+}
+
+/* Estilo del botón al pasar el mouse */
+.dropdown-toggle-custom:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos para el icono de descarga */
+.icon-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #497ca8;
+  color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+  margin-left: 15px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* Estilo del icono de descarga al pasar el mouse */
+.icon-container:hover {
+  background-color: #5a6268;
+}
+
+/* La tabla tenga un borde para visualizar los cambios claramente */
+.my-table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto; /* Permite que las columnas se ajusten automáticamente */
+  margin-top: 10px;
+}
+
+/* Estilo para el encabezado de la tabla */
+.my-table thead th {
+  text-align: center; /* Centra el texto en los encabezados */
+  white-space: nowrap; /* Evita que el texto se ajuste en varias líneas */
+}
+
+/* Estilos para las celdas de la tabla */
+.my-table th, .my-table td {
+  border: 1px solid #ddd;
+  padding: 4px;
+  white-space: nowrap; /* Evitar que el texto se ajuste en varias líneas */
+  text-align: center; /* Centrar el texto en las celdas */
+}
+
+/* Estilo para los encabezados de la tabla */
+.my-table th {
+  font-weight: bold;
+}
+
+/* Estilo para mantener los íconos fijos en la parte superior */
+.sticky-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.fixed-icons-container {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Forzar alineación de paginación e Items per page a la izquierda */
+.smart-pagination {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  flex-wrap: wrap;
+}
+
+/* Espacio entre el selector y la paginación */
+.smart-pagination .form-select {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.costo-total-box {
+  background-color: #e8f0fe;
+  border: 1px solid #b0c4de;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.95rem;
+  color: #003366;
+}
+
+.plagas-table-label {
+  font-size: 0.75rem; /* Fuente más pequeña */
+  text-align: center; /* Centrado del texto */
+  white-space: normal; /* Permite salto de línea */
+  word-wrap: break-word; /* Rompe palabras largas si es necesario */
+  line-height: 1.2;
+  vertical-align: middle;
+}
