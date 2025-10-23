@@ -7,15 +7,7 @@ import {
   CTabPanel,
   CTabs,
 } from "@coreui/react-pro";
-import {
-  SoftwareTab,
-  HardwareTab,
-  PerifericosTab,
-  ConfigRedTab,
-  UsuarioSistemaTab,
-  AccesoRemotoTab,
-  EquipoDetalleTab,
-} from "../../componentes";
+import { EquipoDetalleTab, ReportesTab } from "../../componentes";
 
 const TabsEquipoHv = ({ equipo }) => {
   const { TipoDispositivo, Marca, Serial } = equipo;
@@ -25,41 +17,39 @@ const TabsEquipoHv = ({ equipo }) => {
       {/* <p>
         Equipo {TipoDispositivo} {Marca}, {Serial}{" "}
       </p> */}
-      <CCard>
-        <CCardBody>
-          <CTabs activeItemKey="detalle">
-            <CTabList variant="tabs">
+      <CCard className="h-100">
+        <CCardBody className="p-0">
+          <CTabs activeItemKey="detalle" className="h-100">
+            <CTabList variant="tabs" className="mx-3 mt-3">
               <CTab itemKey="detalle">Detalle equipo</CTab>
-              <CTab itemKey="reporte">Reportes</CTab>
+              <CTab itemKey="reporte">Reportes de equipo</CTab>
               {/* <CTab itemKey="hardware">Hardware</CTab>
               <CTab itemKey="configred">Configuracion de Red</CTab>
               <CTab itemKey="usuario">Usuario Sistemas</CTab>
               <CTab itemKey="acceso">Acceso Remoto</CTab> */}
             </CTabList>
 
-            <CTabContent>
-              <CTabPanel className="p-3" itemKey="detalle">
-                <CCard
-                  className="mb-4"
-                  style={{ height: "600px", overflowY: "auto" }}
+            <CTabContent className="flex-grow-1">
+              <CTabPanel className="p-3 h-100" itemKey="detalle">
+                <div
+                  className="h-100"
+                  style={{ minHeight: "calc(100vh - 250px)" }}
                 >
-                  <CCardBody style={{ height: "100%" }}>
-                    <EquipoDetalleTab equipo={equipo} />
-                  </CCardBody>
-                </CCard>
+                  <EquipoDetalleTab equipo={equipo} />
+                </div>
               </CTabPanel>
 
-              <CTabPanel className="p-3" itemKey="reporte">
-                <CCard
-                  className="mb-4"
-                  style={{ height: "600px", overflowY: "auto" }}
+              <CTabPanel className="p-3 h-100" itemKey="reporte">
+                <div
+                  className="h-100"
+                  style={{ minHeight: "calc(100vh - 250px)" }}
                 >
-                  <CCardBody style={{ height: "100%" }}>
-                    {/* <SoftwareTab equipo={equipo} /> */}
-                  </CCardBody>
-                </CCard>
+                  {/* <SoftwareTab equipo={equipo} /> */}
+                  <div className="d-flex align-items-center justify-content-center h-100">
+                    <ReportesTab equipo={equipo} />
+                  </div>
+                </div>
               </CTabPanel>
-              {}
             </CTabContent>
           </CTabs>
         </CCardBody>

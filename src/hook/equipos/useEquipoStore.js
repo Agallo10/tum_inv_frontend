@@ -9,6 +9,7 @@ export const useEquipoStore = () => {
     (state) => state.startLoadEquiposByDependencia
   );
   const startLoadEquipoHv = EquipoStore((state) => state.startLoadEquipoHv);
+  const startLoadEstadosEquipos = EquipoStore((state) => state.startLoadEstadosEquipos);
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -28,6 +29,12 @@ export const useEquipoStore = () => {
   };
 
   ////////////////////////////////////////////////////////////////
+  const cargarEstadosEquipo = async () => {
+    const datos = await startLoadEstadosEquipos();
+    return datos;
+  };
+
+  ////////////////////////////////////////////////////////////////
   const crearEquipo = async (payload) => {
     const ok = await crearEquipos(payload);
     // console.log('Estado de la creación:', ok);
@@ -42,6 +49,7 @@ export const useEquipoStore = () => {
     cargarEquiposByDependencia,
     crearEquipo,
     cargarEquipoHv,
+    cargarEstadosEquipo
   };
   ////////////////////////////////////////////////////////////////
 };

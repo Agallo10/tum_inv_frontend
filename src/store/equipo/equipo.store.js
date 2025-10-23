@@ -55,6 +55,38 @@ const equipoApi = (set) => ({
     }
   },
   ///////////////////////////////////////////////////////////////
+  startLoadEstadosEquipos: async () => {
+    try {
+      const { ok, datos } = await EquipoService.cargarEstadosEquipo();
+      // console.log(datos);
+      if (!ok) {
+        set({ estados: undefined });
+        return false;
+      }
+      set({ estados: datos });
+      localStorage.setItem("estados-equipos", datos);
+      return datos;
+    } catch (error) {
+      throw "Estados no cargados";
+    }
+  },
+  ///////////////////////////////////////////////////////////////
+  startLoadEquipoHv: async (id) => {
+    try {
+      const { ok, datos } = await EquipoService.cargarEquipoHv(id);
+      // console.log(datos);
+      if (!ok) {
+        set({ equipo: undefined });
+        return false;
+      }
+      set({ equipo: datos });
+      localStorage.setItem("equipo-hv", datos);
+      return datos;
+    } catch (error) {
+      throw "Equipo no cargado";
+    }
+  },
+  ///////////////////////////////////////////////////////////////
   crearEquipo: async (payload) => {
     try {
       console.log("Payload de crearEquipos:", payload);

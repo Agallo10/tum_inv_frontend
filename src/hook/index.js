@@ -12,3 +12,5 @@ export * from "./hardware/useHardwareStore";
 export * from "./configuracionred/useConfigRedStore";
 export * from "./usuariosistema/useUsuarioSistemaStore";
 export * from "./accesoremoto/useAccesoRemotoStore";
+export * from "./equipos/useEquipoStore";
+export * from "./reportes/useReporteStore";

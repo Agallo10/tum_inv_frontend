@@ -23,7 +23,8 @@ import EquiposTable from "./EquiposTable";
 import { useUsuarioResponsableStore } from "../../hook/ususariosresponsables/useUsuarioResponsableStore";
 
 const EquipoTab = () => {
-  const { crearEquipo, cargarEquiposByDependencia } = useEquipoStore();
+  const { crearEquipo, cargarEquiposByDependencia, cargarEstadosEquipo } =
+    useEquipoStore();
   const { cargarUsuariosResponsablesByDependencia } =
     useUsuarioResponsableStore();
   const uid = localStorage.getItem("dependencia-id");
@@ -50,21 +51,22 @@ const EquipoTab = () => {
     Marca: "",
     Serial: "",
     Modelo: "",
+    ObservacionesGenerales: "",
   };
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
-  const [siembras, setSiembras] = useState([]);
   const [equipos, setEquipos] = useState([]);
   const [opcionesUsuarios, setOpcionesUsuarios] = useState([]);
+  const [opcionesEstados, setOpcionesEstados] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const validationErrors = validarFormularioSiembra(formData);
     const validationErrors = validarFormularioEquipo(formData);
     setErrors(validationErrors);
-
+    console.log("clic:", validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       console.log(validationErrors);
       setEnviando(true);
@@ -101,7 +103,7 @@ const EquipoTab = () => {
       await cargarUsuariosResponsablesByDependencia(uid);
 
     const usuariosResponsablesMap = usuariosResponsables.map((u) => {
-      console.log(u.ID);
+      //console.log(u.ID);
       return { value: u.ID, label: u.NombresApellidos };
     });
 
@@ -112,12 +114,27 @@ const EquipoTab = () => {
 
     setOpcionesUsuarios(opcionesUsuarios);
   };
+  const cargarEstados = async () => {
+    const estados = await cargarEstadosEquipo();
+
+    const estadosMap = estados.map((e) => {
+      //console.log(e.ID);
+      return { value: e.ID, label: e.Nombre };
+    });
+
+    const opcionesEstados = [{ value: "", label: "Seleccione" }, ...estadosMap];
+
+    setOpcionesEstados(opcionesEstados);
+  };
 
   useEffect(() => {
     if (!uid) return;
     // cargaSiembras();
     cargarEquipos();
     cargarUsuariosResponsables();
+    cargarEstados();
+    console.log("isSubmitDisabled:", isSubmitDisabled);
+    console.log("enviando:", enviando);
   }, [uid]);
 
   return (
@@ -127,16 +144,6 @@ const EquipoTab = () => {
         <CCol md={6}>
           <div className="p-3 border rounded shadow-sm bg-light h-100">
             <CRow className="mb-3">
-              {/* <CCol>
-                <CFormLabel>Fecha</CFormLabel>
-                <CFormInput
-                  type="date"
-                  value={formData.fecha}
-                  onChange={(e) =>
-                    setFormData({ ...formData, fecha: e.target.value })
-                  }
-                />
-              </CCol> */}
               <CCol>
                 <CFormLabel>Modelo</CFormLabel>
                 <CFormInput
@@ -145,6 +152,18 @@ const EquipoTab = () => {
                     setFormData({
                       ...formData,
                       Modelo: e.target.value,
+                    })
+                  }
+                />
+              </CCol>
+              <CCol>
+                <CFormLabel>Marca</CFormLabel>
+                <CFormInput
+                  value={formData.Marca}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      Marca: e.target.value,
                     })
                   }
                 />
@@ -171,17 +190,26 @@ const EquipoTab = () => {
                   ))}
                 </CFormSelect>
               </CCol>
+
               <CCol>
-                <CFormLabel>Marca</CFormLabel>
-                <CFormInput
-                  value={formData.Marca}
+                <CFormLabel>Estado del Equipo</CFormLabel>
+                <CFormSelect
+                  value={formData.EstadoEquipoID}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      Marca: e.target.value,
+                      EstadoEquipoID: e.target.value,
                     })
                   }
-                />
+                  invalid={!!errors.EstadoEquipoID}
+                >
+                  {opcionesEstados.map((op) => (
+                    <option key={op.value} value={op.value}>
+                      {op.label}
+                    </option>
+                  ))}
+                </CFormSelect>
+                <CFormFeedback invalid>{errors.EstadoEquipoID}</CFormFeedback>
               </CCol>
             </CRow>
 
@@ -217,64 +245,17 @@ const EquipoTab = () => {
         {/* 🟦 Columna 2 */}
         <CCol md={6}>
           <div className="p-3 border rounded shadow-sm bg-light h-100 d-flex flex-column justify-content-between">
-            {/* <CRow className="mb-3">
-              <CCol>
-                <CFormLabel># Siembra Nueva</CFormLabel>
-                <CFormInput
-                  type="number"
-                  min={0}
-                  value={formData.siembraNueva}
-                  onChange={(e) =>
-                    setFormData({ ...formData, siembraNueva: e.target.value })
-                  }
-                />
-              </CCol>
-              <CCol>
-                <CFormLabel># Resiembra</CFormLabel>
-                <CFormInput
-                  type="number"
-                  min={0}
-                  value={formData.resiembra}
-                  onChange={(e) =>
-                    setFormData({ ...formData, resiembra: e.target.value })
-                  }
-                />
-              </CCol>
-            </CRow> */}
-
             <CRow className="mb-3">
-              {/* <CCol>
-                <CFormLabel>Distancia Calle (m)</CFormLabel>
-                <CFormInput
-                  type="number"
-                  min={0}
-                  value={formData.distanciaCalle}
-                  onChange={(e) =>
-                    setFormData({ ...formData, distanciaCalle: e.target.value })
-                  }
-                />
-              </CCol>
-              <CCol>
-                <CFormLabel>Distancia Planta (m)</CFormLabel>
-                <CFormInput
-                  type="number"
-                  min={0}
-                  value={formData.distanciaPlanta}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      distanciaPlanta: e.target.value,
-                    })
-                  }
-                />
-              </CCol> */}
               <CCol>
                 <CFormLabel>Observaciones</CFormLabel>
                 <CFormTextarea
                   rows={2}
-                  value={formData.observaciones}
+                  value={formData.ObservacionesGenerales}
                   onChange={(e) =>
-                    setFormData({ ...formData, observaciones: e.target.value })
+                    setFormData({
+                      ...formData,
+                      ObservacionesGenerales: e.target.value,
+                    })
                   }
                 />
               </CCol>

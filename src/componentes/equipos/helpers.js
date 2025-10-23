@@ -9,24 +9,7 @@ export const getFechaActual = () => {
   return `${year}-${month}-${day}`;
 };
 
-// Valida los campos del formulario de siembra
-export const validarFormularioSiembra = (formData) => {
-  const errors = {};
 
-  if (!formData.variedad || formData.variedad.trim() === "") {
-    errors.variedad = "La variedad es obligatoria.";
-  }
-
-  if (!formData.numeroPlantulas || isNaN(formData.numeroPlantulas)) {
-    errors.numeroPlantulas = "Debe ingresar un número válido de plántulas.";
-  }
-
-  if (!formData.operario || formData.operario.trim() === "") {
-    errors.operario = "El nombre del operario es obligatorio.";
-  }
-
-  return errors;
-};
 // Valida los campos del formulario de equipo
 export const validarFormularioEquipo = (formData) => {
   const errors = {};
@@ -36,7 +19,7 @@ export const validarFormularioEquipo = (formData) => {
   }
 
   if (!formData.PlacaInventario || isNaN(formData.PlacaInventario)) {
-    errors.numeroPlantulas = "Debe ingresar un número válido de plántulas.";
+    errors.numeroPlantulas = "Debe ingresar un numero valido de placa inventario.";
   }
 
   if (!formData.Marca || formData.Marca.trim() === "") {
@@ -54,6 +37,9 @@ export const validarFormularioEquipo = (formData) => {
   if (!formData.UsuarioResponsableID || isNaN(formData.UsuarioResponsableID)) {
     errors.UsuarioResponsableID = "El usuario responsable es obligatorio.";
   }
+  if (!formData.EstadoEquipoID || isNaN(formData.EstadoEquipoID)) {
+    errors.EstadoEquipoID = "El estado del equipo es obligatorio.";
+  }
 
   return errors;
 };
@@ -66,8 +52,10 @@ export const construirPayloadEquipo = (formData, uid, fechaDefault) => {
     PlacaInventario: formData.PlacaInventario.trim(),
     Marca: formData.Marca.trim(),
     Serial: formData.Serial.trim(),
-    Modelo: formData.Serial.trim(),
+    Modelo: formData.Modelo.trim(),
     UsuarioResponsableID: parseInt(formData.UsuarioResponsableID) || 0,
+    EstadoEquipoID: parseInt(formData.EstadoEquipoID) || 0,
+    ObservacionesGenerales: formData.ObservacionesGenerales.trim()
   };
 };
 

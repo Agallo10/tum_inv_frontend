@@ -24,6 +24,7 @@ import ConfigRedTab from "./configuracionred/ConfigRedTab";
 import UsuarioSistemaTab from "./usuariosistema/UsuariosSistemasTab";
 import AccesoRemotoTab from "./accesoremoto/AccesoRemotoTab";
 import EquipoDetalleTab from "./equipos/EquipoDetalleTab";
+import ReportesTab from "./reportes/ReportesTab";
 
 export {
   Tarjeta,
@@ -51,4 +52,5 @@ export {
   UsuarioSistemaTab,
   AccesoRemotoTab,
   EquipoDetalleTab,
+  ReportesTab
 };

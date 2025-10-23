@@ -64,6 +64,7 @@ const HardwareTab = ({ equipo }) => {
 
   const cargarAllHardware = async () => {
     const allHardware = await cargarAllHardwareByEquipos(uid);
+    console.log(allHardware);
     setAllHardware(allHardware);
   };
 

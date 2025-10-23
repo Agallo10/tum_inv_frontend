@@ -75,4 +75,21 @@ export class EquipoService {
       };
     }
   };
+  static cargarEstadosEquipo = async () => {
+    try {
+      const resp = await iotApi.get(`/estados-equipo`);
+      const datos = resp.data;
+      //  console.log('Datos de la labor creada:', datos);
+      return {
+        ok: true,
+        datos,
+      };
+    } catch (error) {
+      const errorMessage = "No se pudo crear las Siembras";
+      return {
+        ok: false,
+        errorMessage,
+      };
+    }
+  };
 }
