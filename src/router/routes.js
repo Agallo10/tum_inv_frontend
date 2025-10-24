@@ -1,6 +1,7 @@
 import React from "react";
 import { Translation } from "react-i18next";
 // Principal
+const Dashboard = React.lazy(() => import("../views/dashboard/Dashboard"));
 const Proyectos = React.lazy(() => import("../views/proyectos/Proyectos"));
 const Proyecto = React.lazy(() => import("../views/proyecto/Proyecto"));
 const Monitoreo = React.lazy(() => import("../views/monitoreo/Monitoreo"));
@@ -39,6 +40,12 @@ const routes = [
     path: "/",
     exact: true,
     name: <Translation>{(t) => t("home")}</Translation>,
+    element: Dashboard,
+  },
+  {
+    path: "/dashboard",
+    name: <Translation>{(t) => t("dashboard")}</Translation>,
+    element: Dashboard,
   },
 
   {

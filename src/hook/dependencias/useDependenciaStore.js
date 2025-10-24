@@ -31,6 +31,17 @@ export const useDependenciaStore = () => {
       throw error; // Opcionalmente volver a lanzar el error para un manejo adicional
     }
   };
+  const cargarDependenciasBySecretariaUid = async (uid) => {
+    try {
+      const infoDependenciasBysecretaria =
+        await dependenciasBysecretaria(uid);
 
-  return { cargarDependencias, cargarDependenciasBySecretaria };
+      return infoDependenciasBysecretaria;
+    } catch (error) {
+      console.error("Error al cargar dependencias:", error);
+      throw error; // Opcionalmente volver a lanzar el error para un manejo adicional
+    }
+  };
+
+  return { cargarDependencias, cargarDependenciasBySecretaria, cargarDependenciasBySecretariaUid };
 };
