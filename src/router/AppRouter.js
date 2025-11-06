@@ -23,15 +23,31 @@ const status = AuthStore( state => state.status );
   const storedTheme = useSelector((state) => state.theme)
 /////////////////////////////////////////////////////////////////////////////
   useEffect(() => {
+    // Verificar si hay un tema en la URL
     const urlParams = new URLSearchParams(window.location.href.split('?')[1])
     const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
     if (theme) {
       setColorMode(theme)
-    }
-    if (isColorModeSet()) {
       return
     }
-    setColorMode(storedTheme)
+    
+    // Verificar el tema guardado en localStorage
+    const savedTheme = localStorage.getItem('coreui-pro-react-admin-template-theme-light')
+    
+    // Si no hay tema guardado o es dark, establecer light por defecto
+    if (!savedTheme || savedTheme === 'dark' || savedTheme === '"dark"') {
+      localStorage.setItem('coreui-pro-react-admin-template-theme-light', 'light')
+      setColorMode('light')
+      return
+    }
+    
+    // Si ya hay un tema configurado y es válido, mantenerlo
+    if (isColorModeSet() && savedTheme === 'light') {
+      return
+    }
+    
+    // Fallback a light
+    setColorMode('light')
   }, []) 
 /////////////////////////////////////////////////////////////////////////////
   return (

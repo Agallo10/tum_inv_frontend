@@ -50,52 +50,46 @@ const TarjetaSecretaria = (props) => {
   };
   ///////////////////////////////////////////////////////////////////////////
   return (
-    <CCol sm={6} xl={4} xxl={3} className={props.className}>
+    <CCol sm={6} xl={4} xxl={3}>
       <CWidgetStatsA
-        //  className='text-secondary bg-primary'
         style={{
-          position: "relative", // Añadido para posicionamiento relativo
-          overflow: "hidden", // Añadido para manejar el overflow
-          height: "190px", // Altura del widget
+          position: "relative",
+          overflow: "hidden",
+          height: "190px",
+          cursor: "pointer",
+          transition: "transform 0.2s, box-shadow 0.2s",
         }}
-        color="info"
+        className="shadow-sm"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-5px)";
+          e.currentTarget.style.boxShadow = "0 0.5rem 1rem rgba(0, 0, 0, 0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "";
+        }}
+        onClick={setSecretaria}
+        color="primary"
         value={
           <>
-            {`${props.id}`}
-            <span className="fs-6 fw-normal" style={{ marginLeft: "5px" }}>
+            <span className="fw-bold">{`${props.id}`}</span>
+            <span className="fs-6 fw-normal" style={{ marginLeft: "8px", opacity: 0.9 }}>
               ({props.Secretario})
             </span>
           </>
         }
-        title={`${props.Nombre ? props.Nombre : "NA"}`}
+        title={
+          <span className="text-white fw-semibold">
+            {`${props.Nombre ? props.Nombre : "NA"}`}
+          </span>
+        }
         action={
           <CDropdown alignment="end">
-            <div onClick={setSecretaria} style={{ cursor: "pointer" }}>
+            <div style={{ cursor: "pointer", color: "white" }}>
               <MdOutlineDashboard size={32} />
             </div>
           </CDropdown>
         }
-        // chart={
-        //   <div
-        //     style={{
-        //       display: "flex",
-        //       justifyContent: "center",
-        //       alignItems: "center",
-        //       height: "50%",
-        //     }}
-        //   >
-        //     <img
-        //       src={props.backgroundImage} // URL de la imagen pasada como prop
-        //       alt={props.alt}
-        //       style={{
-        //         maxWidth: "100%", // Asegura que la imagen no se desborde
-        //         maxHeight: "85%", // Asegura que la imagen no se desborde
-        //         objectFit: "cover", // Ajusta la imagen para cubrir el contenedor
-        //         borderRadius: "5px", // Bordes redondeados (opcional)
-        //       }}
-        //     />
-        //   </div>
-        // }
       />
     </CCol>
   );

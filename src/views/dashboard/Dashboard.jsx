@@ -329,8 +329,8 @@ const Dashboard = () => {
       {/* Gráfica de Estados */}
       <CCol xs={12} lg={6}>
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilChartPie} />
               Estado de los Equipos
             </CCardTitle>
@@ -361,8 +361,8 @@ const Dashboard = () => {
       {/* Lista de Secretarías */}
       <CCol xs={12} lg={6}>
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilBuilding} />
               Secretarías Registradas
             </CCardTitle>
@@ -414,8 +414,8 @@ const Dashboard = () => {
       {/* Gráfica de Equipos por Secretaría */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilDevices} />
               Distribución de Equipos por Secretaría
             </CCardTitle>
@@ -454,8 +454,8 @@ const Dashboard = () => {
       {/* Gráfica de Tipos de Dispositivos */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilChartPie} />
               Top 10 Tipos de Dispositivos
             </CCardTitle>
@@ -494,8 +494,8 @@ const Dashboard = () => {
       {/* Resumen por Estado */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilInfo} />
               Resumen por Estado
             </CCardTitle>

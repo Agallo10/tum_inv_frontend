@@ -3,6 +3,7 @@ import CIcon from '@coreui/icons-react'
 import {
   cibSemaphoreci,
   cilSpeedometer,
+  cilBuilding,
 } from '@coreui/icons'
 
 
@@ -15,6 +16,12 @@ const _navinicio = [
     name: <Translation>{(t) => t('Dashboard')}</Translation>,
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: <Translation>{(t) => t('Secretarías')}</Translation>,
+    to: '/secretarias',
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

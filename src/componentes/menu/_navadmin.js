@@ -12,7 +12,8 @@ import {
   cilDevices, 
   cilUser, 
   cilList,
-  cilNotes
+  cilNotes,
+  cilBuilding
 } from '@coreui/icons'
 
 
@@ -26,30 +27,36 @@ const _navadmin = [
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: <Translation>{(t) => t('Proyectos')}</Translation>,
-    to: '/proyectos',
-    icon: <CIcon icon={cibSemaphoreci} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: <Translation>{(t) => t('Secretarías')}</Translation>,
+  //   to: '/secretarias',
+  //   icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: <Translation>{(t) => t('Proyectos')}</Translation>,
+  //   to: '/proyectos',
+  //   icon: <CIcon icon={cibSemaphoreci} customClassName="nav-icon" />,
+  // },
 ///////////////////////////////////////////////////////////////////////////
   {
     component: CNavGroup,
-    name: 'Reportes',
-    to: '/principal',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    name: 'Secretarías',
+    to: '/secretarias',
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Actividades',
+        name: 'Administrar equipos',
         icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
-        to: '/principal/proyecto',
+        to: '/secretarias',
       },
       {
         component: CNavItem,
-        name: 'Monitoreo',
+        name: 'Secretarias HV',
         icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-        to: '/principal/monitoreo',
+        to: '/secretarias-hv',
       },
     ],
   },

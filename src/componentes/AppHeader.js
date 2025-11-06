@@ -43,7 +43,7 @@ const AppHeader = () => {
   const {updateColor } = useTheme();
   
   const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme-light')
-  //console.log(colorMode);
+  console.log(colorMode);
   const { i18n, t } = useTranslation()
 
   const dispatch = useDispatch()

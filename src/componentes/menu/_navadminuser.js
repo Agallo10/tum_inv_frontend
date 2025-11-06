@@ -12,7 +12,8 @@ import {
   cilDevices, 
   cilUser, 
   cilList,
-  cilNotes
+  cilNotes,
+  cilBuilding
 } from '@coreui/icons'
 
 
@@ -25,6 +26,12 @@ const _navadminuser = [
     name: <Translation>{(t) => t('Dashboard')}</Translation>,
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: <Translation>{(t) => t('Secretarías')}</Translation>,
+    to: '/secretarias',
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,

@@ -122,9 +122,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       <CCol xs={12} lg={6}>
         {/* Equipment Specifications */}
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-              <CIcon icon={cilList} className="text-primary" />
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+              <CIcon icon={cilList} className="text-white" />
               Especificaciones del Equipo
             </CCardTitle>
           </CCardHeader>
@@ -212,9 +212,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       <CCol xs={12} lg={6}>
         {/* Identification Details */}
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bg-light border-0">
-            <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-              <CIcon icon={cilTags} className="text-primary" />
+          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+              <CIcon icon={cilTags} className="text-white" />
               Identificación
             </CCardTitle>
           </CCardHeader>
@@ -271,9 +271,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       {hardawares && hardawares.length > 0 && (
         <CCol xs={12} lg={6}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-                <CIcon icon={cilCog} className="text-primary" />
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+                <CIcon icon={cilCog} className="text-white" />
                 Hardware ({hardawares.length})
               </CCardTitle>
             </CCardHeader>
@@ -315,9 +315,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       {perifericos && perifericos.length > 0 && (
         <CCol xs={12} lg={6}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-                <CIcon icon={cilDevices} className="text-primary" />
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+                <CIcon icon={cilDevices} className="text-white" />
                 Periféricos ({perifericos.length})
               </CCardTitle>
             </CCardHeader>
@@ -373,9 +373,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       {softwares && softwares.length > 0 && (
         <CCol xs={12} lg={6}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-                <CIcon icon={cilCloudDownload} className="text-primary" />
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+                <CIcon icon={cilCloudDownload} className="text-white" />
                 Software ({softwares.length})
               </CCardTitle>
             </CCardHeader>
@@ -442,9 +442,9 @@ const EquipoDetalleTab = ({ equipo }) => {
       {configRed && Object.keys(configRed).length > 0 && (
         <CCol xs={12} lg={6}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h5 mb-0 text-primary d-flex align-items-center gap-2">
-                <CIcon icon={cilGlobeAlt} className="text-primary" />
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
+                <CIcon icon={cilGlobeAlt} className="text-white" />
                 Configuración de Red
               </CCardTitle>
             </CCardHeader>

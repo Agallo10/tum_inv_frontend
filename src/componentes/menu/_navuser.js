@@ -7,6 +7,7 @@ import {
   cibSemaphoreci,
   cilTask, 
   cilSpeedometer,
+  cilBuilding
 } from '@coreui/icons'
 
 
@@ -22,50 +23,56 @@ const _navuser = [
   },
   {
     component: CNavItem,
-    name: <Translation>{(t) => t('Proyectos')}</Translation>,
-    to: '/proyectos',
-    icon: <CIcon icon={cibSemaphoreci} customClassName="nav-icon" />,
+    name: <Translation>{(t) => t('Secretarías')}</Translation>,
+    to: '/secretarias-hv',
+    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
   },
+  // {
+  //   component: CNavItem,
+  //   name: <Translation>{(t) => t('Proyectos')}</Translation>,
+  //   to: '/proyectos',
+  //   icon: <CIcon icon={cibSemaphoreci} customClassName="nav-icon" />,
+  // },
 ///////////////////////////////////////////////////////////////////////////
-  {
-    component: CNavGroup,
-    name: <Translation>{(t) => t('Principal')}</Translation>,
-    to: '/principal',
-    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Proyecto',
-        icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
-        to: '/principal/proyecto',
-      },
-      {
-        component: CNavItem,
-        name: 'Monitoreo',
-        icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-        to: '/principal/monitoreo',
-      }
+  // {
+  //   component: CNavGroup,
+  //   name: <Translation>{(t) => t('Principal')}</Translation>,
+  //   to: '/principal',
+  //   icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Proyecto',
+  //       icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
+  //       to: '/principal/proyecto',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Monitoreo',
+  //       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  //       to: '/principal/monitoreo',
+  //     }
 
-    ],
-  },
+  //   ],
+  // },
 ///////////////////////////////////////////////////////////////////////////
-  {
-    component: CNavTitle,
-    name: <Translation>{(t) => t('Analitica de datos')}</Translation>,
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: <Translation>{(t) => t('Analitica de datos')}</Translation>,
+  // },
 
-      {
-        component: CNavItem,
-        name: 'Proyecto',
-        icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
-        to: '/principal/proyecto',
-      },
-      {
-        component: CNavItem,
-        name: 'Monitoreo',
-        icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-        to: '/principal/monitoreo',
-      },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Proyecto',
+  //       icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
+  //       to: '/principal/proyecto',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Monitoreo',
+  //       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  //       to: '/principal/monitoreo',
+  //     },
 ///////////////////////////////////////////////////////////////////////////  
  
 

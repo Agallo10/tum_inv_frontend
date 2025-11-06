@@ -209,8 +209,8 @@ const ReportesTab = ({ equipo }) => {
         {/* Información General */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h6 mb-0 text-primary d-flex align-items-center gap-2">
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilLocationPin} />
                 Información del Reporte
               </CCardTitle>
@@ -286,8 +286,8 @@ const ReportesTab = ({ equipo }) => {
         {/* Observaciones y Tipo de Mantenimiento */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h6 mb-0 text-primary d-flex align-items-center gap-2">
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilSettings} />
                 Tipo de Mantenimiento y Observaciones
               </CCardTitle>
@@ -454,8 +454,8 @@ const ReportesTab = ({ equipo }) => {
         {/* Repuestos */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0 d-flex justify-content-between align-items-center">
-              <CCardTitle className="h6 mb-0 text-primary d-flex align-items-center gap-2">
+            <CCardHeader className="bg-primary border-0 d-flex shadow-sm bg-gradient justify-content-between align-items-center">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilSettings} />
                 Repuestos Utilizados
               </CCardTitle>
@@ -624,8 +624,8 @@ const ReportesTab = ({ equipo }) => {
         {/* Funcionarios y Botón de envío */}
         <CCol lg={8}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h6 mb-0 text-primary d-flex align-items-center gap-2">
+            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilUser} />
                 Funcionarios Asignados
               </CCardTitle>
