@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CCard,
   CCardBody,
@@ -17,6 +18,7 @@ import {
 } from "../../componentes";
 
 const TabsEquipo = ({ equipo }) => {
+  const [activeKey, setActiveKey] = useState("perifericos");
   const { TipoDispositivo, Marca, Serial } = equipo;
 
   return (
@@ -26,7 +28,7 @@ const TabsEquipo = ({ equipo }) => {
       </p>
       <CCard>
         <CCardBody>
-          <CTabs activeItemKey="perifericos">
+          <CTabs activeItemKey={activeKey} onChange={setActiveKey}>
             <CTabList variant="tabs">
               <CTab itemKey="perifericos">Perifericos</CTab>
               <CTab itemKey="software">Software</CTab>

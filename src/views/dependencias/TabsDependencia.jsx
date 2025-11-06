@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CCard,
   CCardBody,
@@ -8,10 +9,6 @@ import {
   CTabs,
 } from "@coreui/react-pro";
 import {
-  LaboresDiarias,
-  Riego,
-  Siembra,
-  Plagas,
   EquipoTab,
 } from "../../componentes";
 import UsuariosResTab from "../../componentes/usuariosresponsables/UsuariosresponsablesTab";
@@ -20,12 +17,14 @@ import UsuariosResTab from "../../componentes/usuariosresponsables/Usuariosrespo
 //import PlagasTable from '../../componentes/plagas/PlagasTable';
 
 const TabsDependencia = ({ nombreDependencia }) => {
+  const [activeKey, setActiveKey] = useState("equipo");
+
   return (
     <>
       <p>{nombreDependencia}</p>
       <CCard>
         <CCardBody>
-          <CTabs activeItemKey="equipo">
+          <CTabs activeItemKey={activeKey} onChange={setActiveKey}>
             <CTabList variant="tabs">
               {/* <CTab itemKey="labores">Labores Diarias</CTab> */}
               <CTab itemKey="equipo">Equipos</CTab>
