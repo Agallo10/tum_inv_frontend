@@ -25,7 +25,7 @@ const Secretarias = () => {
       {/* Header Section */}
       <CRow className="mb-4">
         <CCol xs={12}>
-          <CCard className="border-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCard className="border-0 shadow-sm bg-info bg-gradient text-white">
             <CCardBody className="p-4">
               <div className="d-flex align-items-center gap-3">
                 <CIcon icon={cilSpeedometer} size="3xl" />

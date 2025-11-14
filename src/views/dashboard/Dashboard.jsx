@@ -35,7 +35,7 @@ const Dashboard = () => {
     cargarDependenciasBySecretaria,
     cargarDependenciasBySecretariaUid,
   } = useDependenciaStore();
-  const { cargarEquipos, cargarEquiposByDependencia } = useEquipoStore();
+  const { cargarEquiposDetalle, cargarEquiposByDependencia } = useEquipoStore();
 
   const [secretarias, setSecretarias] = useState([]);
   const [dependencias, setDependencias] = useState([]);
@@ -56,8 +56,8 @@ const Dashboard = () => {
       const dependenciasData = await cargarDependencias();
       setDependencias(dependenciasData || []);
 
-      // Cargar todos los equipos para estadísticas generales
-      const equiposData = await cargarEquipos();
+      // Cargar todos los equipos con detalle para estadísticas generales
+      const equiposData = await cargarEquiposDetalle();
       setEquipos(equiposData || []);
 
       console.log("📊 Calculando equipos por secretaría y dependencia...");

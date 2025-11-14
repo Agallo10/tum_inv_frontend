@@ -5,6 +5,7 @@ import { EquipoService } from "../../services/equipos/equipo.service";
 ///////////////////////////////////////////////////////////////
 const equipoApi = (set) => ({
   equipos: undefined,
+  equiposDetalle: undefined,
   equipo: undefined,
   equipoHv: undefined,
   ///////////////////////////////////////////////////////////////
@@ -18,6 +19,22 @@ const equipoApi = (set) => ({
       }
       set({ equipos: datos });
       localStorage.setItem("equipos", datos);
+      return datos;
+    } catch (error) {
+      throw "Equipos no cargados";
+    }
+  },
+  ///////////////////////////////////////////////////////////////
+  startLoadEquiposDetalle: async (uid) => {
+    try {
+      const { ok, datos } = await EquipoService.cargarEquiposDetalle();
+      // console.log(datos);
+      if (!ok) {
+        set({ equiposDetalle: undefined });
+        return false;
+      }
+      set({ equiposDetalle: datos });
+      localStorage.setItem("equiposDetalle", datos);
       return datos;
     } catch (error) {
       throw "Equipos no cargados";

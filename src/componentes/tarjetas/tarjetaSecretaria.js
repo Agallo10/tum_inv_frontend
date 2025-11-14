@@ -69,7 +69,7 @@ const TarjetaSecretaria = (props) => {
           e.currentTarget.style.boxShadow = "";
         }}
         onClick={setSecretaria}
-        color="primary"
+        color="info"
         value={
           <>
             <span className="fw-bold">{`${props.id}`}</span>

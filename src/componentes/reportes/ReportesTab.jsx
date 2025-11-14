@@ -665,8 +665,8 @@ const ReportesTab = ({ equipo }) => {
 
         <CCol lg={4}>
           <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h6 mb-0 text-primary">Acciones</CCardTitle>
+           <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h6 mb-0 text-white">Acciones</CCardTitle>
             </CCardHeader>
             <CCardBody className="d-flex flex-column justify-content-center align-items-center">
               <div className="text-center">
@@ -700,8 +700,8 @@ const ReportesTab = ({ equipo }) => {
         {/* Tabla de reportes existentes */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-light border-0">
-              <CCardTitle className="h6 mb-0 text-primary d-flex align-items-center gap-2">
+           <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilClipboard} />
                 Reportes Existentes del Equipo
               </CCardTitle>

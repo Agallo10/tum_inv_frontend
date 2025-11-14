@@ -13,12 +13,12 @@ const AppFooter = () => {
       <div className="ms-auto">
         <span className="me-1">Powered by</span>
         <a
-          href="https://frealpe@gmail.com/"
+          href="https://oficinadesistema@tumaco-narino.gov.co"
           target="_blank"
           rel="noopener noreferrer"
         >
           {/* Iot Tech Solutions &amp; Dashboard Iot Services */}
-          frealpe@gmail.com
+          oficinadesistema@tumaco-narino.gov.co
         </a>
       </div>
     </CFooter>
