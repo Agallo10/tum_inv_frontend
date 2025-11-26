@@ -62,7 +62,7 @@ const TarjetaDependencia = (props) => {
         color="secondary"
         value={
           <>
-            {`${props.id}`}
+            {/* {`${props.id}`} */}
             <span className="fs-6 fw-normal" style={{ marginLeft: "5px" }}>
               ({props.JefeOficina})
             </span>

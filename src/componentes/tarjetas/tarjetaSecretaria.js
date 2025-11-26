@@ -72,7 +72,7 @@ const TarjetaSecretaria = (props) => {
         color="info"
         value={
           <>
-            <span className="fw-bold">{`${props.id}`}</span>
+            {/* <span className="fw-bold">{`${props.id}`}</span> */}
             <span className="fs-6 fw-normal" style={{ marginLeft: "8px", opacity: 0.9 }}>
               ({props.Secretario})
             </span>
