@@ -10,6 +10,9 @@ export const useReporteStore = () => {
   const startLoadReportesByEquipos = ReporteStore(
     (state) => state.startLoadReportesByEquipos
   );
+  const descargarPdf = ReporteStore(
+    (state) => state.descargarPdfReporte
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -30,13 +33,17 @@ export const useReporteStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
-
+  const descargarPdfReporte = async (reporteId, usuarioId) => {
+    const ok = await descargarPdf(reporteId, usuarioId);
+    return ok;
+  };
   ////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
   return {
     cargarReportes,
     cargarReportesByEquipos,
     crearReporte,
+    descargarPdfReporte,
   };
   ////////////////////////////////////////////////////////////////
 };

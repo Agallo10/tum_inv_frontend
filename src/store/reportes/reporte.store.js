@@ -53,7 +53,20 @@ const reporteApi = (set) => ({
       throw undefined;
     }
   },
-
+  ///////////////////////////////////////////////////////////////
+  descargarPdfReporte: async (reporteId, usuarioId) => {
+    try {
+      const { ok, errorMessage } = await ReporteService.descargarPdfReporte(reporteId, usuarioId);
+      if (!ok) {
+        console.error(errorMessage);
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.error("Error al descargar PDF:", error);
+      return false;
+    }
+  },
   ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////

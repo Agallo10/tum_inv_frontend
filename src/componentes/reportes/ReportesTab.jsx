@@ -5,7 +5,6 @@ import {
   CCol,
   CFormInput,
   CFormLabel,
-  CFormSelect,
   CFormTextarea,
   CButton,
   CCard,
@@ -15,7 +14,6 @@ import {
   CFormCheck,
   CBadge,
   CAlert,
-  CMultiSelect,
   CTable,
   CTableHead,
   CTableRow,
@@ -29,24 +27,23 @@ import {
   cilTrash,
   cilSave,
   cilReload,
-  cilUser,
   cilSettings,
   cilClipboard,
   cilLocationPin,
+  cilCloudDownload,
 } from "@coreui/icons";
 
 import { useReporteStore } from "../../hook/reportes/useReporteStore";
-import { useUsuarioResponsableStore } from "../../hook/ususariosresponsables/useUsuarioResponsableStore";
+import { AuthStore } from "../../store/auth/auth.store";
 
 const ReportesTab = ({ equipo }) => {
   const { ID } = equipo;
-  const { crearReporte, cargarReportesByEquipos } = useReporteStore();
-  const { cargarUsuariosResponsablesByDependencia } =
-    useUsuarioResponsableStore();
+  const { crearReporte, cargarReportesByEquipos, descargarPdfReporte } = useReporteStore();
+  const user = AuthStore((state) => state.user);
 
   const uid = ID;
-  const dependenciaId = localStorage.getItem("dependencia-id");
   const dependenciaNombre = localStorage.getItem("dependencia-nombre");
+  const usuarioId = user?.ID || null;
 
   // Función para obtener fecha actual en formato ISO
   const getFechaActual = () => {
@@ -56,6 +53,7 @@ const ReportesTab = ({ equipo }) => {
   };
 
   const initialState = {
+    creado_por_id: usuarioId,
     equipo_id: uid,
     dependencia: dependenciaNombre || "",
     ubicacion: "",
@@ -63,24 +61,24 @@ const ReportesTab = ({ equipo }) => {
     actividad_realizada: "",
     observaciones: "",
     fecha_inicio: getFechaActual(),
+    fecha_finalizacion: "",
     tipo_mantenimiento: {
       tipo: "PREVENTIVO",
       revision: false,
       configuracion: false,
       instalacion: false,
       ingreso: false,
+      salida: false,
       otro: false,
       descripcion_otro: "",
     },
     repuestos: [],
-    funcionario_ids: [],
   };
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
   const [reportes, setReportes] = useState([]);
-  const [funcionarios, setFuncionarios] = useState([]);
 
   // Validación del formulario
   const validarFormulario = (data) => {
@@ -135,9 +133,25 @@ const ReportesTab = ({ equipo }) => {
     if (Object.keys(validationErrors).length === 0) {
       setEnviando(true);
       try {
+        // Construir tipo_mantenimiento sin descripcion_otro
+        const { descripcion_otro, ...tipoMantenimientoLimpio } = formData.tipo_mantenimiento;
+
+        // Convertir fecha_utilizacion de repuestos a ISO
+        const repuestosConFechaISO = formData.repuestos.map((repuesto) => ({
+          ...repuesto,
+          fecha_utilizacion: repuesto.fecha_utilizacion 
+            ? new Date(repuesto.fecha_utilizacion).toISOString() 
+            : new Date().toISOString(),
+        }));
+
         const payload = {
           ...formData,
           fecha_inicio: new Date(formData.fecha_inicio).toISOString(),
+          fecha_finalizacion: formData.fecha_finalizacion 
+            ? new Date(formData.fecha_finalizacion).toISOString() 
+            : new Date().toISOString(),
+          tipo_mantenimiento: tipoMantenimientoLimpio,
+          repuestos: repuestosConFechaISO,
         };
 
         const resultado = await crearReporte(payload);
@@ -156,20 +170,7 @@ const ReportesTab = ({ equipo }) => {
     }
   };
 
-  // Cargar funcionarios y reportes
-  const cargarFuncionarios = async () => {
-    if (dependenciaId) {
-      try {
-        const funcionariosData =
-          await cargarUsuariosResponsablesByDependencia(dependenciaId);
-        setFuncionarios(funcionariosData || []);
-      } catch (error) {
-        console.error("Error al cargar funcionarios:", error);
-        setFuncionarios([]);
-      }
-    }
-  };
-
+  // Cargar reportes del equipo
   const cargarReportesEquipo = async () => {
     try {
       const reportesData = await cargarReportesByEquipos(uid);
@@ -181,9 +182,8 @@ const ReportesTab = ({ equipo }) => {
   };
 
   useEffect(() => {
-    cargarFuncionarios();
     cargarReportesEquipo();
-  }, [uid, dependenciaId]);
+  }, [uid]);
 
   return (
     <CForm onSubmit={handleSubmit}>
@@ -191,7 +191,7 @@ const ReportesTab = ({ equipo }) => {
         {/* Header */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-primary bg-gradient border-0">
+            <CCardHeader className="bg-info bg-gradient border-0">
               <CCardTitle className="mb-0 h5 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilClipboard} />
                 Crear Reporte de Mantenimiento
@@ -209,7 +209,7 @@ const ReportesTab = ({ equipo }) => {
         {/* Información General */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardHeader className="bborder-0 shadow-sm bg-info bg-gradient text-white">
               <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilLocationPin} />
                 Información del Reporte
@@ -217,33 +217,43 @@ const ReportesTab = ({ equipo }) => {
             </CCardHeader>
             <CCardBody>
               <CRow className="mb-3">
-                <CCol lg={4}>
+                <CCol lg={3}>
                   <CFormLabel>Dependencia</CFormLabel>
                   <CFormInput
                     value={formData.dependencia}
                     onChange={(e) =>
                       setFormData({ ...formData, dependencia: e.target.value })
                     }
-                    placeholder="Ej: Secretaría de la mujer"
+                    placeholder="Ej: Secretaría de Educación"
                   />
                 </CCol>
-                <CCol lg={4}>
+                <CCol lg={3}>
                   <CFormLabel>Ubicación</CFormLabel>
                   <CFormInput
                     value={formData.ubicacion}
                     onChange={(e) =>
                       setFormData({ ...formData, ubicacion: e.target.value })
                     }
-                    placeholder="Ej: Parque nariño"
+                    placeholder="Ej: Oficina 301"
                   />
                 </CCol>
-                <CCol lg={4}>
+                <CCol lg={3}>
                   <CFormLabel>Fecha de Inicio</CFormLabel>
                   <CFormInput
                     type="datetime-local"
                     value={formData.fecha_inicio}
                     onChange={(e) =>
                       setFormData({ ...formData, fecha_inicio: e.target.value })
+                    }
+                  />
+                </CCol>
+                <CCol lg={3}>
+                  <CFormLabel>Fecha de Finalización</CFormLabel>
+                  <CFormInput
+                    type="datetime-local"
+                    value={formData.fecha_finalizacion}
+                    onChange={(e) =>
+                      setFormData({ ...formData, fecha_finalizacion: e.target.value })
                     }
                   />
                 </CCol>
@@ -286,7 +296,7 @@ const ReportesTab = ({ equipo }) => {
         {/* Observaciones y Tipo de Mantenimiento */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+            <CCardHeader className="bborder-0 shadow-sm bg-info bg-gradient text-white">
               <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilSettings} />
                 Tipo de Mantenimiento y Observaciones
@@ -388,7 +398,7 @@ const ReportesTab = ({ equipo }) => {
                     </CCol>
                     <CCol md={4}>
                       <div className="d-flex flex-column gap-2">
-                        {["instalacion", "ingreso"].map((actividad) => (
+                        {["instalacion", "ingreso", "salida"].map((actividad) => (
                           <CFormCheck
                             key={actividad}
                             id={actividad}
@@ -454,7 +464,7 @@ const ReportesTab = ({ equipo }) => {
         {/* Repuestos */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-primary border-0 d-flex shadow-sm bg-gradient justify-content-between align-items-center">
+            <CCardHeader className="bg-info border-0 d-flex shadow-sm bg-gradient justify-content-between align-items-center">
               <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilSettings} />
                 Repuestos Utilizados
@@ -468,8 +478,9 @@ const ReportesTab = ({ equipo }) => {
                     serial_numero_parte: "",
                     marca: "",
                     tecnologia: "",
-                    Capacidad: "",
-                    Descripcion: "",
+                    capacidad: "",
+                    descripcion: "",
+                    fecha_utilizacion: getFechaActual(),
                   };
                   setFormData({
                     ...formData,
@@ -562,7 +573,7 @@ const ReportesTab = ({ equipo }) => {
                             />
                           </CCol>
                         </CRow>
-                        <CRow className="mb-0">
+                        <CRow className="mb-3">
                           <CCol lg={4}>
                             <CFormLabel>Tecnología</CFormLabel>
                             <CFormInput
@@ -576,39 +587,57 @@ const ReportesTab = ({ equipo }) => {
                                   repuestos: nuevosRepuestos,
                                 });
                               }}
-                              placeholder="Ej: ddr4"
+                              placeholder="Ej: DDR4"
                             />
                           </CCol>
                           <CCol lg={4}>
                             <CFormLabel>Capacidad</CFormLabel>
                             <CFormInput
-                              value={repuesto.Capacidad}
+                              value={repuesto.capacidad}
                               onChange={(e) => {
                                 const nuevosRepuestos = [...formData.repuestos];
-                                nuevosRepuestos[index].Capacidad =
+                                nuevosRepuestos[index].capacidad =
                                   e.target.value;
                                 setFormData({
                                   ...formData,
                                   repuestos: nuevosRepuestos,
                                 });
                               }}
-                              placeholder="Ej: 10gb"
+                              placeholder="Ej: 4GB"
                             />
                           </CCol>
                           <CCol lg={4}>
                             <CFormLabel>Descripción</CFormLabel>
                             <CFormInput
-                              value={repuesto.Descripcion}
+                              value={repuesto.descripcion}
                               onChange={(e) => {
                                 const nuevosRepuestos = [...formData.repuestos];
-                                nuevosRepuestos[index].Descripcion =
+                                nuevosRepuestos[index].descripcion =
                                   e.target.value;
                                 setFormData({
                                   ...formData,
                                   repuestos: nuevosRepuestos,
                                 });
                               }}
-                              placeholder="Ej: memoria ram"
+                              placeholder="Ej: Memoria RAM DDR4 4GB 2666MHz"
+                            />
+                          </CCol>
+                        </CRow>
+                        <CRow className="mb-0">
+                          <CCol lg={4}>
+                            <CFormLabel>Fecha de Utilización</CFormLabel>
+                            <CFormInput
+                              type="datetime-local"
+                              value={repuesto.fecha_utilizacion}
+                              onChange={(e) => {
+                                const nuevosRepuestos = [...formData.repuestos];
+                                nuevosRepuestos[index].fecha_utilizacion =
+                                  e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  repuestos: nuevosRepuestos,
+                                });
+                              }}
                             />
                           </CCol>
                         </CRow>
@@ -621,54 +650,13 @@ const ReportesTab = ({ equipo }) => {
           </CCard>
         </CCol>
 
-        {/* Funcionarios y Botón de envío */}
-        <CCol lg={8}>
-          <CCard className="h-100 border-0 shadow-sm">
-            <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
-              <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
-                <CIcon icon={cilUser} />
-                Funcionarios Asignados
-              </CCardTitle>
-            </CCardHeader>
-            <CCardBody>
-              <CFormLabel>Seleccionar Funcionarios</CFormLabel>
-              <CMultiSelect
-                value={formData.funcionario_ids}
-                onChange={(selected) =>
-                  setFormData({ ...formData, funcionario_ids: selected })
-                }
-                options={funcionarios.map((funcionario) => ({
-                  value: funcionario.ID,
-                  label: `${funcionario.NombresApellidos} - ${funcionario.Cedula}`,
-                }))}
-                placeholder="Seleccione los funcionarios que participaron en el mantenimiento"
-                text="funcionarios seleccionados"
-              />
-              {formData.funcionario_ids.length > 0 && (
-                <div className="mt-3">
-                  <strong>Funcionarios seleccionados:</strong>
-                  <div className="d-flex gap-2 flex-wrap mt-2">
-                    {formData.funcionario_ids.map((id) => {
-                      const funcionario = funcionarios.find((f) => f.ID === id);
-                      return funcionario ? (
-                        <CBadge key={id} color="primary" shape="rounded-pill">
-                          {funcionario.NombresApellidos}
-                        </CBadge>
-                      ) : null;
-                    })}
-                  </div>
-                </div>
-              )}
-            </CCardBody>
-          </CCard>
-        </CCol>
-
-        <CCol lg={4}>
-          <CCard className="h-100 border-0 shadow-sm">
-           <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+        {/* Botón de envío */}
+        <CCol xs={12}>
+          <CCard className="border-0 shadow-sm">
+           <CCardHeader className="bborder-0 shadow-sm bg-info bg-gradient text-white">
               <CCardTitle className="h6 mb-0 text-white">Acciones</CCardTitle>
             </CCardHeader>
-            <CCardBody className="d-flex flex-column justify-content-center align-items-center">
+            <CCardBody className="d-flex justify-content-center align-items-center py-4">
               <div className="text-center">
                 <p className="text-body-secondary mb-3">
                   Complete todos los campos requeridos y haga clic en guardar.
@@ -678,7 +666,7 @@ const ReportesTab = ({ equipo }) => {
                   color="success"
                   size="lg"
                   disabled={enviando}
-                  className="px-4 w-100"
+                  className="px-5"
                 >
                   {enviando ? (
                     <>
@@ -700,7 +688,7 @@ const ReportesTab = ({ equipo }) => {
         {/* Tabla de reportes existentes */}
         <CCol xs={12}>
           <CCard className="border-0 shadow-sm">
-           <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+           <CCardHeader className="bborder-0 shadow-sm bg-info bg-gradient text-white">
               <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
                 <CIcon icon={cilClipboard} />
                 Reportes Existentes del Equipo
@@ -716,32 +704,42 @@ const ReportesTab = ({ equipo }) => {
                 <CTable hover responsive>
                   <CTableHead>
                     <CTableRow>
-                      <CTableHeaderCell>Fecha</CTableHeaderCell>
-                      <CTableHeaderCell>Dependencia</CTableHeaderCell>
-                      <CTableHeaderCell>Ubicación</CTableHeaderCell>
+                      <CTableHeaderCell>ID</CTableHeaderCell>
+                      <CTableHeaderCell>Creado Por</CTableHeaderCell>
+                      <CTableHeaderCell>Fecha Inicio</CTableHeaderCell>
+                      <CTableHeaderCell>Fecha Fin</CTableHeaderCell>
                       <CTableHeaderCell>Tipo</CTableHeaderCell>
+                      <CTableHeaderCell>Repuestos</CTableHeaderCell>
                       <CTableHeaderCell>Diagnóstico</CTableHeaderCell>
                       <CTableHeaderCell>Actividad</CTableHeaderCell>
+                      <CTableHeaderCell>Acciones</CTableHeaderCell>
                     </CTableRow>
                   </CTableHead>
                   <CTableBody>
                     {reportes.map((reporte) => (
-                      <CTableRow key={reporte.id || Math.random()}>
-                        <CTableDataCell>
-                          {new Date(reporte.fecha_inicio).toLocaleDateString()}
-                        </CTableDataCell>
-                        <CTableDataCell>{reporte.dependencia}</CTableDataCell>
-                        <CTableDataCell>{reporte.ubicacion}</CTableDataCell>
+                      <CTableRow key={reporte.id}>
+                        <CTableDataCell>{reporte.id}</CTableDataCell>
+                        <CTableDataCell>{reporte.creado_por_nombre}</CTableDataCell>
+                        <CTableDataCell>{reporte.fecha_inicio}</CTableDataCell>
+                        <CTableDataCell>{reporte.fecha_finalizacion}</CTableDataCell>
                         <CTableDataCell>
                           <CBadge
                             color={
-                              reporte.tipo_mantenimiento?.tipo === "PREVENTIVO"
+                              reporte.tipo_mantenimiento === "PREVENTIVO"
                                 ? "success"
                                 : "warning"
                             }
                             shape="rounded-pill"
                           >
-                            {reporte.tipo_mantenimiento?.tipo || "N/A"}
+                            {reporte.tipo_mantenimiento || "N/A"}
+                          </CBadge>
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <CBadge
+                            color={reporte.repuestos === "Si" ? "info" : "secondary"}
+                            shape="rounded-pill"
+                          >
+                            {reporte.repuestos}
                           </CBadge>
                         </CTableDataCell>
                         <CTableDataCell>
@@ -759,6 +757,17 @@ const ReportesTab = ({ equipo }) => {
                           >
                             {reporte.actividad_realizada}
                           </span>
+                        </CTableDataCell>
+                        <CTableDataCell>
+                          <CButton
+                            color="danger"
+                            size="sm"
+                            variant="ghost"
+                            title="Descargar PDF"
+                            onClick={() => descargarPdfReporte(reporte.id, usuarioId)}
+                          >
+                            <CIcon icon={cilCloudDownload} />
+                          </CButton>
                         </CTableDataCell>
                       </CTableRow>
                     ))}

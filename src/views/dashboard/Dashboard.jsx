@@ -229,7 +229,7 @@ const Dashboard = () => {
     <CRow className="g-4">
       {/* Header Section */}
       <CCol xs={12}>
-        <CCard className="border-0 shadow-sm bg-primary bg-gradient text-white">
+        <CCard style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
           <CCardBody className="p-4">
             <div className="d-flex align-items-center gap-3">
               <CIcon icon={cilSpeedometer} size="3xl" />
@@ -329,13 +329,13 @@ const Dashboard = () => {
       {/* Gráfica de Estados */}
       <CCol xs={12} lg={6}>
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCardHeader style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
             <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilChartPie} />
               Estado de los Equipos
             </CCardTitle>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className="p-3">
             {Object.keys(equiposPorEstado).length > 0 ? (
               <CChartDoughnut
                 data={chartDataEstados}
@@ -361,7 +361,7 @@ const Dashboard = () => {
       {/* Lista de Secretarías */}
       <CCol xs={12} lg={6}>
         <CCard className="h-100 border-0 shadow-sm">
-          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCardHeader style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
             <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilBuilding} />
               Secretarías Registradas
@@ -369,7 +369,7 @@ const Dashboard = () => {
           </CCardHeader>
           <CCardBody
             className="p-0"
-            style={{ maxHeight: "400px", overflowY: "auto" }}
+            style={{ maxHeight: "430px", overflowY: "auto" }}
           >
             {secretarias.length > 0 ? (
               <CListGroup flush>
@@ -414,7 +414,7 @@ const Dashboard = () => {
       {/* Gráfica de Equipos por Secretaría */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCardHeader style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
             <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilDevices} />
               Distribución de Equipos por Secretaría
@@ -422,25 +422,27 @@ const Dashboard = () => {
           </CCardHeader>
           <CCardBody>
             {Object.keys(equiposPorSecretaria).length > 0 ? (
-              <CChartBar
-                data={chartDataSecretarias}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                      ticks: {
-                        stepSize: 1,
+              <div style={{ height: "200px" }}>
+                <CChartBar
+                  data={chartDataSecretarias}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false,
                       },
                     },
-                  },
-                  maintainAspectRatio: true,
-                }}
-              />
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        ticks: {
+                          stepSize: 1,
+                        },
+                      },
+                    },
+                    maintainAspectRatio: false,
+                  }}
+                />
+              </div>
             ) : (
               <CAlert color="info">
                 <strong>Sin datos.</strong> No hay equipos registrados para
@@ -454,7 +456,7 @@ const Dashboard = () => {
       {/* Gráfica de Tipos de Dispositivos */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCardHeader style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
             <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilChartPie} />
               Top 10 Tipos de Dispositivos
@@ -462,25 +464,27 @@ const Dashboard = () => {
           </CCardHeader>
           <CCardBody>
             {Object.keys(equiposPorTipo).length > 0 ? (
-              <CChartLine
-                data={chartDataTipos}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                      ticks: {
-                        stepSize: 1,
+              <div style={{ height: "200px" }}>
+                <CChartLine
+                  data={chartDataTipos}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false,
                       },
                     },
-                  },
-                  maintainAspectRatio: true,
-                }}
-              />
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        ticks: {
+                          stepSize: 1,
+                        },
+                      },
+                    },
+                    maintainAspectRatio: false,
+                  }}
+                />
+              </div>
             ) : (
               <CAlert color="info">
                 <strong>Sin datos.</strong> No hay tipos de dispositivos para
@@ -494,7 +498,7 @@ const Dashboard = () => {
       {/* Resumen por Estado */}
       <CCol xs={12}>
         <CCard className="border-0 shadow-sm">
-          <CCardHeader className="bborder-0 shadow-sm bg-primary bg-gradient text-white">
+          <CCardHeader style={{ backgroundColor: "#39f", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0))" }} className="border-0 shadow-sm text-white">
             <CCardTitle className="h5 mb-0 text-white d-flex align-items-center gap-2">
               <CIcon icon={cilInfo} />
               Resumen por Estado
