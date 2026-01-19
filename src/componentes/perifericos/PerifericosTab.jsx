@@ -12,7 +12,7 @@ import {
 } from "@coreui/react-pro";
 
 import { construirPayload, validarFormulario } from "./helpers";
-import { usePerifericoStore } from "../../hook";
+import { usePerifericoStore, useNotificacion } from "../../hook";
 
 import PerifericosTable from "./PerifericosTable";
 import { opcionesTipoPeriferico } from "./helpers";
@@ -21,6 +21,7 @@ const PerifericosTab = ({ equipo }) => {
   const { ID } = equipo;
 
   const { cargarPerifericosByEquipos, crearPeriferico } = usePerifericoStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
   const initialState = {
@@ -40,13 +41,28 @@ const PerifericosTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await crearPeriferico(payload);
-      resetFormData();
+      const resultado = await crearPeriferico(payload);
+      
+      if (resultado) {
+        mostrarExito("El periférico se creó correctamente", "¡Periférico creado!");
+        resetFormData();
+        cargarPerifericos();
+      } else {
+        mostrarError("No se pudo crear el periférico. Por favor, intente nuevamente.", "Error al crear periférico");
+      }
+    } catch (error) {
+      console.error("Error al crear periférico:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarPerifericos();
     }
   };
 

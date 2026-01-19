@@ -14,11 +14,12 @@ import {
   validarFormulario,
   opcionesAsignacionIp,
 } from "./helpers";
-import { useConfigRedStore } from "../../hook";
+import { useConfigRedStore, useNotificacion } from "../../hook";
 
 const ConfigRedTab = ({ equipo }) => {
   const { ID } = equipo;
   const uid = ID;
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
 
   const { cargarAllConfigRedByEquipos, crearConfigRed, updateConfigRed } =
     useConfigRedStore();
@@ -40,13 +41,28 @@ const ConfigRedTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await crearConfigRed(payload);
-      resetFormData();
+      const resultado = await crearConfigRed(payload);
+      
+      if (resultado) {
+        mostrarExito("La configuración de red se guardó correctamente", "¡Configuración guardada!");
+        resetFormData();
+        cargarConfigRed();
+      } else {
+        mostrarError("No se pudo guardar la configuración. Por favor, intente nuevamente.", "Error al guardar");
+      }
+    } catch (error) {
+      console.error("Error al guardar configuración:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarConfigRed();
     }
   };
 
@@ -55,12 +71,27 @@ const ConfigRedTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await updateConfigRed(payload, configRed.ID);
+      const resultado = await updateConfigRed(payload, configRed.ID);
+      
+      if (resultado) {
+        mostrarExito("La configuración de red se actualizó correctamente", "¡Configuración actualizada!");
+        cargarConfigRed();
+      } else {
+        mostrarError("No se pudo actualizar la configuración. Por favor, intente nuevamente.", "Error al actualizar");
+      }
+    } catch (error) {
+      console.error("Error al actualizar configuración:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarConfigRed();
     }
   };
 

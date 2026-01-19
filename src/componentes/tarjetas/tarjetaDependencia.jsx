@@ -53,12 +53,23 @@ const TarjetaDependencia = (props) => {
   return (
     <CCol sm={6} xl={4} xxl={3} className={props.className}>
       <CWidgetStatsA
-        //  className='text-secondary bg-primary'
         style={{
-          position: "relative", // Añadido para posicionamiento relativo
-          overflow: "hidden", // Añadido para manejar el overflow
-          height: "190px", // Altura del widget
+          position: "relative",
+          overflow: "hidden",
+          height: "190px",
+          cursor: "pointer",
+          transition: "transform 0.2s, box-shadow 0.2s",
         }}
+        className="shadow-sm"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-5px)";
+          e.currentTarget.style.boxShadow = "0 0.5rem 1rem rgba(0, 0, 0, 0.15)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "";
+        }}
+        onClick={setDependencia}
         color="secondary"
         value={
           <>
@@ -68,10 +79,14 @@ const TarjetaDependencia = (props) => {
             </span>
           </>
         }
-        title={`${props.Nombre ? props.Nombre : "NA"}`}
+        title={
+          <span className="fw-semibold">
+            {`${props.Nombre ? props.Nombre : "NA"}`}
+          </span>
+        }
         action={
           <CDropdown alignment="end">
-            <div onClick={setDependencia} style={{ cursor: "pointer" }}>
+            <div style={{ cursor: "pointer" }}>
               <MdOutlineDashboard size={32} />
             </div>
           </CDropdown>

@@ -24,19 +24,47 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/logos/Weimagro.png'
 import {AuthStore } from '../../store/index'
+
+// Función para obtener las iniciales del nombre
+const getInitials = (nombre) => {
+  if (!nombre) return 'US';
+  const words = nombre.trim().split(' ');
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+  return nombre.substring(0, 2).toUpperCase();
+};
 
 const AppHeaderDropdown = () => {
   
   const { t } = useTranslation();
   const logoutUser = AuthStore( state => state.logout);
+  const user = AuthStore( state => state.user);
+  
+  const iniciales = getInitials(user?.Nombre || user?.nombre || user?.Username || 'Usuario');
 
   return (
     <CDropdown variant="nav-item" alignment="end">
      
       <CDropdownToggle className="py-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+        <div
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: '#3399ff',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            cursor: 'pointer',
+          }}
+        >
+          {iniciales}
+        </div>
       </CDropdownToggle>
      
       <CDropdownMenu className="pt-0">

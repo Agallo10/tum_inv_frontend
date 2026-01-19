@@ -14,3 +14,4 @@ export * from "./usuariosistema/useUsuarioSistemaStore";
 export * from "./accesoremoto/useAccesoRemotoStore";
 export * from "./equipos/useEquipoStore";
 export * from "./reportes/useReporteStore";
+export * from "./notificaciones/useNotificacion";

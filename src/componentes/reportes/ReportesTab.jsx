@@ -35,11 +35,13 @@ import {
 
 import { useReporteStore } from "../../hook/reportes/useReporteStore";
 import { AuthStore } from "../../store/auth/auth.store";
+import { useNotificacion } from "../../hook";
 
 const ReportesTab = ({ equipo }) => {
   const { ID } = equipo;
   const { crearReporte, cargarReportesByEquipos, descargarPdfReporte } = useReporteStore();
   const user = AuthStore((state) => state.user);
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
 
   const uid = ID;
   const dependenciaNombre = localStorage.getItem("dependencia-nombre");
@@ -63,12 +65,13 @@ const ReportesTab = ({ equipo }) => {
     fecha_inicio: getFechaActual(),
     fecha_finalizacion: "",
     tipo_mantenimiento: {
-      tipo: "PREVENTIVO",
+      tipo: "",
       revision: false,
       configuracion: false,
       instalacion: false,
       ingreso: false,
       salida: false,
+      concepto_baja: false,
       otro: false,
       descripcion_otro: "",
     },
@@ -105,17 +108,6 @@ const ReportesTab = ({ equipo }) => {
     }
 
     const actividades = data.tipo_mantenimiento;
-    if (
-      !actividades.revision &&
-      !actividades.configuracion &&
-      !actividades.instalacion &&
-      !actividades.ingreso &&
-      !actividades.otro
-    ) {
-      newErrors.tipo_mantenimiento =
-        "Debe seleccionar al menos una actividad de mantenimiento";
-    }
-
     if (actividades.otro && !actividades.descripcion_otro.trim()) {
       newErrors.descripcion_otro = "Debe describir la otra actividad";
     }
@@ -130,43 +122,45 @@ const ReportesTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
-      try {
-        // Construir tipo_mantenimiento sin descripcion_otro
-        const { descripcion_otro, ...tipoMantenimientoLimpio } = formData.tipo_mantenimiento;
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
 
-        // Convertir fecha_utilizacion de repuestos a ISO
-        const repuestosConFechaISO = formData.repuestos.map((repuesto) => ({
-          ...repuesto,
-          fecha_utilizacion: repuesto.fecha_utilizacion 
-            ? new Date(repuesto.fecha_utilizacion).toISOString() 
-            : new Date().toISOString(),
-        }));
+    setEnviando(true);
+    try {
+      // Convertir fecha_utilizacion de repuestos a ISO
+      const repuestosConFechaISO = formData.repuestos.map((repuesto) => ({
+        ...repuesto,
+        fecha_utilizacion: repuesto.fecha_utilizacion 
+          ? new Date(repuesto.fecha_utilizacion).toISOString() 
+          : new Date().toISOString(),
+      }));
 
-        const payload = {
-          ...formData,
-          fecha_inicio: new Date(formData.fecha_inicio).toISOString(),
-          fecha_finalizacion: formData.fecha_finalizacion 
-            ? new Date(formData.fecha_finalizacion).toISOString() 
-            : new Date().toISOString(),
-          tipo_mantenimiento: tipoMantenimientoLimpio,
-          repuestos: repuestosConFechaISO,
-        };
+      const payload = {
+        ...formData,
+        fecha_inicio: new Date(formData.fecha_inicio).toISOString(),
+        fecha_finalizacion: formData.fecha_finalizacion 
+          ? new Date(formData.fecha_finalizacion).toISOString() 
+          : new Date().toISOString(),
+        repuestos: repuestosConFechaISO,
+      };
 
-        const resultado = await crearReporte(payload);
+      const resultado = await crearReporte(payload);
 
-        if (resultado) {
-          setFormData(initialState);
-          setErrors({});
-          cargarReportesEquipo();
-          console.log("Reporte creado exitosamente");
-        }
-      } catch (error) {
-        console.error("Error al crear reporte:", error);
-      } finally {
-        setEnviando(false);
+      if (resultado) {
+        setFormData(initialState);
+        setErrors({});
+        cargarReportesEquipo();
+        mostrarExito("El reporte de mantenimiento se creó correctamente", "¡Reporte creado!");
+      } else {
+        mostrarError("No se pudo crear el reporte. Por favor, intente nuevamente.", "Error al crear reporte");
       }
+    } catch (error) {
+      console.error("Error al crear reporte:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
+      setEnviando(false);
     }
   };
 
@@ -329,37 +323,33 @@ const ReportesTab = ({ equipo }) => {
                   </CFormLabel>
                   <div className="d-flex flex-column gap-2">
                     <CFormCheck
-                      type="radio"
-                      name="tipoMantenimiento"
                       id="preventivo"
                       label="PREVENTIVO"
                       checked={
                         formData.tipo_mantenimiento.tipo === "PREVENTIVO"
                       }
-                      onChange={() =>
+                      onChange={(e) =>
                         setFormData({
                           ...formData,
                           tipo_mantenimiento: {
                             ...formData.tipo_mantenimiento,
-                            tipo: "PREVENTIVO",
+                            tipo: e.target.checked ? "PREVENTIVO" : "",
                           },
                         })
                       }
                     />
                     <CFormCheck
-                      type="radio"
-                      name="tipoMantenimiento"
                       id="correctivo"
                       label="CORRECTIVO"
                       checked={
                         formData.tipo_mantenimiento.tipo === "CORRECTIVO"
                       }
-                      onChange={() =>
+                      onChange={(e) =>
                         setFormData({
                           ...formData,
                           tipo_mantenimiento: {
                             ...formData.tipo_mantenimiento,
-                            tipo: "CORRECTIVO",
+                            tipo: e.target.checked ? "CORRECTIVO" : "",
                           },
                         })
                       }
@@ -398,13 +388,14 @@ const ReportesTab = ({ equipo }) => {
                     </CCol>
                     <CCol md={4}>
                       <div className="d-flex flex-column gap-2">
-                        {["instalacion", "ingreso", "salida"].map((actividad) => (
+                        {["instalacion", "ingreso", "salida", "concepto_baja"].map((actividad) => (
                           <CFormCheck
                             key={actividad}
                             id={actividad}
                             label={
-                              actividad.charAt(0).toUpperCase() +
-                              actividad.slice(1)
+                              actividad === "concepto_baja" 
+                                ? "Concepto de baja"
+                                : actividad.charAt(0).toUpperCase() + actividad.slice(1)
                             }
                             checked={formData.tipo_mantenimiento[actividad]}
                             onChange={(e) =>

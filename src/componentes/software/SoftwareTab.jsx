@@ -16,7 +16,7 @@ import {
   validarFormulario,
   opcionesCategoria,
 } from "./helpers";
-import { useSoftwareStore } from "../../hook";
+import { useSoftwareStore, useNotificacion } from "../../hook";
 
 import SoftwareTable from "./SoftwareTable";
 
@@ -24,6 +24,7 @@ const SoftwareTab = ({ equipo }) => {
   const { ID } = equipo;
 
   const { cargarAllSoftwareByEquipos, crearSoftware } = useSoftwareStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
   const initialState = {
@@ -43,13 +44,28 @@ const SoftwareTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await crearSoftware(payload);
-      resetFormData();
+      const resultado = await crearSoftware(payload);
+      
+      if (resultado) {
+        mostrarExito("El software se registró correctamente", "¡Software creado!");
+        resetFormData();
+        cargarAllSoftware();
+      } else {
+        mostrarError("No se pudo registrar el software. Por favor, intente nuevamente.", "Error al crear software");
+      }
+    } catch (error) {
+      console.error("Error al crear software:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarAllSoftware();
     }
   };
 

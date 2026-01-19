@@ -11,9 +11,13 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CToast,
+  CToastBody,
+  CToastClose,
+  CToaster,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
-import { cilLockLocked, cilUser } from "@coreui/icons";
+import { cilLockLocked, cilUser, cilXCircle } from "@coreui/icons";
 import iotlogo from "../../../assets/logos/LogoAlcaldia.jpeg";
 import { AuthStore } from "../../../store/index";
 
@@ -32,6 +36,8 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [loginError, setLoginError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginUser = AuthStore((state) => state.loginUser);
   //////////////////////////////////////////////////////////////////////////
@@ -52,14 +58,48 @@ const Login = () => {
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
+    setLoginError(null);
+    
     if (validateForm()) {
-      await loginUser({ username, password });
-      //  console.log(valor);
+      setIsLoading(true);
+      try {
+        const result = await loginUser({ username, password });
+        if (!result) {
+          setLoginError("Usuario o contraseña incorrectos. Por favor, verifica tus credenciales.");
+        }
+      } catch (error) {
+        setLoginError("Error de conexión. Por favor, intenta de nuevo más tarde.");
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
   //////////////////////////////////////////////////////////////////////////
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+      {/* Toast para errores de login */}
+      <CToaster className="position-fixed p-3" placement="top-end" style={{ zIndex: 9999 }}>
+        {loginError && (
+          <CToast
+            visible={true}
+            color="danger"
+            className="text-white align-items-center border-0"
+            onClose={() => setLoginError(null)}
+          >
+            <div className="d-flex">
+              <CToastBody className="d-flex align-items-center gap-2">
+                <CIcon icon={cilXCircle} className="flex-shrink-0" width={20} height={20} />
+                <div>
+                  <strong className="me-2">Error de acceso</strong>
+                  <span>{loginError}</span>
+                </div>
+              </CToastBody>
+              <CToastClose className="me-2 m-auto" white />
+            </div>
+          </CToast>
+        )}
+      </CToaster>
+
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
@@ -123,8 +163,9 @@ const Login = () => {
                           color="primary"
                           className="px-4"
                           style={{ marginLeft: "50%" }}
+                          disabled={isLoading}
                         >
-                          Login
+                          {isLoading ? "Ingresando..." : "Login"}
                         </CButton>
                       </CCol>
                     </CRow>

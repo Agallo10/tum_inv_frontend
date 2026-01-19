@@ -16,7 +16,7 @@ import {
   validarFormulario,
   opcionesPlataforma,
 } from "./helpers";
-import { useAccesoRemotoStore } from "../../hook";
+import { useAccesoRemotoStore, useNotificacion } from "../../hook";
 
 import AccesoRemotoTable from "./AccesoRemotoTable";
 
@@ -25,6 +25,7 @@ const AccesoRemotoTab = ({ equipo }) => {
 
   const { cargarAllAccesosRemotosByEquipos, crearAccesoRemoto } =
     useAccesoRemotoStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
   const initialState = {
@@ -44,13 +45,28 @@ const AccesoRemotoTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await crearAccesoRemoto(payload);
-      resetFormData();
+      const resultado = await crearAccesoRemoto(payload);
+      
+      if (resultado) {
+        mostrarExito("El acceso remoto se registró correctamente", "¡Acceso remoto creado!");
+        resetFormData();
+        cargarAllAccesosRemotos();
+      } else {
+        mostrarError("No se pudo registrar el acceso remoto. Por favor, intente nuevamente.", "Error al crear acceso remoto");
+      }
+    } catch (error) {
+      console.error("Error al crear acceso remoto:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarAllAccesosRemotos();
     }
   };
 

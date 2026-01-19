@@ -21,12 +21,14 @@ import {
 import { useEquipoStore } from "../../hook/equipos/useEquipoStore";
 import EquiposTable from "./EquiposTable";
 import { useUsuarioResponsableStore } from "../../hook/ususariosresponsables/useUsuarioResponsableStore";
+import { useNotificacion } from "../../hook";
 
 const EquipoTab = () => {
   const { crearEquipo, cargarEquiposByDependencia, cargarEstadosEquipo } =
     useEquipoStore();
   const { cargarUsuariosResponsablesByDependencia } =
     useUsuarioResponsableStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = localStorage.getItem("dependencia-id");
   const fechaHoy = getFechaActual();
 
@@ -63,18 +65,31 @@ const EquipoTab = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const validationErrors = validarFormularioSiembra(formData);
     const validationErrors = validarFormularioEquipo(formData);
     setErrors(validationErrors);
-    console.log("clic:", validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(validationErrors);
-      setEnviando(true);
+
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayloadEquipo(formData, uid, fechaHoy);
-      await crearEquipo(payload);
-      resetFormData();
+      const resultado = await crearEquipo(payload);
+      
+      if (resultado) {
+        mostrarExito("El equipo se creó correctamente", "¡Equipo creado!");
+        resetFormData();
+        cargarEquipos();
+      } else {
+        mostrarError("No se pudo crear el equipo. Por favor, intente nuevamente.", "Error al crear equipo");
+      }
+    } catch (error) {
+      console.error("Error al crear equipo:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarEquipos();
     }
   };
 

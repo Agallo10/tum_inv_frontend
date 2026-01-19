@@ -2,6 +2,7 @@
 import { AppContent, AppFooter, AppHeader, AppSidebar } from '../componentes'
 import { SidebarProvider } from '../context/SidebarContext'
 import { ThemeProvider } from '../context/TemaContext'
+import ToastNotification from '../componentes/notificaciones/ToastNotification'
 
 const DefaultLayout = () => {
  
@@ -21,6 +22,8 @@ const DefaultLayout = () => {
           {/* Pie de Página */}
         <AppFooter />
       </div>
+      {/* Notificaciones Toast globales */}
+      <ToastNotification />
     </SidebarProvider>
   </ThemeProvider>
     </>

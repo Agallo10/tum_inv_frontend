@@ -20,6 +20,8 @@ import LogoIot from  "./logos/LogoIot"
 import LogoIotDark from  "./logos/LogoIotDark"
 import { useTheme } from '../context/TemaContext';
 import {iot } from  '../assets/brand/iot'
+import logoSidebarAlcaldia from '../assets/logos/logoSidebarAlcaldia.png'
+import logoSidebarBlancoAlcaldia from '../assets/logos/logoSidebarBlancoAlcaldia.png'
 
 
 const AppSidebar = () => {
@@ -48,8 +50,18 @@ const AppSidebar = () => {
       <CSidebarHeader className="border-bottom">
         
         <CSidebarBrand as={NavLink} to="/">          
-          {tema==="dark"?<LogoIotDark className="sidebar-brand-full" />:<LogoIot  className="sidebar-brand-full" />}
-          <CIcon customClassName="sidebar-brand-narrow" icon={iot} height={32} />
+          <img 
+            src={tema === 'dark' ? logoSidebarBlancoAlcaldia : logoSidebarAlcaldia} 
+            alt="Alcaldía" 
+            className="sidebar-brand-full" 
+            style={{ height: '40px' }} 
+          />
+          <img 
+            src={tema === 'dark' ? logoSidebarBlancoAlcaldia : logoSidebarAlcaldia} 
+            alt="Alcaldía" 
+            className="sidebar-brand-narrow" 
+            style={{ height: '32px' }} 
+          />
         </CSidebarBrand>
 
         <CCloseButton

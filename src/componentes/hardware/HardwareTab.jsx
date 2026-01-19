@@ -16,7 +16,7 @@ import {
   validarFormulario,
   opcionesComponente,
 } from "./helpers";
-import { useHardwareStore } from "../../hook";
+import { useHardwareStore, useNotificacion } from "../../hook";
 
 import HardwareTable from "./HardwareTable";
 
@@ -24,6 +24,7 @@ const HardwareTab = ({ equipo }) => {
   const { ID } = equipo;
 
   const { cargarAllHardwareByEquipos, crearHardware } = useHardwareStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
   const initialState = {
@@ -43,13 +44,28 @@ const HardwareTab = ({ equipo }) => {
     const validationErrors = validarFormulario(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
       const payload = construirPayload(formData, uid);
-      await crearHardware(payload);
-      resetFormData();
+      const resultado = await crearHardware(payload);
+      
+      if (resultado) {
+        mostrarExito("El hardware se registró correctamente", "¡Hardware creado!");
+        resetFormData();
+        cargarAllHardware();
+      } else {
+        mostrarError("No se pudo registrar el hardware. Por favor, intente nuevamente.", "Error al crear hardware");
+      }
+    } catch (error) {
+      console.error("Error al crear hardware:", error);
+      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+    } finally {
       setEnviando(false);
-      cargarAllHardware();
     }
   };
 
