@@ -170,6 +170,20 @@
     "september": "Septiembre",
     "october": "Octubre",
     "november": "Noviembre",
-    "december": "Diciembre"
+    "december": "Diciembre",
+    "usuarios": "Usuarios",
+    "administracionUsuarios": "Administración de Usuarios",
+    "nuevoUsuario": "Nuevo Usuario",
+    "editarUsuario": "Editar Usuario",
+    "eliminarUsuario": "Eliminar Usuario",
+    "nombre": "Nombre",
+    "apellido": "Apellido",
+    "cedula": "Cédula",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "rol": "Rol",
+    "administrador": "Administrador",
+    "tecnico": "Técnico",
+    "usuario": "Usuario"
     
 }

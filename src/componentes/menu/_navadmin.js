@@ -13,7 +13,8 @@ import {
   cilUser, 
   cilList,
   cilNotes,
-  cilBuilding
+  cilBuilding,
+  cilPeople,
 } from '@coreui/icons'
 
 
@@ -59,6 +60,14 @@ const _navadmin = [
         to: '/secretarias-hv',
       },
     ],
+  },
+///////////////////////////////////////////////////////////////////////////
+  // Usuarios - Solo visible para admin
+  {
+    component: CNavItem,
+    name: <Translation>{(t) => t('Usuarios')}</Translation>,
+    to: '/usuarios',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
 ///////////////////////////////////////////////////////////////////////////
   // {

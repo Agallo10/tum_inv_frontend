@@ -31,6 +31,9 @@ const EquiposDetalle = React.lazy(
 const EquiposDetalleHv = React.lazy(
   () => import("../views/equipos/Equipos-detalle-hv")
 );
+
+// Usuarios (solo admin)
+const Usuarios = React.lazy(() => import("../views/usuarios/Usuarios"));
 // const Analisis = React.lazy(() => import('../views/datos/Analisisdatos'))
 
 // Monitoreo
@@ -62,6 +65,13 @@ const routes = [
     path: "/secretarias-hv",
     name: <Translation>{(t) => t("secretarias-hv")}</Translation>,
     element: SecretariasHv,
+  },
+
+  // Usuarios (solo admin)
+  {
+    path: "/usuarios",
+    name: <Translation>{(t) => t("usuarios")}</Translation>,
+    element: Usuarios,
   },
 
   {
