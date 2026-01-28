@@ -97,7 +97,7 @@ const AccesoRemotoTab = ({ equipo }) => {
       <CRow className="mb-4">
         {/* 🟩 Columna 1 */}
         <CCol md={12}>
-          <div className="p-3 border rounded shadow-sm bg-light h-100">
+          <div className="p-3 border rounded shadow-sm h-100">
             <CRow className="mb-3">
               {/* <CCol>
                 <CFormLabel>Fecha</CFormLabel>

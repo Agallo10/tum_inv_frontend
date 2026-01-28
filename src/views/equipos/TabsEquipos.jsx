@@ -2,6 +2,9 @@ import { useState } from "react";
 import {
   CCard,
   CCardBody,
+  CCardHeader,
+  CCardSubtitle,
+  CCardTitle,
   CTab,
   CTabContent,
   CTabList,
@@ -23,9 +26,24 @@ const TabsEquipo = ({ equipo }) => {
 
   return (
     <>
-      <p>
-        Equipo {TipoDispositivo} {Marca}, {Serial}{" "}
-      </p>
+      {/* Header Card */}
+      <CCard className="mb-4 border-0 shadow-sm">
+        <CCardHeader className="bg-info bg-gradient border-0">
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <CCardTitle className="mb-1 h4 text-white">
+                {Marca} {Serial}
+              </CCardTitle>
+              <CCardSubtitle className="text-white-50">
+                {TipoDispositivo}
+              </CCardSubtitle>
+            </div>
+            <div className="d-flex flex-column gap-2">
+            </div>
+          </div>
+        </CCardHeader>
+      </CCard>
+
       <CCard>
         <CCardBody>
           <CTabs activeItemKey={activeKey} onChange={setActiveKey}>

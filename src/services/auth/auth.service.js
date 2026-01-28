@@ -10,12 +10,33 @@ export class AuthService {
       return {
         usuario: datos.data.usuario,
         token: datos.data.token,
+        refresh_token: datos.data.refresh_token,
+        expires_at: datos.data.expires_at,
       };
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
-  //Falta el check-satatus
+  /////////////////////////////////////////////////////////////////////
+  static refreshToken = async (refresh_token) => {
+    try {
+      const datos = await iotApi.post("/auth/refresh", { refresh_token });
+      return {
+        ok: true,
+        usuario: datos.data.usuario,
+        token: datos.data.token,
+        refresh_token: datos.data.refresh_token,
+        expires_at: datos.data.expires_at,
+      };
+    } catch (error) {
+      console.log("Error al renovar token:", error);
+      return {
+        ok: false,
+        error: error,
+      };
+    }
+  };
   /////////////////////////////////////////////////////////////////////
   static checkStatus = async () => {
     try {

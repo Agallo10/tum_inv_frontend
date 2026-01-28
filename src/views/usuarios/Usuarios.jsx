@@ -29,6 +29,7 @@ import {
 } from "@coreui/icons";
 import { useUsuarioStore } from "../../hook/usuarios/useUsuarioStore";
 import { useNotificacion } from "../../hook";
+import { AuthStore } from "../../store/index";
 
 const Usuarios = () => {
   const {
@@ -40,6 +41,9 @@ const Usuarios = () => {
   } = useUsuarioStore();
 
   const { mostrarAdvertencia, mostrarExito } = useNotificacion();
+  
+  // Obtener usuario autenticado
+  const usuarioAutenticado = AuthStore((state) => state.user);
 
   const [usuarios, setUsuarios] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -165,6 +169,11 @@ const Usuarios = () => {
 
   // Confirmar eliminación
   const handleConfirmarEliminar = (usuario) => {
+    // Verificar que no sea el usuario autenticado
+    if (usuarioAutenticado && usuario.ID === usuarioAutenticado.ID) {
+      mostrarAdvertencia("No puedes eliminar tu propia cuenta");
+      return;
+    }
     setUsuarioAEliminar(usuario);
     setModalEliminarVisible(true);
   };
@@ -333,7 +342,12 @@ const Usuarios = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleConfirmarEliminar(item)}
-                          title="Eliminar usuario"
+                          title={
+                            usuarioAutenticado && item.ID === usuarioAutenticado.ID
+                              ? "No puedes eliminar tu propia cuenta"
+                              : "Eliminar usuario"
+                          }
+                          disabled={usuarioAutenticado && item.ID === usuarioAutenticado.ID}
                         >
                           <CIcon icon={cilTrash} />
                         </CButton>

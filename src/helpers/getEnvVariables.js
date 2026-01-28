@@ -1,16 +1,22 @@
 export const getEnvVariables = () => {
-  //import.meta.env
-  let port = "";
-  if (window.location.hostname === "localhost") {
-    port = `:${import.meta.env.VITE_LOCAL_PORT}`;
+  // En producción (Vercel), usar la URL del backend en Railway
+  // En desarrollo, usar localhost
+  let apiUrl;
+  
+  if (import.meta.env.VITE_API_URL) {
+    // Usar la URL configurada en variables de entorno (producción)
+    apiUrl = import.meta.env.VITE_API_URL;
+  } else if (window.location.hostname === "localhost") {
+    // Desarrollo local
+    const port = import.meta.env.VITE_LOCAL_PORT || "8080";
+    apiUrl = `http://localhost:${port}/api`;
+  } else {
+    // Fallback: mismo origen
+    apiUrl = `${window.location.protocol}//${window.location.hostname}/api`;
   }
-  const apiUrl = `${window.location.protocol}//${window.location.hostname}${port}/api`;
-  // const downlinkUrl = `${import.meta.env.VITE_DOWNLINK_SERVER}`;
+
   return {
     VITE_API_CONT: import.meta.env.VITE_API_CONT,
     VITE_API_URL: apiUrl,
-    // VITE_DOWNLINK_URL:downlinkUrl,
-    // VITE_API_SIGN_KEY:import.meta.env.VITE_API_SIGN_KEY,
-    // VITE_USER_KEY:import.meta.env.VITE_USER_KEY,
   };
 };

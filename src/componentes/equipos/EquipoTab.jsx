@@ -157,7 +157,7 @@ const EquipoTab = () => {
       <CRow className="mb-4">
         {/* 🟩 Columna 1 */}
         <CCol md={6}>
-          <div className="p-3 border rounded shadow-sm bg-light h-100">
+          <div className="p-3 border rounded shadow-sm h-100">
             <CRow className="mb-3">
               <CCol>
                 <CFormLabel>Modelo</CFormLabel>
@@ -259,7 +259,7 @@ const EquipoTab = () => {
 
         {/* 🟦 Columna 2 */}
         <CCol md={6}>
-          <div className="p-3 border rounded shadow-sm bg-light h-100 d-flex flex-column justify-content-between">
+          <div className="p-3 border rounded shadow-sm h-100 d-flex flex-column justify-content-between">
             <CRow className="mb-3">
               <CCol>
                 <CFormLabel>Observaciones</CFormLabel>

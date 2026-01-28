@@ -55,7 +55,7 @@ const _navadmin = [
       },
       {
         component: CNavItem,
-        name: 'Hoja de vida equipos',
+        name: 'Hoja de vida y Reportes',
         icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
         to: '/secretarias-hv',
       },

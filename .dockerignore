@@ -1,0 +1,25 @@
+# Dependencias
+node_modules/
+
+# Build outputs
+build/
+dist/
+
+# Archivos de entorno con secretos
+.env
+.env.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporales
+tmp/

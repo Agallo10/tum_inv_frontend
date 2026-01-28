@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSecretariaStore } from "../../hook/index";
 import { CCard, CCardBody, CRow, CCol } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
-import { cilSpeedometer } from "@coreui/icons";
+import { cilSpeedometer, cilTask } from "@coreui/icons";
 // import { Tarjeta } from "../../componentes";
 import TarjetaSecretaria from "../../componentes/tarjetas/tarjetaSecretaria";
 
@@ -28,7 +28,7 @@ const Secretarias = () => {
           <CCard className="border-0 shadow-sm bg-info bg-gradient text-white">
             <CCardBody className="p-4">
               <div className="d-flex align-items-center gap-3">
-                <CIcon icon={cilSpeedometer} size="3xl" />
+                <CIcon icon={cilTask} size="3xl" />
                 <div>
                   <h2 className="mb-2">Secretarías - Administrar Equipos</h2>
                   <p className="mb-0 opacity-75">

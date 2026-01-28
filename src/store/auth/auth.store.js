@@ -3,44 +3,104 @@ import { AuthService } from "../../services/auth/auth.service";
 import { devtools, persist } from "zustand/middleware";
 
 ///////////////////////////////////////////////////////////////
-const storeApi = (set) => ({
+const storeApi = (set, get) => ({
   status: "unauthorized",
   token: undefined,
+  refreshToken: undefined,
+  expiresAt: undefined,
   rol: undefined,
   user: undefined,
 
   loginUser: async ({ username, password }) => {
     try {
-      const { usuario, token } = await AuthService.login({
+      const { usuario, token, refresh_token, expires_at } = await AuthService.login({
         username,
         password,
       });
       if (!usuario) {
-        set({ status: "unauthorized", token: undefined, user: undefined });
+        set({ status: "unauthorized", token: undefined, refreshToken: undefined, user: undefined });
         return false;
       }
-      set({ status: "authenticated", token: token, user: usuario });
+      set({ 
+        status: "authenticated", 
+        token: token, 
+        refreshToken: refresh_token,
+        expiresAt: expires_at,
+        user: usuario 
+      });
       localStorage.setItem("token", token);
+      localStorage.setItem("refresh_token", refresh_token);
+      if (expires_at) {
+        localStorage.setItem("expires_at", expires_at);
+      }
       return true;
     } catch (error) {
-      throw "unauthorized";
+      set({ status: "unauthorized", token: undefined, refreshToken: undefined, user: undefined });
+      return false;
     }
   },
   ///////////////////////////////////////////////////////////////
-  logout: async () => {
-    localStorage.clear();
-    set({ status: "unauthorized", token: undefined, user: undefined });
+  refreshTokenAction: async () => {
+    try {
+      const currentRefreshToken = get().refreshToken || localStorage.getItem("refresh_token");
+      
+      if (!currentRefreshToken) {
+        get().logout();
+        return false;
+      }
+
+      const result = await AuthService.refreshToken(currentRefreshToken);
+      
+      if (!result.ok) {
+        get().logout();
+        return false;
+      }
+
+      set({ 
+        status: "authenticated", 
+        token: result.token, 
+        refreshToken: result.refresh_token,
+        expiresAt: result.expires_at,
+        user: result.usuario 
+      });
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("refresh_token", result.refresh_token);
+      if (result.expires_at) {
+        localStorage.setItem("expires_at", result.expires_at);
+      }
+      return true;
+    } catch (error) {
+      console.error("Error al renovar token:", error);
+      get().logout();
+      return false;
+    }
   },
   ///////////////////////////////////////////////////////////////
-  // checkStatus: async()=>{
-  //   const resp = await authCheckStatus();
-  //   if(!resp){
-  //     set({status:'unauthorized',token:undefined,user:undefined});
-  //     return
-  //   }
-  //   localStorage.setItem('token',resp.token);
-  //     set({status:'authenticated',token:resp.token,user:resp.usuario});
-  // },
+  logout: () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("expires_at");
+    localStorage.removeItem("autenticacion");
+    set({ 
+      status: "unauthorized", 
+      token: undefined, 
+      refreshToken: undefined,
+      expiresAt: undefined,
+      user: undefined 
+    });
+  },
+  ///////////////////////////////////////////////////////////////
+  // Verificar si el token está por expirar (5 minutos antes)
+  isTokenExpiringSoon: () => {
+    const expiresAt = get().expiresAt || localStorage.getItem("expires_at");
+    if (!expiresAt) return false;
+    
+    const expirationTime = new Date(expiresAt).getTime();
+    const now = Date.now();
+    const fiveMinutes = 5 * 60 * 1000;
+    
+    return (expirationTime - now) < fiveMinutes;
+  },
   ///////////////////////////////////////////////////////////////
 });
 ///////////////////////////////////////////////////////////////

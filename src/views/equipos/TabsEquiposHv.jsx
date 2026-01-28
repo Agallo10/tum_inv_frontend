@@ -43,13 +43,10 @@ const TabsEquipoHv = ({ equipo }) => {
 
               <CTabPanel className="p-3 h-100" itemKey="reporte">
                 <div
-                  className="h-100"
+                  className="h-100 w-100"
                   style={{ minHeight: "calc(100vh - 250px)" }}
                 >
-                  {/* <SoftwareTab equipo={equipo} /> */}
-                  <div className="d-flex align-items-center justify-content-center h-100">
-                    <ReportesTab equipo={equipo} />
-                  </div>
+                  {activeKey === "reporte" && <ReportesTab equipo={equipo} />}
                 </div>
               </CTabPanel>
             </CTabContent>
