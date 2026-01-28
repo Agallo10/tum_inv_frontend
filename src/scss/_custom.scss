@@ -1,5 +1,42 @@
 // Here you can add other styles
 
+// Tablas responsive - evitar desbordamiento en móviles
+.card-body {
+  .table,
+  .smart-table {
+    width: 100%;
+  }
+}
+
+// Wrapper responsive para tablas
+.table-responsive-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// CSmartTable responsive
+.card-body > div:has(.table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// Asegurar que las tablas no se desborden
+@media (max-width: 768px) {
+  .card-body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    .table {
+      min-width: 600px;
+    }
+  }
+  
+  // Formularios en columnas en móvil
+  .p-3.border.rounded {
+    padding: 1rem !important;
+  }
+}
+
 // Fix para formularios en modo oscuro
 [data-coreui-theme="dark"] {
   // Cards

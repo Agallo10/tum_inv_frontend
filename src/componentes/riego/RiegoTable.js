@@ -118,7 +118,7 @@ const RiegoTable = ({ riegos }) => {
         </div>
       </CCardHeader>
 
-      <CCardBody>
+      <CCardBody className="table-responsive">
         <CSmartTable
           items={data}
           columns={visibleCols}
@@ -131,6 +131,7 @@ const RiegoTable = ({ riegos }) => {
             striped: true,
             hover: true,
             className: 'my-table',
+            responsive: true,
           }}
           paginationProps={{
             className: 'smart-pagination justify-content-start',

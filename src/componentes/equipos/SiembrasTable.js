@@ -120,7 +120,7 @@ const SiembrasTable = ({ siembras }) => {
         </div>
       </CCardHeader>
 
-      <CCardBody>
+      <CCardBody className="table-responsive">
         <CSmartTable
           items={data}
           columns={visibleCols}
@@ -133,6 +133,7 @@ const SiembrasTable = ({ siembras }) => {
             striped: true,
             hover: true,
             className: 'my-table',
+            responsive: true,
           }}
           paginationProps={{
             className: 'smart-pagination justify-content-start',
