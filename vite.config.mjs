@@ -19,6 +19,11 @@ export default defineConfig(({ mode }) => {
           autoprefixer({}), // add options if needed
         ],
       },
+      preprocessorOptions: {
+        scss: {
+          silenceDeprecations: ['import', 'global-builtin'],
+        },
+      },
     },
     define: {
       // vitejs does not support process.env so we have to redefine it
