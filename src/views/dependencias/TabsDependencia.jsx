@@ -14,10 +14,7 @@ import {
 import {
   EquipoTab,
 } from "../../componentes";
-import UsuariosResTab from "../../componentes/usuariosresponsables/UsuariosresponsablesTab";
-// import MonitoreoSanidad from "../../componentes/monitoreo/MonitoreoEnfermedades";
-// import {ContenedorPlagas} from '../../componentes/plagas/ContenedorPlagas';
-//import PlagasTable from '../../componentes/plagas/PlagasTable';
+import UsuariosResTab from "../../componentes/usuariosresponsables/UsuariosResponsablesTab.jsx";
 
 const TabsDependencia = ({ nombreDependencia }) => {
   const [activeKey, setActiveKey] = useState("equipo");
