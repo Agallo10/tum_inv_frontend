@@ -6,18 +6,23 @@ const ThemeContext = createContext();
 
 // Proveedor del contexto
 export const ThemeProvider = ({ children }) => {
-  const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme-light');
+  const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme');
   const [tema, setTema] = useState(colorMode);
 
+  // Sincronizar el tema cuando cambia colorMode
+  useEffect(() => {
+    setTema(colorMode);
+  }, [colorMode]);
+
   // Función para actualizar el tema
-  const updateColor = (tema) => {
-    setTema(tema);
-    // console.log(tema);
+  const updateColor = (nuevoTema) => {
+    setTema(nuevoTema);
+    setColorMode(nuevoTema);
   };
 
   // Proporcionar el valor del contexto
   return (
-    <ThemeContext.Provider value={{ tema, updateColor }}>
+    <ThemeContext.Provider value={{ tema, updateColor, colorMode, setColorMode }}>
       {children}
     </ThemeContext.Provider>
   );

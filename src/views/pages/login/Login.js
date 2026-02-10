@@ -3,7 +3,6 @@ import {
   CButton,
   CCard,
   CCardBody,
-  CCardGroup,
   CCol,
   CContainer,
   CForm,
@@ -18,7 +17,7 @@ import {
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser, cilXCircle } from "@coreui/icons";
-import iotlogo from "../../../assets/logos/LogoAlcaldia.jpeg";
+import logoAlcaldiaHq from "../../../assets/logos/logoAlcaldiaHq.png";
 import { AuthStore } from "../../../store/index";
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +75,12 @@ const Login = () => {
   };
   //////////////////////////////////////////////////////////////////////////
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div 
+      className="min-vh-100 d-flex align-items-center"
+      style={{
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      }}
+    >
       {/* Toast para errores de login */}
       <CToaster className="position-fixed p-3" placement="top-end" style={{ zIndex: 9999 }}>
         {loginError && (
@@ -102,96 +106,102 @@ const Login = () => {
 
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={8}>
-            <CCardGroup>
-              <CCard className="p-4">
-                <CCardBody>
-                  <CForm
-                    className="row g-3 needs-validation"
-                    noValidate
-                    onSubmit={handleSubmit}
-                  >
-                    <h1>Login</h1>
-                    <p className="text-body-secondary">Ingresa a tu cuenta</p>
+          <CCol md={6} lg={5} xl={4}>
+            <CCard className="border-0 shadow-lg" style={{ borderRadius: '16px', overflow: 'hidden' }}>
+              <CCardBody className="p-5">
+                {/* Logo */}
+                <div className="text-center mb-4">
+                  <img
+                    src={logoAlcaldiaHq}
+                    alt="Alcaldía de Tumaco"
+                    style={{
+                      width: '150px',
+                      height: '150px',
+                      objectFit: 'contain',
+                    }}
+                  />
+                </div>
 
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
-                      <CFormInput
-                        placeholder="Username"
-                        autoComplete="username"
-                        id="validationCustomUsername"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        invalid={!!errors.username}
-                      />
-                      {errors.username && (
-                        <div className="invalid-feedback">
-                          {errors.username}
-                        </div>
-                      )}
-                    </CInputGroup>
+                {/* Título */}
+                <div className="text-center mb-4">
+                  <h4 className="fw-bold text-dark mb-1">Bienvenido</h4>
+                  <p className="text-muted small">Sistema de Inventario de Equipos</p>
+                </div>
 
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        id="validationCustomPassword"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        invalid={!!errors.password}
-                      />
-                      {errors.password && (
-                        <div className="invalid-feedback">
-                          {errors.password}
-                        </div>
-                      )}
-                    </CInputGroup>
-
-                    <CRow>
-                      <CCol
-                        xs={8}
-                        className="d-flex justify-content-center align-items-center"
-                      >
-                        <CButton
-                          type="submit"
-                          color="primary"
-                          className="px-4"
-                          style={{ marginLeft: "50%" }}
-                          disabled={isLoading}
-                        >
-                          {isLoading ? "Ingresando..." : "Login"}
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CForm>
-                </CCardBody>
-              </CCard>
-
-              <CCard className="p-4" style={{ width: "100%" }}>
-                <CCardBody
-                  className="d-flex justify-content-center align-items-center"
-                  style={{ height: "100%" }}
+                <CForm
+                  className="needs-validation"
+                  noValidate
+                  onSubmit={handleSubmit}
                 >
-                  <div style={{ width: "100%", paddingRight: "5px" }}>
-                    <img
-                      src={iotlogo}
-                      alt="LogoIoT"
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                        borderRadius: "5px",
-                      }}
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText className="bg-light border-end-0">
+                      <CIcon icon={cilUser} className="text-muted" />
+                    </CInputGroupText>
+                    <CFormInput
+                      placeholder="Usuario"
+                      autoComplete="username"
+                      id="validationCustomUsername"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      invalid={!!errors.username}
+                      className="border-start-0 ps-0"
+                      style={{ boxShadow: 'none' }}
                     />
+                    {errors.username && (
+                      <div className="invalid-feedback">
+                        {errors.username}
+                      </div>
+                    )}
+                  </CInputGroup>
+
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText className="bg-light border-end-0">
+                      <CIcon icon={cilLockLocked} className="text-muted" />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Contraseña"
+                      autoComplete="current-password"
+                      id="validationCustomPassword"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      invalid={!!errors.password}
+                      className="border-start-0 ps-0"
+                      style={{ boxShadow: 'none' }}
+                    />
+                    {errors.password && (
+                      <div className="invalid-feedback">
+                        {errors.password}
+                      </div>
+                    )}
+                  </CInputGroup>
+
+                  <div className="d-grid">
+                    <CButton
+                      type="submit"
+                      color="primary"
+                      size="lg"
+                      disabled={isLoading}
+                      style={{
+                        borderRadius: '8px',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        border: 'none',
+                        fontWeight: '600',
+                      }}
+                    >
+                      {isLoading ? "Ingresando..." : "Iniciar Sesión"}
+                    </CButton>
                   </div>
-                </CCardBody>
-              </CCard>
-            </CCardGroup>
+                </CForm>
+
+                {/* Footer */}
+                <div className="text-center mt-4">
+                  <small className="text-muted">
+                    Alcaldía Distrital de San Andrés de Tumaco
+                  </small>
+                </div>
+              </CCardBody>
+            </CCard>
           </CCol>
         </CRow>
       </CContainer>

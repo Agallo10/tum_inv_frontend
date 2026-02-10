@@ -42,8 +42,7 @@ const AppHeader = () => {
   const headerRef = useRef()
   const {updateColor } = useTheme();
   
-  const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme-light')
-  console.log(colorMode);
+  const { colorMode, setColorMode } = useColorModes('coreui-pro-react-admin-template-theme')
   const { i18n, t } = useTranslation()
 
   const dispatch = useDispatch()
@@ -76,6 +75,7 @@ const AppHeader = () => {
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
+          {/* Dropdown de idioma - oculto temporalmente
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
               <CIcon icon={cilLanguage} size="lg" />
@@ -102,6 +102,7 @@ const AppHeader = () => {
                   
              </CDropdownMenu>
           </CDropdown>
+          */}
          
           <CDropdown variant="nav-item" placement="bottom-end">            
             <CDropdownToggle caret={false}>
