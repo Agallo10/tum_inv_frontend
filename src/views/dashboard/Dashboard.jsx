@@ -24,111 +24,21 @@ import {
   cilWarning,
   cilXCircle,
 } from "@coreui/icons";
-import { useSecretariaStore } from "../../hook/secretarias/useSecretariaStore";
-import { useDependenciaStore } from "../../hook/dependencias/useDependenciaStore";
-import { useEquipoStore } from "../../hook/equipos/useEquipoStore";
+import { useDashboardStore } from "../../hook/dashboard/useDashboardStore";
 
 const Dashboard = () => {
-  const cargarSecretarias = useSecretariaStore();
-  const {
-    cargarDependencias,
-    cargarDependenciasBySecretaria,
-    cargarDependenciasBySecretariaUid,
-  } = useDependenciaStore();
-  const { cargarEquiposDetalle, cargarEquiposByDependencia } = useEquipoStore();
+  const { cargarDashboardStats } = useDashboardStore();
 
-  const [secretarias, setSecretarias] = useState([]);
-  const [dependencias, setDependencias] = useState([]);
-  const [equipos, setEquipos] = useState([]);
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [equiposPorSecretaria, setEquiposPorSecretaria] = useState({});
-  const [equiposPorDependencia, setEquiposPorDependencia] = useState({});
 
-  // Cargar todos los datos usando los métodos específicos
+  // Cargar todos los datos en una sola petición
   const cargarDatos = async () => {
     setLoading(true);
     try {
-      // Primero cargar las secretarías
-      const secretariasData = await cargarSecretarias();
-      setSecretarias(secretariasData || []);
-
-      // Cargar todas las dependencias para la vista general
-      const dependenciasData = await cargarDependencias();
-      setDependencias(dependenciasData || []);
-
-      // Cargar todos los equipos con detalle para estadísticas generales
-      const equiposData = await cargarEquiposDetalle();
-      setEquipos(equiposData || []);
-
-      console.log("📊 Calculando equipos por secretaría y dependencia...");
-      console.log("Secretarías:", secretariasData?.length || 0);
-      console.log("Dependencias totales:", dependenciasData?.length || 0);
-      console.log("Equipos totales:", equiposData?.length || 0);
-
-      // Calcular equipos por secretaría usando los métodos específicos
-      if (secretariasData && secretariasData.length > 0) {
-        const equiposPorSec = {};
-        const equiposPorDep = {};
-
-        // Procesar cada secretaría de forma secuencial para evitar sobrecarga
-        for (const secretaria of secretariasData) {
-          try {
-            // Cargar dependencias de esta secretaría específica usando el ID directamente
-            const depsDeSecretaria = await cargarDependenciasBySecretariaUid(
-              secretaria.ID
-            );
-
-            console.log(
-              `\n🏛️  Secretaría "${secretaria.Nombre}": ${depsDeSecretaria?.length || 0} dependencias`
-            );
-
-            let totalEquiposSecretaria = 0;
-
-            // Para cada dependencia, cargar sus equipos
-            if (depsDeSecretaria && depsDeSecretaria.length > 0) {
-              for (const dependencia of depsDeSecretaria) {
-                try {
-                  // Cargar equipos de esta dependencia específica
-                  const equiposDep = await cargarEquiposByDependencia(
-                    dependencia.ID
-                  );
-                  const cantidadEquipos = equiposDep?.length || 0;
-
-                  totalEquiposSecretaria += cantidadEquipos;
-
-                  // Guardar equipos por dependencia
-                  equiposPorDep[dependencia.Nombre] = cantidadEquipos;
-
-                  console.log(
-                    `  📂 ${dependencia.Nombre}: ${cantidadEquipos} equipos`
-                  );
-                } catch (error) {
-                  console.error(
-                    `Error cargando equipos de ${dependencia.Nombre}:`,
-                    error
-                  );
-                }
-              }
-            }
-
-            equiposPorSec[secretaria.Nombre] = totalEquiposSecretaria;
-            console.log(
-              `  ✅ Total equipos en "${secretaria.Nombre}": ${totalEquiposSecretaria}`
-            );
-          } catch (error) {
-            console.error(
-              `Error procesando secretaría ${secretaria.Nombre}:`,
-              error
-            );
-            equiposPorSec[secretaria.Nombre] = 0;
-          }
-        }
-
-        console.log("\n📈 Distribución final por secretaría:", equiposPorSec);
-        console.log("📊 Distribución por dependencia:", equiposPorDep);
-
-        setEquiposPorSecretaria(equiposPorSec);
-        setEquiposPorDependencia(equiposPorDep);
+      const data = await cargarDashboardStats();
+      if (data) {
+        setStats(data);
       }
     } catch (error) {
       console.error("❌ Error al cargar datos del dashboard:", error);
@@ -141,24 +51,29 @@ const Dashboard = () => {
     cargarDatos();
   }, []);
 
-  // Estadísticas generales
-  const totalSecretarias = secretarias.length;
-  const totalDependencias = dependencias.length;
-  const totalEquipos = equipos.length;
+  // Valores derivados de stats
+  const totalSecretarias = stats?.totalSecretarias || 0;
+  const totalDependencias = stats?.totalDependencias || 0;
+  const totalEquipos = stats?.totalEquipos || 0;
+  const secretarias = stats?.secretarias || [];
 
-  // Contar equipos por estado
-  const equiposPorEstado = equipos.reduce((acc, equipo) => {
-    const estado = equipo.Estado || "Sin Estado";
-    acc[estado] = (acc[estado] || 0) + 1;
-    return acc;
-  }, {});
+  // Equipos por estado (ya viene calculado del backend)
+  const equiposPorEstado = {};
+  (stats?.equiposPorEstado || []).forEach(({ estado, cantidad }) => {
+    equiposPorEstado[estado] = cantidad;
+  });
 
-  // Contar equipos por tipo
-  const equiposPorTipo = equipos.reduce((acc, equipo) => {
-    const tipo = equipo.TipoDispositivo || "Sin Tipo";
-    acc[tipo] = (acc[tipo] || 0) + 1;
-    return acc;
-  }, {});
+  // Equipos por tipo (ya viene calculado del backend)
+  const equiposPorTipo = {};
+  (stats?.equiposPorTipo || []).forEach(({ tipo, cantidad }) => {
+    equiposPorTipo[tipo] = cantidad;
+  });
+
+  // Equipos por secretaría (ya viene calculado del backend)
+  const equiposPorSecretaria = {};
+  secretarias.forEach((sec) => {
+    equiposPorSecretaria[sec.Nombre] = sec.totalEquipos;
+  });
 
   // Datos para gráfica de dona (Estados)
   const chartDataEstados = {
