@@ -8,7 +8,7 @@ import { useProyectoStore, useSecretariaStore } from "../../hook/index";
 const Proyectos = () => {
   const [tarjetas, setTarjetas] = useState([]);
   // const { cargarAdminProyectos } = useProyectoStore();
-  const cargarSecretarias = useSecretariaStore();
+  const { cargarSecretarias } = useSecretariaStore();
   ////////////////////////////////////////////////////////////////////////
   const cargarDatos = async () => {
     // const proyectos = await cargarAdminProyectos();

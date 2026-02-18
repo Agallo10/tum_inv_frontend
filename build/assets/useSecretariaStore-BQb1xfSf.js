@@ -1,0 +1,1 @@
+import{T as a}from"./index-Dmok7GSl.js";const S=()=>{const e=a(r=>r.startLoadSecretarias),t=a(r=>r.createSecretaria),c=a(r=>r.updateSecretaria),i=a(r=>r.deleteSecretaria);return{cargarSecretarias:async()=>{try{return await e()}catch(r){throw console.error("Error al cargar secretarias:",r),r}},crearSecretaria:t,actualizarSecretaria:c,eliminarSecretaria:i}};export{S as u};

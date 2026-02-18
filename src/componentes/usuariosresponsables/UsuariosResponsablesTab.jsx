@@ -19,10 +19,17 @@ import {
 
 import { useUsuarioResponsableStore } from "../../hook/ususariosresponsables/useUsuarioResponsableStore";
 import UsuariosResTable from "./UsuariosResTable";
+import { useNotificacion } from "../../hook";
+import { useSecretariaStore } from "../../hook/secretarias/useSecretariaStore";
+import { useDependenciaStore } from "../../hook/dependencias/useDependenciaStore";
+import ModalAsignarDependencia from "../sinasignar/ModalAsignarDependencia";
 
 const UsuariosResTab = () => {
-  const { cargarUsuariosResponsablesByDependencia, crearUsuarioResponsable } =
+  const { cargarUsuariosResponsablesByDependencia, crearUsuarioResponsable, actualizarUsuarioResponsable, asignarDependencia } =
     useUsuarioResponsableStore();
+  const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
+  const { cargarSecretarias } = useSecretariaStore();
+  const { cargarDependenciasBySecretariaUid } = useDependenciaStore();
   const uid = localStorage.getItem("dependencia-id");
 
   const initialState = {
@@ -36,26 +43,103 @@ const UsuariosResTab = () => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
+  const [editandoUsuario, setEditandoUsuario] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
+
+  // Reasignar usuario state
+  const [modalReasignarVisible, setModalReasignarVisible] = useState(false);
+  const [usuarioReasignar, setUsuarioReasignar] = useState(null);
+  const [secretariasResp, setSecretariasResp] = useState([]);
+  const [dependenciasResp, setDependenciasResp] = useState([]);
+  const [loadingReasignar, setLoadingReasignar] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validarFormularioUsuarios(formData);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      setEnviando(true);
-      const payload = construirPayloadUsuario(formData, uid);
-      await crearUsuarioResponsable(payload);
+    if (Object.keys(validationErrors).length > 0) {
+      mostrarAdvertencia("Por favor complete todos los campos requeridos", "Campos incompletos");
+      return;
+    }
+
+    setEnviando(true);
+    try {
+      if (editandoUsuario) {
+        // Modo edición
+        const payload = construirPayloadUsuario(formData, uid);
+        await actualizarUsuarioResponsable(editandoUsuario.ID, payload);
+        mostrarExito("El usuario se actualizó correctamente", "¡Usuario actualizado!");
+        setEditandoUsuario(null);
+      } else {
+        // Modo creación
+        const payload = construirPayloadUsuario(formData, uid);
+        await crearUsuarioResponsable(payload);
+        mostrarExito("El usuario se creó correctamente", "¡Usuario creado!");
+      }
       resetFormData();
-      setEnviando(false);
       cargarUsuariosResponsables();
+    } catch (error) {
+      console.error("Error:", error);
+      mostrarError(error || "Ocurrió un error inesperado.", "Error del servidor");
+    } finally {
+      setEnviando(false);
     }
   };
 
   const resetFormData = () => {
     setFormData(initialState);
     setErrors({});
+    setEditandoUsuario(null);
+  };
+
+  // Manejar edición de usuario
+  const handleEditar = (usuario) => {
+    setEditandoUsuario(usuario);
+    setFormData({
+      NombresApellidos: usuario.NombresApellidos || "",
+      Cedula: usuario.Cedula || "",
+      CorreoPersonal: usuario.CorreoPersonal || "",
+      TipoVinculacion: usuario.TipoVinculacion || "",
+      Celular: usuario.Celular || "",
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // === Handlers para reasignar usuario ===
+  const handleAbrirReasignar = async (usuario) => {
+    setUsuarioReasignar(usuario);
+    setDependenciasResp([]);
+    try {
+      const datos = await cargarSecretarias();
+      setSecretariasResp(datos || []);
+    } catch {
+      setSecretariasResp([]);
+    }
+    setModalReasignarVisible(true);
+  };
+
+  const handleSecretariaChangeResp = async (secretariaId) => {
+    try {
+      const datos = await cargarDependenciasBySecretariaUid(secretariaId);
+      setDependenciasResp(datos || []);
+    } catch {
+      setDependenciasResp([]);
+    }
+  };
+
+  const handleGuardarReasignar = async (dependenciaId) => {
+    setLoadingReasignar(true);
+    try {
+      await asignarDependencia(usuarioReasignar.ID, dependenciaId);
+      mostrarExito("Usuario reasignado correctamente");
+      setModalReasignarVisible(false);
+      cargarUsuariosResponsables();
+    } catch (error) {
+      mostrarError(error || "Error al reasignar usuario");
+    } finally {
+      setLoadingReasignar(false);
+    }
   };
 
   const isSubmitDisabled =
@@ -171,13 +255,26 @@ const UsuariosResTab = () => {
             </CRow>
 
             <CRow className="mt-3">
-              <CCol className="text-end">
+              <CCol className="d-flex justify-content-end gap-2">
+                {editandoUsuario && (
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    onClick={resetFormData}
+                  >
+                    Cancelar
+                  </CButton>
+                )}
                 <CButton
                   type="submit"
-                  color="success"
+                  color={editandoUsuario ? "primary" : "success"}
                   disabled={isSubmitDisabled}
                 >
-                  {enviando ? "Guardando..." : "Guardar Usuario"}
+                  {enviando
+                    ? "Guardando..."
+                    : editandoUsuario
+                      ? "Actualizar Usuario"
+                      : "Guardar Usuario"}
                 </CButton>
               </CCol>
             </CRow>
@@ -187,9 +284,21 @@ const UsuariosResTab = () => {
 
       <CRow>
         <CCol>
-          <UsuariosResTable usuarios={usuarios} />
+          <UsuariosResTable usuarios={usuarios} onEditar={handleEditar} onReasignar={handleAbrirReasignar} />
         </CCol>
       </CRow>
+
+      {/* Modal para reasignar usuario a otra dependencia */}
+      <ModalAsignarDependencia
+        visible={modalReasignarVisible}
+        onClose={() => setModalReasignarVisible(false)}
+        onSave={handleGuardarReasignar}
+        usuario={usuarioReasignar}
+        secretarias={secretariasResp}
+        dependenciasPorSecretaria={dependenciasResp}
+        onSecretariaChange={handleSecretariaChangeResp}
+        loading={loadingReasignar}
+      />
     </CForm>
   );
 };

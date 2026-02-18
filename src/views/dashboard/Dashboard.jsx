@@ -23,6 +23,8 @@ import {
   cilCheckCircle,
   cilWarning,
   cilXCircle,
+  cilBan,
+  cilPeople,
 } from "@coreui/icons";
 import { useDashboardStore } from "../../hook/dashboard/useDashboardStore";
 
@@ -55,6 +57,8 @@ const Dashboard = () => {
   const totalSecretarias = stats?.totalSecretarias || 0;
   const totalDependencias = stats?.totalDependencias || 0;
   const totalEquipos = stats?.totalEquipos || 0;
+  const equiposSinAsignar = stats?.equiposSinAsignar || 0;
+  const usuariosLibres = stats?.usuariosLibres || 0;
   const secretarias = stats?.secretarias || [];
 
   // Equipos por estado (ya viene calculado del backend)
@@ -163,7 +167,7 @@ const Dashboard = () => {
       </CCol>
 
       {/* Estadísticas Generales */}
-      <CCol xs={12} sm={6} lg={3}>
+      <CCol xs={12} sm={6} lg={4}>
         <CCard className="border-0 shadow-sm">
           <CCardBody>
             <div className="d-flex justify-content-between align-items-start">
@@ -183,7 +187,7 @@ const Dashboard = () => {
         </CCard>
       </CCol>
 
-      <CCol xs={12} sm={6} lg={3}>
+      <CCol xs={12} sm={6} lg={4}>
         <CCard className="border-0 shadow-sm">
           <CCardBody>
             <div className="d-flex justify-content-between align-items-start">
@@ -203,7 +207,7 @@ const Dashboard = () => {
         </CCard>
       </CCol>
 
-      <CCol xs={12} sm={6} lg={3}>
+      <CCol xs={12} sm={6} lg={4}>
         <CCard className="border-0 shadow-sm">
           <CCardBody>
             <div className="d-flex justify-content-between align-items-start">
@@ -221,7 +225,7 @@ const Dashboard = () => {
         </CCard>
       </CCol>
 
-      <CCol xs={12} sm={6} lg={3}>
+      <CCol xs={12} sm={6} lg={4}>
         <CCard className="border-0 shadow-sm">
           <CCardBody>
             <div className="d-flex justify-content-between align-items-start">
@@ -235,6 +239,46 @@ const Dashboard = () => {
               </div>
               <div className="bg-warning bg-opacity-10 rounded p-3">
                 <CIcon icon={cilChartPie} size="xl" className="text-warning" />
+              </div>
+            </div>
+          </CCardBody>
+        </CCard>
+      </CCol>
+
+      <CCol xs={12} sm={6} lg={4}>
+        <CCard className="border-0 shadow-sm">
+          <CCardBody>
+            <div className="d-flex justify-content-between align-items-start">
+              <div>
+                <div className="fs-6 fw-semibold text-body-secondary text-uppercase small">
+                  Equipos Sin Asignar
+                </div>
+                <div className="fs-2 fw-semibold text-danger">
+                  {equiposSinAsignar}
+                </div>
+              </div>
+              <div className="bg-danger bg-opacity-10 rounded p-3">
+                <CIcon icon={cilBan} size="xl" className="text-danger" />
+              </div>
+            </div>
+          </CCardBody>
+        </CCard>
+      </CCol>
+
+      <CCol xs={12} sm={6} lg={4}>
+        <CCard className="border-0 shadow-sm">
+          <CCardBody>
+            <div className="d-flex justify-content-between align-items-start">
+              <div>
+                <div className="fs-6 fw-semibold text-body-secondary text-uppercase small">
+                  Usuarios Libres
+                </div>
+                <div className="fs-2 fw-semibold text-secondary">
+                  {usuariosLibres}
+                </div>
+              </div>
+              <div className="bg-secondary bg-opacity-10 rounded p-3">
+                <CIcon icon={cilPeople} size="xl" className="text-secondary" />
               </div>
             </div>
           </CCardBody>

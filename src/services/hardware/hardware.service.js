@@ -57,4 +57,13 @@ export class HardwareService {
       };
     }
   };
+
+  static actualizarHardware = async (id, payload) => {
+    try {
+      const resp = await iotApi.put(`/hardware-interno/${id}`, payload);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo actualizar el hardware" };
+    }
+  };
 }

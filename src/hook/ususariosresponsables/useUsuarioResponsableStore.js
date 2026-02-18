@@ -12,6 +12,12 @@ export const useUsuarioResponsableStore = () => {
   const startLoadUsuariosResponsablesByDependencia = UsuarioResponsableStore(
     (state) => state.startLoadUsuariosResponsablesByDependencia
   );
+  const asignarDependenciaStore = UsuarioResponsableStore(
+    (state) => state.asignarDependencia
+  );
+  const actualizarUsuarioResponsableStore = UsuarioResponsableStore(
+    (state) => state.actualizarUsuarioResponsable
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -32,6 +38,16 @@ export const useUsuarioResponsableStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
+  const actualizarUsuarioResponsable = async (usuarioId, payload) => {
+    const ok = await actualizarUsuarioResponsableStore(usuarioId, payload);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+  const asignarDependencia = async (usuarioId, dependenciaId) => {
+    const ok = await asignarDependenciaStore(usuarioId, dependenciaId);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
 
   ////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -39,6 +55,8 @@ export const useUsuarioResponsableStore = () => {
     cargarUsuariosResponsables,
     cargarUsuariosResponsablesByDependencia,
     crearUsuarioResponsable,
+    actualizarUsuarioResponsable,
+    asignarDependencia,
   };
   ////////////////////////////////////////////////////////////////
 };

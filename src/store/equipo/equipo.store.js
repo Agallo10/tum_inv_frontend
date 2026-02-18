@@ -105,9 +105,23 @@ const equipoApi = (set) => ({
   },
 
   ///////////////////////////////////////////////////////////////
-
+  actualizarEquipo: async (equipoId, payload) => {
+    const { ok, errorMessage } = await EquipoService.actualizarEquipo(equipoId, payload);
+    if (!ok) throw errorMessage || "Error al actualizar equipo";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
-
+  asignarResponsable: async (equipoId, usuarioResponsableId) => {
+    const { ok, errorMessage } = await EquipoService.asignarResponsable(equipoId, usuarioResponsableId);
+    if (!ok) throw errorMessage || "Error al asignar responsable";
+    return ok;
+  },
+  ///////////////////////////////////////////////////////////////
+  eliminarEquipo: async (equipoId) => {
+    const { ok, errorMessage } = await EquipoService.eliminarEquipo(equipoId);
+    if (!ok) throw errorMessage || "Error al eliminar equipo";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 });
 ///////////////////////////////////////////////////////////////

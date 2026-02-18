@@ -12,16 +12,20 @@ import {
 } from "@coreui/react-pro";
 
 import { construirPayload, validarFormulario } from "./helpers";
-import { usePerifericoStore, useNotificacion } from "../../hook";
+import { usePerifericoStore, useNotificacion, useEquipoStore, useSecretariaStore, useDependenciaStore } from "../../hook";
 
 import PerifericosTable from "./PerifericosTable";
 import { opcionesTipoPeriferico } from "./helpers";
+import ModalAsignarEquipo from "../sinasignar/ModalAsignarEquipo";
 
 const PerifericosTab = ({ equipo }) => {
   const { ID } = equipo;
 
-  const { cargarPerifericosByEquipos, crearPeriferico } = usePerifericoStore();
+  const { cargarPerifericosByEquipos, crearPeriferico, actualizarPeriferico, asignarEquipo } = usePerifericoStore();
   const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
+  const { cargarEquiposByDependencia } = useEquipoStore();
+  const { cargarSecretarias } = useSecretariaStore();
+  const { cargarDependenciasBySecretariaUid } = useDependenciaStore();
   const uid = ID;
 
   const initialState = {
@@ -34,7 +38,16 @@ const PerifericosTab = ({ equipo }) => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
+  const [editandoPeriferico, setEditandoPeriferico] = useState(null);
   const [perifericos, setPerifericos] = useState([]);
+
+  // Reasignar periférico state
+  const [modalReasignarVisible, setModalReasignarVisible] = useState(false);
+  const [perifericoReasignar, setPerifericoReasignar] = useState(null);
+  const [secretariasResp, setSecretariasResp] = useState([]);
+  const [dependenciasResp, setDependenciasResp] = useState([]);
+  const [equiposResp, setEquiposResp] = useState([]);
+  const [loadingReasignar, setLoadingReasignar] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,19 +61,25 @@ const PerifericosTab = ({ equipo }) => {
 
     setEnviando(true);
     try {
-      const payload = construirPayload(formData, uid);
-      const resultado = await crearPeriferico(payload);
-      
-      if (resultado) {
-        mostrarExito("El periférico se creó correctamente", "¡Periférico creado!");
-        resetFormData();
-        cargarPerifericos();
+      if (editandoPeriferico) {
+        const payload = construirPayload(formData, uid);
+        await actualizarPeriferico(editandoPeriferico.ID, payload);
+        mostrarExito("El periférico se actualizó correctamente", "¡Periférico actualizado!");
+        setEditandoPeriferico(null);
       } else {
-        mostrarError("No se pudo crear el periférico. Por favor, intente nuevamente.", "Error al crear periférico");
+        const payload = construirPayload(formData, uid);
+        const resultado = await crearPeriferico(payload);
+        if (resultado) {
+          mostrarExito("El periférico se creó correctamente", "¡Periférico creado!");
+        } else {
+          mostrarError("No se pudo crear el periférico. Por favor, intente nuevamente.", "Error al crear periférico");
+        }
       }
+      resetFormData();
+      cargarPerifericos();
     } catch (error) {
-      console.error("Error al crear periférico:", error);
-      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+      console.error("Error:", error);
+      mostrarError(error || "Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
     } finally {
       setEnviando(false);
     }
@@ -69,6 +88,18 @@ const PerifericosTab = ({ equipo }) => {
   const resetFormData = () => {
     setFormData(initialState);
     setErrors({});
+    setEditandoPeriferico(null);
+  };
+
+  const handleEditar = (periferico) => {
+    setEditandoPeriferico(periferico);
+    setFormData({
+      PlacaInventario: periferico.PlacaInventario || "",
+      Marca: periferico.Marca || "",
+      TipoPeriferico: periferico.TipoPeriferico || "",
+      Serial: periferico.Serial || "",
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const isSubmitDisabled =
@@ -83,6 +114,53 @@ const PerifericosTab = ({ equipo }) => {
   const cargarPerifericos = async () => {
     const perifericos = await cargarPerifericosByEquipos(uid);
     setPerifericos(perifericos);
+  };
+
+  // === Handlers para reasignar periférico ===
+  const handleAbrirReasignar = async (periferico) => {
+    setPerifericoReasignar(periferico);
+    setDependenciasResp([]);
+    setEquiposResp([]);
+    try {
+      const datos = await cargarSecretarias();
+      setSecretariasResp(datos || []);
+    } catch {
+      setSecretariasResp([]);
+    }
+    setModalReasignarVisible(true);
+  };
+
+  const handleSecretariaChangeResp = async (secretariaId) => {
+    setEquiposResp([]);
+    try {
+      const datos = await cargarDependenciasBySecretariaUid(secretariaId);
+      setDependenciasResp(datos || []);
+    } catch {
+      setDependenciasResp([]);
+    }
+  };
+
+  const handleDependenciaChangeResp = async (dependenciaId) => {
+    try {
+      const datos = await cargarEquiposByDependencia(dependenciaId);
+      setEquiposResp(datos || []);
+    } catch {
+      setEquiposResp([]);
+    }
+  };
+
+  const handleGuardarReasignar = async (equipoId) => {
+    setLoadingReasignar(true);
+    try {
+      await asignarEquipo(perifericoReasignar.ID, equipoId);
+      mostrarExito("Periférico reasignado correctamente");
+      setModalReasignarVisible(false);
+      await cargarPerifericos();
+    } catch (error) {
+      mostrarError(error || "Error al reasignar periférico");
+    } finally {
+      setLoadingReasignar(false);
+    }
   };
 
   useEffect(() => {
@@ -183,13 +261,26 @@ const PerifericosTab = ({ equipo }) => {
             </CRow>
 
             <CRow className="mt-3">
-              <CCol className="text-end">
+              <CCol className="d-flex justify-content-end gap-2">
+                {editandoPeriferico && (
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    onClick={resetFormData}
+                  >
+                    Cancelar
+                  </CButton>
+                )}
                 <CButton
                   type="submit"
-                  color="success"
+                  color={editandoPeriferico ? "primary" : "success"}
                   disabled={isSubmitDisabled}
                 >
-                  {enviando ? "Guardando..." : "Guardar Periferico"}
+                  {enviando
+                    ? "Guardando..."
+                    : editandoPeriferico
+                      ? "Actualizar Periferico"
+                      : "Guardar Periferico"}
                 </CButton>
               </CCol>
             </CRow>
@@ -199,9 +290,23 @@ const PerifericosTab = ({ equipo }) => {
 
       <CRow>
         <CCol>
-          <PerifericosTable perifericos={perifericos} />
+          <PerifericosTable perifericos={perifericos} onEditar={handleEditar} onReasignar={handleAbrirReasignar} />
         </CCol>
       </CRow>
+
+      {/* Modal para reasignar periférico a otro equipo */}
+      <ModalAsignarEquipo
+        visible={modalReasignarVisible}
+        onClose={() => setModalReasignarVisible(false)}
+        onSave={handleGuardarReasignar}
+        periferico={perifericoReasignar}
+        secretarias={secretariasResp}
+        dependenciasPorSecretaria={dependenciasResp}
+        equiposPorDependencia={equiposResp}
+        onSecretariaChange={handleSecretariaChangeResp}
+        onDependenciaChange={handleDependenciaChangeResp}
+        loading={loadingReasignar}
+      />
     </CForm>
   );
 };

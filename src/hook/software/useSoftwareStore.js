@@ -8,6 +8,9 @@ export const useSoftwareStore = () => {
   const getAllSoftwareByEquipos = SoftwareStore(
     (state) => state.startLoadAllSoftwareByEquipos
   );
+  const actualizarSoftwareStore = SoftwareStore(
+    (state) => state.actualizarSoftware
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -28,13 +31,18 @@ export const useSoftwareStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
-
+  const actualizarSoftware = async (id, payload) => {
+    const ok = await actualizarSoftwareStore(id, payload);
+    return ok;
+  };
   ////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////
   return {
     cargarAllSoftware,
     cargarAllSoftwareByEquipos,
     crearSoftware,
+    actualizarSoftware,
   };
   ////////////////////////////////////////////////////////////////
 };

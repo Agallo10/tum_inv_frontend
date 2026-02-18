@@ -8,7 +8,7 @@ import TarjetaSecretaria from "../../componentes/tarjetas/tarjetaSecretaria";
 
 const Secretarias = () => {
   const [tarjetas, setTarjetas] = useState([]);
-  const cargarSecretarias = useSecretariaStore();
+  const { cargarSecretarias } = useSecretariaStore();
 
   ////////////////////////////////////////////////////////////////////////
   const cargarDatos = async () => {

@@ -110,4 +110,33 @@ export class EquipoService {
       };
     }
   };
+
+  static actualizarEquipo = async (equipoId, payload) => {
+    try {
+      const resp = await iotApi.put(`/equipos/${equipoId}`, payload);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo actualizar el equipo" };
+    }
+  };
+
+  static asignarResponsable = async (equipoId, usuarioResponsableId) => {
+    try {
+      const resp = await iotApi.patch(`/equipos/${equipoId}/asignar-responsable`, {
+        UsuarioResponsableID: usuarioResponsableId,
+      });
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo asignar el responsable" };
+    }
+  };
+
+  static eliminarEquipo = async (equipoId) => {
+    try {
+      const resp = await iotApi.delete(`/equipos/${equipoId}`);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo eliminar el equipo" };
+    }
+  };
 }

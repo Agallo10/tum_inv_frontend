@@ -55,7 +55,11 @@ const softwareApi = (set) => ({
   },
 
   ///////////////////////////////////////////////////////////////
-
+  actualizarSoftware: async (id, payload) => {
+    const { ok, errorMessage } = await SoftwareService.actualizarSoftware(id, payload);
+    if (!ok) throw errorMessage || "Error al actualizar software";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////

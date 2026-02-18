@@ -57,4 +57,33 @@ export class PerifericoService {
       };
     }
   };
+
+  static actualizarPeriferico = async (id, payload) => {
+    try {
+      const resp = await iotApi.put(`/perifericos/${id}`, payload);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo actualizar el periférico" };
+    }
+  };
+
+  static cargarPerifericosSinEquipo = async () => {
+    try {
+      const resp = await iotApi.get("/perifericos/sin-equipo");
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudieron cargar los periféricos sin equipo" };
+    }
+  };
+
+  static asignarEquipo = async (perifericoId, equipoId) => {
+    try {
+      const resp = await iotApi.patch(`/perifericos/${perifericoId}/asignar-equipo`, {
+        EquipoID: equipoId,
+      });
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo asignar el equipo al periférico" };
+    }
+  };
 }

@@ -8,6 +8,9 @@ export const useHardwareStore = () => {
   const getAllHardwareByEquipos = HardwareStore(
     (state) => state.startLoadAllHardwareByEquipos
   );
+  const actualizarHardwareStore = HardwareStore(
+    (state) => state.actualizarHardware
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -28,13 +31,18 @@ export const useHardwareStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
-
+  const actualizarHardware = async (id, payload) => {
+    const ok = await actualizarHardwareStore(id, payload);
+    return ok;
+  };
   ////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////
   return {
     cargarAllHardware,
     cargarAllHardwareByEquipos,
     crearHardware,
+    actualizarHardware,
   };
   ////////////////////////////////////////////////////////////////
 };

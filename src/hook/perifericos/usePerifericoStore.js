@@ -10,6 +10,15 @@ export const usePerifericoStore = () => {
   const startLoadPerifericosByEquipos = PerifericoStore(
     (state) => state.startLoadPerifericosByEquipos
   );
+  const actualizarPerifericoStore = PerifericoStore(
+    (state) => state.actualizarPeriferico
+  );
+  const startLoadPerifericosSinEquipo = PerifericoStore(
+    (state) => state.startLoadPerifericosSinEquipo
+  );
+  const asignarEquipoStore = PerifericoStore(
+    (state) => state.asignarEquipo
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -30,13 +39,30 @@ export const usePerifericoStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
-
+  const actualizarPeriferico = async (id, payload) => {
+    const ok = await actualizarPerifericoStore(id, payload);
+    return ok;
+  };
   ////////////////////////////////////////////////////////////////
+  const cargarPerifericosSinEquipo = async () => {
+    const datos = await startLoadPerifericosSinEquipo();
+    return datos;
+  };
+  ////////////////////////////////////////////////////////////////
+  const asignarEquipo = async (perifericoId, equipoId) => {
+    const ok = await asignarEquipoStore(perifericoId, equipoId);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////
   return {
     cargarPerifericos,
     cargarPerifericosByEquipos,
     crearPeriferico,
+    actualizarPeriferico,
+    cargarPerifericosSinEquipo,
+    asignarEquipo,
   };
   ////////////////////////////////////////////////////////////////
 };

@@ -10,7 +10,6 @@ const dependenciasApi = (set) => ({
   startLoadDependencias: async () => {
     try {
       const { ok, datos } = await DependenciaService.startLoadDependencias();
-      // console.log(datos);
       if (!ok) {
         set({ dependencias: undefined });
         return false;
@@ -26,10 +25,7 @@ const dependenciasApi = (set) => ({
   startLoadDependenciasBySecretaria: async (idSecretaria) => {
     try {
       const { ok, datos } =
-        await DependenciaService.startLoadDependenciasBySecretaria(
-          idSecretaria
-        );
-      // console.log(datos);
+        await DependenciaService.startLoadDependenciasBySecretaria(idSecretaria);
       if (!ok) {
         set({ dependenciasBySecretaria: undefined });
         return false;
@@ -42,9 +38,23 @@ const dependenciasApi = (set) => ({
     }
   },
   ///////////////////////////////////////////////////////////////
-
+  createDependencia: async (dependencia) => {
+    const { ok, datos, errorMessage } = await DependenciaService.createDependencia(dependencia);
+    if (!ok) throw errorMessage || "Error al crear dependencia";
+    return datos;
+  },
   ///////////////////////////////////////////////////////////////
-
+  updateDependencia: async (id, dependencia) => {
+    const { ok, datos, errorMessage } = await DependenciaService.updateDependencia(id, dependencia);
+    if (!ok) throw errorMessage || "Error al actualizar dependencia";
+    return datos;
+  },
+  ///////////////////////////////////////////////////////////////
+  deleteDependencia: async (id) => {
+    const { ok, datos, errorMessage } = await DependenciaService.deleteDependencia(id);
+    if (!ok) throw errorMessage || "Error al eliminar dependencia";
+    return datos;
+  },
   ///////////////////////////////////////////////////////////////
 });
 ///////////////////////////////////////////////////////////////

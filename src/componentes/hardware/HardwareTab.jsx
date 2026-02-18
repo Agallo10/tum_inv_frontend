@@ -23,7 +23,7 @@ import HardwareTable from "./HardwareTable";
 const HardwareTab = ({ equipo }) => {
   const { ID } = equipo;
 
-  const { cargarAllHardwareByEquipos, crearHardware } = useHardwareStore();
+  const { cargarAllHardwareByEquipos, crearHardware, actualizarHardware } = useHardwareStore();
   const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
@@ -37,6 +37,7 @@ const HardwareTab = ({ equipo }) => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
+  const [editandoHardware, setEditandoHardware] = useState(null);
   const [allHardware, setAllHardware] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -51,19 +52,25 @@ const HardwareTab = ({ equipo }) => {
 
     setEnviando(true);
     try {
-      const payload = construirPayload(formData, uid);
-      const resultado = await crearHardware(payload);
-      
-      if (resultado) {
-        mostrarExito("El hardware se registró correctamente", "¡Hardware creado!");
-        resetFormData();
-        cargarAllHardware();
+      if (editandoHardware) {
+        const payload = construirPayload(formData, uid);
+        await actualizarHardware(editandoHardware.ID, payload);
+        mostrarExito("El hardware se actualizó correctamente", "¡Hardware actualizado!");
+        setEditandoHardware(null);
       } else {
-        mostrarError("No se pudo registrar el hardware. Por favor, intente nuevamente.", "Error al crear hardware");
+        const payload = construirPayload(formData, uid);
+        const resultado = await crearHardware(payload);
+        if (resultado) {
+          mostrarExito("El hardware se registró correctamente", "¡Hardware creado!");
+        } else {
+          mostrarError("No se pudo registrar el hardware. Por favor, intente nuevamente.", "Error al crear hardware");
+        }
       }
+      resetFormData();
+      cargarAllHardware();
     } catch (error) {
-      console.error("Error al crear hardware:", error);
-      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+      console.error("Error:", error);
+      mostrarError(error || "Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
     } finally {
       setEnviando(false);
     }
@@ -72,6 +79,17 @@ const HardwareTab = ({ equipo }) => {
   const resetFormData = () => {
     setFormData(initialState);
     setErrors({});
+    setEditandoHardware(null);
+  };
+
+  const handleEditar = (hardware) => {
+    setEditandoHardware(hardware);
+    setFormData({
+      Componente: hardware.Componente || "",
+      Tecnologia: hardware.Tecnologia || "",
+      Capacidad: hardware.Capacidad || "",
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const isSubmitDisabled =
@@ -182,13 +200,26 @@ const HardwareTab = ({ equipo }) => {
             </CRow>
 
             <CRow className="mt-3">
-              <CCol className="text-end">
+              <CCol className="d-flex justify-content-end gap-2">
+                {editandoHardware && (
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    onClick={resetFormData}
+                  >
+                    Cancelar
+                  </CButton>
+                )}
                 <CButton
                   type="submit"
-                  color="success"
+                  color={editandoHardware ? "primary" : "success"}
                   disabled={isSubmitDisabled}
                 >
-                  {enviando ? "Guardando..." : "Guardar hardware"}
+                  {enviando
+                    ? "Guardando..."
+                    : editandoHardware
+                      ? "Actualizar Hardware"
+                      : "Guardar Hardware"}
                 </CButton>
               </CCol>
             </CRow>
@@ -198,7 +229,7 @@ const HardwareTab = ({ equipo }) => {
 
       <CRow>
         <CCol>
-          <HardwareTable allHardware={allHardware} />
+          <HardwareTable allHardware={allHardware} onEditar={handleEditar} />
         </CCol>
       </CRow>
     </CForm>

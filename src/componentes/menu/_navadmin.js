@@ -15,6 +15,7 @@ import {
   cilNotes,
   cilBuilding,
   cilPeople,
+  cilScreenDesktop,
 } from '@coreui/icons'
 
 
@@ -43,13 +44,13 @@ const _navadmin = [
 ///////////////////////////////////////////////////////////////////////////
   {
     component: CNavGroup,
-    name: 'Secretarías',
+    name: 'Equipos',
     to: '/secretarias',
-    icon: <CIcon icon={cilBuilding} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilScreenDesktop} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Administrar equipos',
+        name: 'Administrar equipos y secretarias',
         icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
         to: '/secretarias',
       },
@@ -58,6 +59,18 @@ const _navadmin = [
         name: 'Hoja de vida y Reportes',
         icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
         to: '/secretarias-hv',
+      },
+      {
+        component: CNavItem,
+        name: 'Sin secretaría asignada',
+        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+        to: '/sin-secretaria',
+      },
+      {
+        component: CNavItem,
+        name: 'Sin equipo asignado',
+        icon: <CIcon icon={cilList} customClassName="nav-icon" />,
+        to: '/sin-equipo',
       },
     ],
   },

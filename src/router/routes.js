@@ -34,6 +34,8 @@ const EquiposDetalleHv = React.lazy(
 
 // Usuarios (solo admin)
 const Usuarios = React.lazy(() => import("../views/usuarios/Usuarios"));
+const SinSecretaria = React.lazy(() => import("../views/sinasignar/SinSecretaria"));
+const SinEquipo = React.lazy(() => import("../views/sinasignar/SinEquipo"));
 // const Analisis = React.lazy(() => import('../views/datos/Analisisdatos'))
 
 // Monitoreo
@@ -72,6 +74,20 @@ const routes = [
     path: "/usuarios",
     name: <Translation>{(t) => t("usuarios")}</Translation>,
     element: Usuarios,
+  },
+
+  // Sin secretaría asignada
+  {
+    path: "/sin-secretaria",
+    name: <Translation>{(t) => t("sin-secretaria")}</Translation>,
+    element: SinSecretaria,
+  },
+
+  // Sin equipo asignado (periféricos libres)
+  {
+    path: "/sin-equipo",
+    name: <Translation>{(t) => t("sin-equipo")}</Translation>,
+    element: SinEquipo,
   },
 
   {

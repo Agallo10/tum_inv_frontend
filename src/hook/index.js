@@ -16,3 +16,5 @@ export * from "./equipos/useEquipoStore";
 export * from "./reportes/useReporteStore";
 export * from "./notificaciones/useNotificacion";
 export * from "./usuarios/useUsuarioStore";
+export * from "./sinasignar/useSinAsignarStore";
+export * from "./ususariosresponsables/useUsuarioResponsableStore";

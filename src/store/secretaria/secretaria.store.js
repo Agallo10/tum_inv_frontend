@@ -9,7 +9,6 @@ const secretariasApi = (set) => ({
   startLoadSecretarias: async () => {
     try {
       const { ok, datos } = await SecretariaService.startLoadSecretaria();
-      // console.log(datos);
       if (!ok) {
         set({ secretarias: undefined });
         return false;
@@ -22,11 +21,23 @@ const secretariasApi = (set) => ({
     }
   },
   ///////////////////////////////////////////////////////////////
-
+  createSecretaria: async (secretaria) => {
+    const { ok, datos, errorMessage } = await SecretariaService.createSecretaria(secretaria);
+    if (!ok) throw errorMessage || "Error al crear secretaría";
+    return datos;
+  },
   ///////////////////////////////////////////////////////////////
-
+  updateSecretaria: async (id, secretaria) => {
+    const { ok, datos, errorMessage } = await SecretariaService.updateSecretaria(id, secretaria);
+    if (!ok) throw errorMessage || "Error al actualizar secretaría";
+    return datos;
+  },
   ///////////////////////////////////////////////////////////////
-
+  deleteSecretaria: async (id) => {
+    const { ok, datos, errorMessage } = await SecretariaService.deleteSecretaria(id);
+    if (!ok) throw errorMessage || "Error al eliminar secretaría";
+    return datos;
+  },
   ///////////////////////////////////////////////////////////////
 });
 ///////////////////////////////////////////////////////////////

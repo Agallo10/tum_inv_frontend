@@ -9,6 +9,11 @@ import {
   CFormSelect,
   CButton,
   CFormTextarea,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
 } from "@coreui/react-pro";
 
 import {
@@ -22,13 +27,18 @@ import { useEquipoStore } from "../../hook/equipos/useEquipoStore";
 import EquiposTable from "./EquiposTable";
 import { useUsuarioResponsableStore } from "../../hook/ususariosresponsables/useUsuarioResponsableStore";
 import { useNotificacion } from "../../hook";
+import { useSecretariaStore } from "../../hook/secretarias/useSecretariaStore";
+import { useDependenciaStore } from "../../hook/dependencias/useDependenciaStore";
+import ModalAsignarResponsable from "../sinasignar/ModalAsignarResponsable";
 
 const EquipoTab = () => {
-  const { crearEquipo, cargarEquiposByDependencia, cargarEstadosEquipo } =
+  const { crearEquipo, cargarEquiposByDependencia, cargarEstadosEquipo, asignarResponsable, actualizarEquipo, eliminarEquipo } =
     useEquipoStore();
   const { cargarUsuariosResponsablesByDependencia } =
     useUsuarioResponsableStore();
   const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
+  const { cargarSecretarias } = useSecretariaStore();
+  const { cargarDependenciasBySecretariaUid } = useDependenciaStore();
   const uid = localStorage.getItem("dependencia-id");
   const fechaHoy = getFechaActual();
 
@@ -54,14 +64,30 @@ const EquipoTab = () => {
     Serial: "",
     Modelo: "",
     ObservacionesGenerales: "",
+    EstadoEquipoID: "",
+    UsuarioResponsableID: "",
   };
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
+  const [editandoEquipo, setEditandoEquipo] = useState(null);
   const [equipos, setEquipos] = useState([]);
   const [opcionesUsuarios, setOpcionesUsuarios] = useState([]);
   const [opcionesEstados, setOpcionesEstados] = useState([]);
+
+  // Reasignar equipo state
+  const [modalReasignarVisible, setModalReasignarVisible] = useState(false);
+  const [equipoReasignar, setEquipoReasignar] = useState(null);
+  const [secretariasResp, setSecretariasResp] = useState([]);
+  const [dependenciasResp, setDependenciasResp] = useState([]);
+  const [usuariosResp, setUsuariosResp] = useState([]);
+  const [loadingReasignar, setLoadingReasignar] = useState(false);
+
+  // Eliminar equipo state
+  const [modalEliminarVisible, setModalEliminarVisible] = useState(false);
+  const [equipoEliminar, setEquipoEliminar] = useState(null);
+  const [loadingEliminar, setLoadingEliminar] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,19 +101,27 @@ const EquipoTab = () => {
 
     setEnviando(true);
     try {
-      const payload = construirPayloadEquipo(formData, uid, fechaHoy);
-      const resultado = await crearEquipo(payload);
-      
-      if (resultado) {
-        mostrarExito("El equipo se creó correctamente", "¡Equipo creado!");
-        resetFormData();
-        cargarEquipos();
+      if (editandoEquipo) {
+        // Modo edición
+        const payload = construirPayloadEquipo(formData, uid, fechaHoy);
+        await actualizarEquipo(editandoEquipo.ID, payload);
+        mostrarExito("El equipo se actualizó correctamente", "¡Equipo actualizado!");
+        setEditandoEquipo(null);
       } else {
-        mostrarError("No se pudo crear el equipo. Por favor, intente nuevamente.", "Error al crear equipo");
+        // Modo creación
+        const payload = construirPayloadEquipo(formData, uid, fechaHoy);
+        const resultado = await crearEquipo(payload);
+        if (resultado) {
+          mostrarExito("El equipo se creó correctamente", "¡Equipo creado!");
+        } else {
+          mostrarError("No se pudo crear el equipo. Por favor, intente nuevamente.", "Error al crear equipo");
+        }
       }
+      resetFormData();
+      cargarEquipos();
     } catch (error) {
-      console.error("Error al crear equipo:", error);
-      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+      console.error("Error:", error);
+      mostrarError(error || "Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
     } finally {
       setEnviando(false);
     }
@@ -96,6 +130,25 @@ const EquipoTab = () => {
   const resetFormData = () => {
     setFormData(initialState);
     setErrors({});
+    setEditandoEquipo(null);
+  };
+
+  // Manejar edición de equipo
+  const handleEditar = (equipo) => {
+    setEditandoEquipo(equipo);
+    setFormData({
+      FechaDiligenciamiento: fechaHoy,
+      TipoDispositivo: equipo.TipoDispositivo || "",
+      PlacaInventario: equipo.PlacaInventario || "",
+      Marca: equipo.Marca || "",
+      Serial: equipo.Serial || "",
+      Modelo: equipo.Modelo || "",
+      ObservacionesGenerales: equipo.ObservacionesGenerales || "",
+      UsuarioResponsableID: equipo.UsuarioResponsableID || "",
+      EstadoEquipoID: equipo.EstadoEquipoID || "",
+    });
+    // Scroll hacia el formulario
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const isSubmitDisabled =
@@ -140,6 +193,78 @@ const EquipoTab = () => {
     const opcionesEstados = [{ value: "", label: "Seleccione" }, ...estadosMap];
 
     setOpcionesEstados(opcionesEstados);
+  };
+
+  // === Handlers para reasignar equipo ===
+  const handleAbrirReasignar = async (equipo) => {
+    setEquipoReasignar(equipo);
+    setDependenciasResp([]);
+    setUsuariosResp([]);
+    try {
+      const datos = await cargarSecretarias();
+      setSecretariasResp(datos || []);
+    } catch {
+      setSecretariasResp([]);
+    }
+    setModalReasignarVisible(true);
+  };
+
+  const handleSecretariaChangeResp = async (secretariaId) => {
+    setUsuariosResp([]);
+    try {
+      const datos = await cargarDependenciasBySecretariaUid(secretariaId);
+      setDependenciasResp(datos || []);
+    } catch {
+      setDependenciasResp([]);
+    }
+  };
+
+  const handleDependenciaChangeResp = async (dependenciaId) => {
+    try {
+      const datos = await cargarUsuariosResponsablesByDependencia(dependenciaId);
+      setUsuariosResp(datos || []);
+    } catch {
+      setUsuariosResp([]);
+    }
+  };
+
+  const handleGuardarReasignar = async (usuarioResponsableId) => {
+    setLoadingReasignar(true);
+    try {
+      await asignarResponsable(equipoReasignar.ID, usuarioResponsableId);
+      mostrarExito("Equipo reasignado correctamente");
+      setModalReasignarVisible(false);
+      cargarEquipos(); // recargar la tabla
+    } catch (error) {
+      mostrarError(error || "Error al reasignar equipo");
+    } finally {
+      setLoadingReasignar(false);
+    }
+  };
+
+  // === Handlers para eliminar equipo ===
+  const handleEliminar = (equipo) => {
+    setEquipoEliminar(equipo);
+    setModalEliminarVisible(true);
+  };
+
+  const handleConfirmarEliminar = async () => {
+    if (!equipoEliminar) return;
+    const idEliminar = equipoEliminar.ID;
+    setLoadingEliminar(true);
+    try {
+      await eliminarEquipo(idEliminar);
+      // Cerrar modal y limpiar estado
+      setModalEliminarVisible(false);
+      setEquipoEliminar(null);
+      // Quitar de la lista local inmediatamente
+      setEquipos((prev) => prev.filter((e) => e.ID !== idEliminar));
+      mostrarExito("Equipo eliminado correctamente. Sus periféricos quedaron libres.");
+    } catch (error) {
+      mostrarError(error || "Error al eliminar equipo");
+    } finally {
+      setLoadingEliminar(false);
+    }
   };
 
   useEffect(() => {
@@ -299,14 +424,29 @@ const EquipoTab = () => {
                   {errors.UsuarioResponsableID}
                 </CFormFeedback>
               </CCol>
+            </CRow>
 
-              <CCol className="text-end">
+            <CRow className="mt-3">
+              <CCol className="d-flex justify-content-end gap-2">
+                {editandoEquipo && (
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    onClick={resetFormData}
+                  >
+                    Cancelar
+                  </CButton>
+                )}
                 <CButton
                   type="submit"
-                  color="success"
+                  color={editandoEquipo ? "primary" : "success"}
                   disabled={isSubmitDisabled}
                 >
-                  {enviando ? "Guardando..." : "Guardar Equipo"}
+                  {enviando
+                    ? "Guardando..."
+                    : editandoEquipo
+                      ? "Actualizar Equipo"
+                      : "Guardar Equipo"}
                 </CButton>
               </CCol>
             </CRow>
@@ -316,9 +456,70 @@ const EquipoTab = () => {
 
       <CRow>
         <CCol>
-          <EquiposTable equipos={equipos} pages={5} />
+          <EquiposTable equipos={equipos} pages={5} onReasignar={handleAbrirReasignar} onEditar={handleEditar} onEliminar={handleEliminar} />
         </CCol>
       </CRow>
+
+      {/* Modal para reasignar equipo */}
+      <ModalAsignarResponsable
+        visible={modalReasignarVisible}
+        onClose={() => setModalReasignarVisible(false)}
+        onSave={handleGuardarReasignar}
+        equipo={equipoReasignar}
+        secretarias={secretariasResp}
+        dependenciasPorSecretaria={dependenciasResp}
+        usuariosPorDependencia={usuariosResp}
+        onSecretariaChange={handleSecretariaChangeResp}
+        onDependenciaChange={handleDependenciaChangeResp}
+        loading={loadingReasignar}
+      />
+
+      {/* Modal de confirmación para eliminar equipo */}
+      <CModal
+        visible={modalEliminarVisible}
+        onClose={() => setModalEliminarVisible(false)}
+        alignment="center"
+      >
+        <CModalHeader>
+          <CModalTitle>Confirmar Eliminación</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          {equipoEliminar && (
+            <>
+              <p>¿Está seguro de que desea eliminar este equipo?</p>
+              <div className="p-3 bg-body-secondary rounded">
+                <strong>Tipo:</strong> {equipoEliminar.TipoDispositivo}<br />
+                <strong>Marca:</strong> {equipoEliminar.Marca} {equipoEliminar.Modelo}<br />
+                <strong>Serial:</strong> {equipoEliminar.Serial}
+                {equipoEliminar.PlacaInventario && (
+                  <><br /><strong>Placa:</strong> {equipoEliminar.PlacaInventario}</>
+                )}
+              </div>
+              <p className="mt-3 text-warning">
+                <strong>Nota:</strong> Los periféricos asociados a este equipo quedarán
+                libres y podrán ser reasignados desde la sección "Sin equipo asignado".
+              </p>
+            </>
+          )}
+        </CModalBody>
+        <CModalFooter>
+          <CButton
+            color="secondary"
+            variant="ghost"
+            onClick={() => setModalEliminarVisible(false)}
+            disabled={loadingEliminar}
+          >
+            Cancelar
+          </CButton>
+          <CButton
+            color="danger"
+            onClick={handleConfirmarEliminar}
+            disabled={loadingEliminar}
+          >
+            {loadingEliminar ? "Eliminando..." : "Eliminar"}
+          </CButton>
+        </CModalFooter>
+      </CModal>
     </CForm>
   );
 };

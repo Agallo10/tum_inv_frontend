@@ -2,18 +2,17 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
-import { CCol, CDropdown, CWidgetStatsA, CSpinner } from "@coreui/react-pro";
+import { CCol, CWidgetStatsA, CTooltip } from "@coreui/react-pro";
 import { getStyle } from "@coreui/utils";
-// import { useSidebar } from "../../context/SidebarContext";
 import { MdOutlineDashboard } from "react-icons/md";
+import { cilPencil, cilTrash } from "@coreui/icons";
+import CIcon from "@coreui/icons-react";
 
 const TarjetaSecretaria = (props) => {
   const { t } = useTranslation();
   const widgetChartRef1 = useRef(null);
   const widgetChartRef2 = useRef(null);
   let navigate = useNavigate();
-  //Conecta el SidebarContext para que actualice el Sidebar
-  //   const { updateProyectoActivo } = useSidebar();
 
   useEffect(() => {
     document.documentElement.addEventListener("ColorSchemeChange", () => {
@@ -34,21 +33,27 @@ const TarjetaSecretaria = (props) => {
       }
     });
   }, [widgetChartRef1, widgetChartRef2]);
-  ////////////////Navega al proyecto selecionado y se guarda en localstorage
+
   const setSecretaria = () => {
-    console.log("props", props);
     localStorage.setItem("secretaria-id", props.id);
     localStorage.setItem("nombre-secretaria", props.Nombre);
-    // updateProyectoActivo(props.id);
     if (props.nav == 1) {
       return navigate("/dependencias-secretaria");
     } else if (props.nav == 2) {
       return navigate("/dependencias-secretaria-hv");
-    } else {
-      return;
     }
   };
-  ///////////////////////////////////////////////////////////////////////////
+
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    if (props.onEdit) props.onEdit();
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (props.onDelete) props.onDelete();
+  };
+
   return (
     <CCol sm={6} xl={4} xxl={3}>
       <CWidgetStatsA
@@ -72,7 +77,6 @@ const TarjetaSecretaria = (props) => {
         color="info"
         value={
           <>
-            {/* <span className="fw-bold">{`${props.id}`}</span> */}
             <span className="fs-6 fw-normal" style={{ marginLeft: "8px", opacity: 0.9 }}>
               ({props.Secretario})
             </span>
@@ -84,11 +88,30 @@ const TarjetaSecretaria = (props) => {
           </span>
         }
         action={
-          <CDropdown alignment="end">
+          props.esAdmin ? (
+            <div className="d-flex gap-2">
+              <CTooltip content="Editar">
+                <div
+                  style={{ cursor: "pointer", color: "white" }}
+                  onClick={handleEdit}
+                >
+                  <CIcon icon={cilPencil} size="lg" />
+                </div>
+              </CTooltip>
+              <CTooltip content="Eliminar">
+                <div
+                  style={{ cursor: "pointer", color: "white" }}
+                  onClick={handleDelete}
+                >
+                  <CIcon icon={cilTrash} size="lg" />
+                </div>
+              </CTooltip>
+            </div>
+          ) : (
             <div style={{ cursor: "pointer", color: "white" }}>
               <MdOutlineDashboard size={32} />
             </div>
-          </CDropdown>
+          )
         }
       />
     </CCol>
@@ -97,12 +120,14 @@ const TarjetaSecretaria = (props) => {
 
 TarjetaSecretaria.propTypes = {
   className: PropTypes.string,
-  //   backgroundImage: PropTypes.string,
   Descripcion: PropTypes.string,
   id: PropTypes.number,
   Secretario: PropTypes.string,
   Nombre: PropTypes.string,
   Ubicacion: PropTypes.string,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  esAdmin: PropTypes.bool,
 };
 
 export default TarjetaSecretaria;

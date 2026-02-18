@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   CCard,
   CCardBody,
@@ -18,6 +18,11 @@ import {
   CSpinner,
   CBadge,
   CSmartTable,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+  CFormCheck,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import {
@@ -27,9 +32,12 @@ import {
   cilTrash,
   cilUser,
 } from "@coreui/icons";
+import { cibDocusign } from "@coreui/icons";
 import { useUsuarioStore } from "../../hook/usuarios/useUsuarioStore";
 import { useNotificacion } from "../../hook";
 import { AuthStore } from "../../store/index";
+import { exportToCsv } from "../../helpers";
+import "../../componentes/equipos/ColumnVisibilityDropdown.scss";
 
 const Usuarios = () => {
   const {
@@ -73,21 +81,48 @@ const Usuarios = () => {
     { value: "usuario", label: "Usuario" },
   ];
 
-  // Columnas de la tabla (usando PascalCase como viene del backend)
-  const columns = [
-    { key: "Nombre", label: "Nombre", _style: { width: "15%" } },
-    { key: "Apellido", label: "Apellido", _style: { width: "15%" } },
-    { key: "Cedula", label: "Cédula", _style: { width: "12%" } },
-    { key: "Email", label: "Email", _style: { width: "20%" } },
-    { key: "Username", label: "Usuario", _style: { width: "12%" } },
-    { key: "Rol", label: "Rol", _style: { width: "10%" } },
-    {
-      key: "acciones",
-      label: "Acciones",
-      _style: { width: "16%" },
-      filter: false,
-      sorter: false,
-    },
+  // Columnas con visibilidad togglable
+  const [columns, setColumns] = useState([
+    { key: "Nombre", label: "Nombre", visible: true },
+    { key: "Apellido", label: "Apellido", visible: true },
+    { key: "Cedula", label: "Cédula", visible: true },
+    { key: "Email", label: "Email", visible: true },
+    { key: "Username", label: "Usuario", visible: true },
+    { key: "Rol", label: "Rol", visible: true },
+  ]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleColumn = (key) => {
+    setColumns((prev) =>
+      prev.map((col) => (col.key === key ? { ...col, visible: !col.visible } : col))
+    );
+  };
+
+  const descargaCsv = () => {
+    const visibleKeys = columns.filter((c) => c.visible).map((c) => c.key);
+    const exportData = usuarios.map((row) => {
+      const r = {};
+      visibleKeys.forEach((k) => (r[k] = row[k]));
+      return r;
+    });
+    exportToCsv(exportData, "usuarios.csv");
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const visibleCols = [
+    ...columns.filter((col) => col.visible),
+    { key: "acciones", label: "Acciones", filter: false, sorter: false },
   ];
 
   // Cargar usuarios al montar el componente
@@ -289,14 +324,47 @@ const Usuarios = () => {
       {/* Tabla de usuarios */}
       <CRow>
         <CCol xs={12}>
-          <CCard className="border-0 shadow-sm">
-            <CCardHeader className="bg-white border-0">
-              <h5 className="mb-0">
+          <CCard>
+            <CCardHeader className="d-flex justify-content-start align-items-center gap-2">
+              <CDropdown
+                ref={dropdownRef}
+                className={`dropdown${dropdownOpen ? " show" : ""}`}
+              >
+                <CDropdownToggle
+                  className="dropdown-toggle-custom"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  title="Ocultar columnas"
+                />
+                <CDropdownMenu className={`dropdown-menu${dropdownOpen ? " show" : ""}`}>
+                  {columns.map((col) => (
+                    <CDropdownItem key={col.key} onClick={(e) => e.stopPropagation()}>
+                      <CFormCheck
+                        id={`toggle-usr-${col.key}`}
+                        label={col.label}
+                        checked={col.visible}
+                        onChange={() => toggleColumn(col.key)}
+                      />
+                    </CDropdownItem>
+                  ))}
+                </CDropdownMenu>
+              </CDropdown>
+
+              <div
+                className="icon-container"
+                onClick={descargaCsv}
+                title="Descargar usuarios CSV"
+                role="button"
+              >
+                <CIcon icon={cibDocusign} />
+              </div>
+
+              <div className="ms-3">
                 <CIcon icon={cilUser} className="me-2" />
-                Lista de Usuarios
-              </h5>
+                <strong>Lista de Usuarios ({usuarios.length})</strong>
+              </div>
             </CCardHeader>
-            <CCardBody>
+
+            <CCardBody className="table-responsive">
               {isLoading ? (
                 <div className="text-center py-5">
                   <CSpinner color="primary" />
@@ -305,16 +373,20 @@ const Usuarios = () => {
               ) : (
                 <CSmartTable
                   items={usuarios}
-                  columns={columns}
+                  columns={visibleCols}
                   columnFilter
                   columnSorter
                   pagination
-                  itemsPerPage={10}
+                  itemsPerPage={50}
                   itemsPerPageSelect
                   tableProps={{
                     striped: true,
                     hover: true,
+                    className: "my-table",
                     responsive: true,
+                  }}
+                  paginationProps={{
+                    className: "smart-pagination justify-content-start",
                   }}
                   noItemsLabel="No hay usuarios registrados"
                   scopedColumns={{

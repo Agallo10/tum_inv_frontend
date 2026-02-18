@@ -55,7 +55,28 @@ const perifericoApi = (set) => ({
   },
 
   ///////////////////////////////////////////////////////////////
-
+  actualizarPeriferico: async (id, payload) => {
+    const { ok, errorMessage } = await PerifericoService.actualizarPeriferico(id, payload);
+    if (!ok) throw errorMessage || "Error al actualizar periférico";
+    return ok;
+  },
+  ///////////////////////////////////////////////////////////////
+  startLoadPerifericosSinEquipo: async () => {
+    try {
+      const { ok, datos } = await PerifericoService.cargarPerifericosSinEquipo();
+      if (!ok) return [];
+      return datos || [];
+    } catch (error) {
+      console.error("Error cargando periféricos sin equipo:", error);
+      return [];
+    }
+  },
+  ///////////////////////////////////////////////////////////////
+  asignarEquipo: async (perifericoId, equipoId) => {
+    const { ok, errorMessage } = await PerifericoService.asignarEquipo(perifericoId, equipoId);
+    if (!ok) throw errorMessage || "Error al asignar equipo";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////

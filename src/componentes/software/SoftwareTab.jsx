@@ -23,7 +23,7 @@ import SoftwareTable from "./SoftwareTable";
 const SoftwareTab = ({ equipo }) => {
   const { ID } = equipo;
 
-  const { cargarAllSoftwareByEquipos, crearSoftware } = useSoftwareStore();
+  const { cargarAllSoftwareByEquipos, crearSoftware, actualizarSoftware } = useSoftwareStore();
   const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
   const uid = ID;
 
@@ -37,6 +37,7 @@ const SoftwareTab = ({ equipo }) => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [enviando, setEnviando] = useState(false);
+  const [editandoSoftware, setEditandoSoftware] = useState(null);
   const [allSoftware, setAllSoftware] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -51,19 +52,25 @@ const SoftwareTab = ({ equipo }) => {
 
     setEnviando(true);
     try {
-      const payload = construirPayload(formData, uid);
-      const resultado = await crearSoftware(payload);
-      
-      if (resultado) {
-        mostrarExito("El software se registró correctamente", "¡Software creado!");
-        resetFormData();
-        cargarAllSoftware();
+      if (editandoSoftware) {
+        const payload = construirPayload(formData, uid);
+        await actualizarSoftware(editandoSoftware.ID, payload);
+        mostrarExito("El software se actualizó correctamente", "¡Software actualizado!");
+        setEditandoSoftware(null);
       } else {
-        mostrarError("No se pudo registrar el software. Por favor, intente nuevamente.", "Error al crear software");
+        const payload = construirPayload(formData, uid);
+        const resultado = await crearSoftware(payload);
+        if (resultado) {
+          mostrarExito("El software se registró correctamente", "¡Software creado!");
+        } else {
+          mostrarError("No se pudo registrar el software. Por favor, intente nuevamente.", "Error al crear software");
+        }
       }
+      resetFormData();
+      cargarAllSoftware();
     } catch (error) {
-      console.error("Error al crear software:", error);
-      mostrarError("Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
+      console.error("Error:", error);
+      mostrarError(error || "Ocurrió un error inesperado. Por favor, intente nuevamente.", "Error del servidor");
     } finally {
       setEnviando(false);
     }
@@ -72,6 +79,18 @@ const SoftwareTab = ({ equipo }) => {
   const resetFormData = () => {
     setFormData(initialState);
     setErrors({});
+    setEditandoSoftware(null);
+  };
+
+  const handleEditar = (software) => {
+    setEditandoSoftware(software);
+    setFormData({
+      Nombre: software.Nombre || "",
+      Version: software.Version || "",
+      TipoLicencia: software.TipoLicencia || "",
+      Categoria: software.Categoria || "",
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const isSubmitDisabled =
@@ -181,13 +200,26 @@ const SoftwareTab = ({ equipo }) => {
             </CRow>
 
             <CRow className="mt-3">
-              <CCol className="text-end">
+              <CCol className="d-flex justify-content-end gap-2">
+                {editandoSoftware && (
+                  <CButton
+                    type="button"
+                    color="secondary"
+                    onClick={resetFormData}
+                  >
+                    Cancelar
+                  </CButton>
+                )}
                 <CButton
                   type="submit"
-                  color="success"
+                  color={editandoSoftware ? "primary" : "success"}
                   disabled={isSubmitDisabled}
                 >
-                  {enviando ? "Guardando..." : "Guardar software"}
+                  {enviando
+                    ? "Guardando..."
+                    : editandoSoftware
+                      ? "Actualizar Software"
+                      : "Guardar Software"}
                 </CButton>
               </CCol>
             </CRow>
@@ -197,7 +229,7 @@ const SoftwareTab = ({ equipo }) => {
 
       <CRow>
         <CCol>
-          <SoftwareTable allSoftware={allSoftware} />
+          <SoftwareTable allSoftware={allSoftware} onEditar={handleEditar} />
         </CCol>
       </CRow>
     </CForm>

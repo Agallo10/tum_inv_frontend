@@ -55,7 +55,11 @@ const hardwareApi = (set) => ({
   },
 
   ///////////////////////////////////////////////////////////////
-
+  actualizarHardware: async (id, payload) => {
+    const { ok, errorMessage } = await HardwareService.actualizarHardware(id, payload);
+    if (!ok) throw errorMessage || "Error al actualizar hardware";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////

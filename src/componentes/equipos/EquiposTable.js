@@ -11,9 +11,11 @@ import {
   CCard,
   CCardHeader,
   CCardBody,
+  CButton,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import { cibDocusign } from "@coreui/icons";
+import { cilLink, cilPencil, cilTrash } from "@coreui/icons";
 import "./ColumnVisibilityDropdown.scss";
 import { exportToCsv } from "../../helpers";
 
@@ -29,7 +31,7 @@ const initialColumns = [
   //   { key: 'dependencia', label: 'Distancia Siembra (m)', visible: true },
 ];
 
-const EquiposTable = ({ equipos, pages }) => {
+const EquiposTable = ({ equipos, pages, onReasignar, onEditar, onEliminar }) => {
   const [columns, setColumns] = useState(initialColumns);
   const [data, setData] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -42,16 +44,17 @@ const EquiposTable = ({ equipos, pages }) => {
   );
 
   useEffect(() => {
-    if (equipos?.length) {
-      const procesado = equipos.map((e) => ({
-        ...e,
-        FechaDiligenciamiento: new Date(
-          e.FechaDiligenciamiento
-        ).toLocaleDateString(),
-        // distancia: `${s.distanciaSiembra?.calle ?? 0}x${s.distanciaSiembra?.plantas ?? 0}`,
-      }));
-      setData(procesado);
+    if (!equipos) {
+      setData([]);
+      return;
     }
+    const procesado = equipos.map((e) => ({
+      ...e,
+      FechaDiligenciamiento: new Date(
+        e.FechaDiligenciamiento
+      ).toLocaleDateString(),
+    }));
+    setData(procesado);
   }, [equipos]);
 
   const toggleColumn = (key) => {
@@ -83,11 +86,71 @@ const EquiposTable = ({ equipos, pages }) => {
     exportToCsv(exportData, "siembras.csv");
   };
 
-  const visibleCols = columns.filter((col) => col.visible);
+  const tieneAcciones = onReasignar || onEditar || onEliminar;
+
+  const visibleCols = [
+    ...columns.filter((col) => col.visible),
+    ...(tieneAcciones ? [{ key: "acciones", label: "Acciones", filter: false, sorter: false }] : []),
+  ];
 
   const handleRowClick = (item) => {
     navigate("/detalle-equipo", { state: { equipo: item } });
   };
+
+  const scopedCols = tieneAcciones
+    ? {
+        acciones: (item) => (
+          <td>
+            {onEditar && (
+              <CButton
+                color="warning"
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditar(item);
+                }}
+                title="Editar equipo"
+                className="me-1"
+              >
+                <CIcon icon={cilPencil} className="me-1" />
+                Editar
+              </CButton>
+            )}
+            {onReasignar && (
+              <CButton
+                color="info"
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onReasignar(item);
+                }}
+                title="Reasignar a otro responsable"
+              >
+                <CIcon icon={cilLink} className="me-1" />
+                Reasignar
+              </CButton>
+            )}
+            {onEliminar && (
+              <CButton
+                color="danger"
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEliminar(item);
+                }}
+                title="Eliminar equipo"
+              >
+                <CIcon icon={cilTrash} className="me-1" />
+                Eliminar
+              </CButton>
+            )}
+          </td>
+        ),
+      }
+    : undefined;
 
   return (
     <CCard>
@@ -134,6 +197,7 @@ const EquiposTable = ({ equipos, pages }) => {
 
       <CCardBody className="table-responsive">
         <CSmartTable
+          key={data.length}
           items={data}
           columns={visibleCols}
           columnFilter
@@ -152,6 +216,7 @@ const EquiposTable = ({ equipos, pages }) => {
           }}
           clickableRows
           onRowClick={(item) => handleRowClick(item)}
+          scopedColumns={scopedCols}
         />
       </CCardBody>
     </CCard>

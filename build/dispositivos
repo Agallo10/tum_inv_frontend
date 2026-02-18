@@ -1,0 +1,1701 @@
+[{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecb9b"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13700267",
+  "cuentaContrato": "6875158",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5e"
+  },
+  "direccionInstalacion": "Carrera 0N 38-47 Interior 4",
+  "geoInstalacion": "2.4386784600000624,-76.62691703899992",
+  "zonaInstalacion": "190004",
+  "estrato": "5",
+  "categoria": "comercial",
+  "ruta": "149105",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb66"
+  },
+  "serieIot": "30a375b59b1e5316",
+  "serieModuloComunicacion": "30a375b59b1e5316",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7596.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecb9c"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15765556",
+  "cuentaContrato": "8737812",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb44"
+  },
+  "direccionInstalacion": "Calle 7 Bis 84-88",
+  "geoInstalacion": "2.453247256000054,-76.62996285699995",
+  "zonaInstalacion": "190004",
+  "estrato": "5",
+  "categoria": "comercial",
+  "ruta": "117387",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb67"
+  },
+  "serieIot": "92e0996c2b66ffea",
+  "serieModuloComunicacion": "92e0996c2b66ffea",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7515.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecb9d"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13560876",
+  "cuentaContrato": "8860350",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5d"
+  },
+  "direccionInstalacion": "Avenida 3 Bis 17-04 Interior 1",
+  "geoInstalacion": "2.446970381000085,-76.59534059899994",
+  "zonaInstalacion": "190002",
+  "estrato": "3",
+  "categoria": "comercial",
+  "ruta": "137475",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb68"
+  },
+  "serieIot": "dbc4615a93c018cb",
+  "serieModuloComunicacion": "dbc4615a93c018cb",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7445.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecb9e"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "14389187",
+  "cuentaContrato": "5724005",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4b"
+  },
+  "direccionInstalacion": "Transversal 1 Bis 47-76",
+  "geoInstalacion": "2.476300722000076,-76.5540353319999",
+  "zonaInstalacion": "190001",
+  "estrato": "3",
+  "categoria": "comercial",
+  "ruta": "118823",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb69"
+  },
+  "serieIot": "62a5c22b4e822078",
+  "serieModuloComunicacion": "62a5c22b4e822078",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7472.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecb9f"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "11831838",
+  "cuentaContrato": "8284063",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5c"
+  },
+  "direccionInstalacion": "Transversal 9 08-58 Interior 2",
+  "geoInstalacion": "2.4466262730000494,-76.58075087899994",
+  "zonaInstalacion": "190017",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "114797",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6a"
+  },
+  "serieIot": "cd450cdf85b50a8b",
+  "serieModuloComunicacion": "cd450cdf85b50a8b",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7510.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba0"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15226017",
+  "cuentaContrato": "5169873",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4f"
+  },
+  "direccionInstalacion": "Calle 7N 19-37 Manzana 81",
+  "geoInstalacion": "2.4797991380000894,-76.58015044299992",
+  "zonaInstalacion": "190001",
+  "estrato": "1",
+  "categoria": "comercial",
+  "ruta": "135696",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6b"
+  },
+  "serieIot": "dc9434aaf2998e3e",
+  "serieModuloComunicacion": "dc9434aaf2998e3e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7395.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba1"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "16577695",
+  "cuentaContrato": "8245980",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb56"
+  },
+  "direccionInstalacion": "Carrera 5 57-77",
+  "geoInstalacion": "2.4387244990000454,-76.61598991699992",
+  "zonaInstalacion": "190004",
+  "estrato": "3",
+  "categoria": "comercial",
+  "ruta": "133666",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6c"
+  },
+  "serieIot": "c1133375f58115ec",
+  "serieModuloComunicacion": "c1133375f58115ec",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7500.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba2"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17273168",
+  "cuentaContrato": "7586258",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4f"
+  },
+  "direccionInstalacion": "Carrera 9 52-59 Interior 7",
+  "geoInstalacion": "2.4375295520000577,-76.61178285099993",
+  "zonaInstalacion": "190003",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "142782",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6d"
+  },
+  "serieIot": "ebcd8cc6494528c6",
+  "serieModuloComunicacion": "ebcd8cc6494528c6",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7482.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba3"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15237500",
+  "cuentaContrato": "8072573",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb48"
+  },
+  "direccionInstalacion": "Carrera 8 Bis 77-30 Entrada 84",
+  "geoInstalacion": "2.445273676000056,-76.6209720839999",
+  "zonaInstalacion": "190004",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "123487",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6e"
+  },
+  "serieIot": "c43c1965e4dbddc6",
+  "serieModuloComunicacion": "c43c1965e4dbddc6",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7531.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba4"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "14701392",
+  "cuentaContrato": "7402045",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb54"
+  },
+  "direccionInstalacion": "Carrera 6N 58-61",
+  "geoInstalacion": "2.475653995000073,-76.55952231499992",
+  "zonaInstalacion": "190001",
+  "estrato": "1",
+  "categoria": "comercial",
+  "ruta": "114783",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb6f"
+  },
+  "serieIot": "88a5c315860e239a",
+  "serieModuloComunicacion": "88a5c315860e239a",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7525.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba5"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19106758",
+  "cuentaContrato": "7082930",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb44"
+  },
+  "direccionInstalacion": "Diagonal 1N 01-10",
+  "geoInstalacion": "2.428719838000063,-76.61019433699994",
+  "zonaInstalacion": "190003",
+  "estrato": "3",
+  "categoria": "comercial",
+  "ruta": "147150",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb70"
+  },
+  "serieIot": "22c17be39b96c6df",
+  "serieModuloComunicacion": "22c17be39b96c6df",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7547.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba6"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "10080596",
+  "cuentaContrato": "5804215",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5f"
+  },
+  "direccionInstalacion": "Transversal 9 Bis 48-45 Manzana 63",
+  "geoInstalacion": "2.4384814460000825,-76.62932573099994",
+  "zonaInstalacion": "190004",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "148213",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb71"
+  },
+  "serieIot": "f67d79b8f884e451",
+  "serieModuloComunicacion": "f67d79b8f884e451",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7610.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba7"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13284174",
+  "cuentaContrato": "5537892",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb35"
+  },
+  "direccionInstalacion": "Diagonal 4 25-21",
+  "geoInstalacion": "2.4420894420000536,-76.62949164799994",
+  "zonaInstalacion": "190004",
+  "estrato": "5",
+  "categoria": "comercial",
+  "ruta": "132361",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb72"
+  },
+  "serieIot": "3071160378976aaf",
+  "serieModuloComunicacion": "3071160378976aaf",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7505.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba8"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12659996",
+  "cuentaContrato": "7611272",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5b"
+  },
+  "direccionInstalacion": "Carrera 8 Bis 62-31",
+  "geoInstalacion": "2.4864879550000865,-76.57335420999993",
+  "zonaInstalacion": "190001",
+  "estrato": "5",
+  "categoria": "comercial",
+  "ruta": "138922",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb73"
+  },
+  "serieIot": "2c48f1e6b146d8a9",
+  "serieModuloComunicacion": "2c48f1e6b146d8a9",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7596.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecba9"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19532469",
+  "cuentaContrato": "8776483",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3f"
+  },
+  "direccionInstalacion": "Calle 8 Bis 21-70",
+  "geoInstalacion": "2.483800643000052,-76.56520356699991",
+  "zonaInstalacion": "190001",
+  "estrato": "4",
+  "categoria": "comercial",
+  "ruta": "101140",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb74"
+  },
+  "serieIot": "b8e0773f6cc0f656",
+  "serieModuloComunicacion": "b8e0773f6cc0f656",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": true,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7480.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbaa"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "14431891",
+  "cuentaContrato": "9394703",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb51"
+  },
+  "direccionInstalacion": "Transversal 0N 06-43",
+  "geoInstalacion": "2.450162197000054,-76.6346103859999",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "comercial",
+  "ruta": "118978",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb75"
+  },
+  "serieIot": "820218f305f89e47",
+  "serieModuloComunicacion": "820218f305f89e47",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7457.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbab"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17222480",
+  "cuentaContrato": "5323955",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb50"
+  },
+  "direccionInstalacion": "Avenida 7N 24-00",
+  "geoInstalacion": "2.4545078230000854,-76.63632708099993",
+  "zonaInstalacion": "190004",
+  "estrato": "2",
+  "categoria": "comercial",
+  "ruta": "115669",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb76"
+  },
+  "serieIot": "173a2660b46a0869",
+  "serieModuloComunicacion": "173a2660b46a0869",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7436.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbac"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19098852",
+  "cuentaContrato": "6351201",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb41"
+  },
+  "direccionInstalacion": "Diagonal 3N 97-39 Interior 0",
+  "geoInstalacion": "2.4482693860000495,-76.62678433799994",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "comercial",
+  "ruta": "115378",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb77"
+  },
+  "serieIot": "e0b8c782895c5fa4",
+  "serieModuloComunicacion": "e0b8c782895c5fa4",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7651.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbad"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "14390249",
+  "cuentaContrato": "9352909",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb61"
+  },
+  "direccionInstalacion": "Diagonal 4N 71-56 Entrada 42",
+  "geoInstalacion": "2.4859046940000553,-76.57377707099994",
+  "zonaInstalacion": "190001",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "148628",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb78"
+  },
+  "serieIot": "b64d80e889254843",
+  "serieModuloComunicacion": "b64d80e889254843",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7537.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbae"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "10293335",
+  "cuentaContrato": "8668532",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb55"
+  },
+  "direccionInstalacion": "Calle 3N 27-57 Interior 9",
+  "geoInstalacion": "2.437864735000062,-76.6037195099999",
+  "zonaInstalacion": "190002",
+  "estrato": "6",
+  "categoria": "comercial",
+  "ruta": "145830",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb79"
+  },
+  "serieIot": "8b8ffec024dc28ed",
+  "serieModuloComunicacion": "8b8ffec024dc28ed",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "7515.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbaf"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19226824",
+  "cuentaContrato": "8354034",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5f"
+  },
+  "direccionInstalacion": "Avenida 4 Bis 58-97",
+  "geoInstalacion": "2.4433276120000755,-76.62993361499991",
+  "zonaInstalacion": "190004",
+  "estrato": "5",
+  "categoria": "residencial",
+  "ruta": "101211",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7a"
+  },
+  "serieIot": "e64aac429d7aceb1",
+  "serieModuloComunicacion": "e64aac429d7aceb1",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "301.20"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb0"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13069838",
+  "cuentaContrato": "8543971",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3f"
+  },
+  "direccionInstalacion": "Avenida 8N 23-23 Interior 9",
+  "geoInstalacion": "2.476217853000094,-76.55663010399991",
+  "zonaInstalacion": "190001",
+  "estrato": "1",
+  "categoria": "residencial",
+  "ruta": "132782",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7b"
+  },
+  "serieIot": "025470486651bdc6",
+  "serieModuloComunicacion": "025470486651bdc6",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "296.90"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb1"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17390279",
+  "cuentaContrato": "9392860",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb40"
+  },
+  "direccionInstalacion": "Transversal 8 Bis 96-41 Apartamento 02",
+  "geoInstalacion": "2.4812835550000614,-76.55378923199993",
+  "zonaInstalacion": "190017",
+  "estrato": "3",
+  "categoria": "residencial",
+  "ruta": "149080",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7c"
+  },
+  "serieIot": "dcb9505840489b90",
+  "serieModuloComunicacion": "dcb9505840489b90",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "299.70"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb2"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13858257",
+  "cuentaContrato": "9287508",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3d"
+  },
+  "direccionInstalacion": "Calle 8N 36-97 Interior 4",
+  "geoInstalacion": "2.4361175450000587,-76.62061374299992",
+  "zonaInstalacion": "190004",
+  "estrato": "1",
+  "categoria": "residencial",
+  "ruta": "132330",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7d"
+  },
+  "serieIot": "edb78502631f7f90",
+  "serieModuloComunicacion": "edb78502631f7f90",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "300.20"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb3"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12033418",
+  "cuentaContrato": "6420646",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5a"
+  },
+  "direccionInstalacion": "Avenida 2N 03-66 Bloque 58",
+  "geoInstalacion": "2.461729804000072,-76.64243762399991",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "138215",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7e"
+  },
+  "serieIot": "8e7a24f6884c5d96",
+  "serieModuloComunicacion": "8e7a24f6884c5d96",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "297.30"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb4"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12771766",
+  "cuentaContrato": "8208796",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb50"
+  },
+  "direccionInstalacion": "Diagonal 7N 17-81 Interior 1",
+  "geoInstalacion": "2.4740472160000877,-76.5579096909999",
+  "zonaInstalacion": "190001",
+  "estrato": "3",
+  "categoria": "residencial",
+  "ruta": "119184",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb7f"
+  },
+  "serieIot": "f1181b74f488ebb9",
+  "serieModuloComunicacion": "f1181b74f488ebb9",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "297.20"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb5"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15885888",
+  "cuentaContrato": "9700915",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4e"
+  },
+  "direccionInstalacion": "Avenida 2 50-60 Bloque 26",
+  "geoInstalacion": "2.451149709000049,-76.6363904079999",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "122086",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb80"
+  },
+  "serieIot": "f7f2a6857f27bada",
+  "serieModuloComunicacion": "f7f2a6857f27bada",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "298.80"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb6"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15996144",
+  "cuentaContrato": "8761732",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb5e"
+  },
+  "direccionInstalacion": "Carrera 4 78-04 Interior 4",
+  "geoInstalacion": "2.449243160000094,-76.64209812599995",
+  "zonaInstalacion": "190018",
+  "estrato": "6",
+  "categoria": "residencial",
+  "ruta": "106669",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb81"
+  },
+  "serieIot": "32b0491acb39a683",
+  "serieModuloComunicacion": "32b0491acb39a683",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "298.80"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb7"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13123236",
+  "cuentaContrato": "5316393",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb49"
+  },
+  "direccionInstalacion": "Diagonal 9 86-53",
+  "geoInstalacion": "2.433035079000092,-76.60851275999994",
+  "zonaInstalacion": "190003",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "104734",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb82"
+  },
+  "serieIot": "1e90518cf380bcf4",
+  "serieModuloComunicacion": "1e90518cf380bcf4",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "301.10"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb8"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "15787112",
+  "cuentaContrato": "5800448",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb58"
+  },
+  "direccionInstalacion": "Calle 0 24-21 Entrada 77",
+  "geoInstalacion": "2.4870510110000623,-76.58145752099995",
+  "zonaInstalacion": "190001",
+  "estrato": "6",
+  "categoria": "residencial",
+  "ruta": "108197",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb83"
+  },
+  "serieIot": "51fb6e2c1a25c9ba",
+  "serieModuloComunicacion": "51fb6e2c1a25c9ba",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "298.60"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbb9"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19117500",
+  "cuentaContrato": "8104307",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb42"
+  },
+  "direccionInstalacion": "Calle 0 72-42",
+  "geoInstalacion": "2.470938082000089,-76.54792513399991",
+  "zonaInstalacion": "190017",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "129186",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb84"
+  },
+  "serieIot": "3ca7ddc3ff29f0be",
+  "serieModuloComunicacion": "3ca7ddc3ff29f0be",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "300.30"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbba"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "16270204",
+  "cuentaContrato": "8445213",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb32"
+  },
+  "direccionInstalacion": "Transversal 9N 96-23 Interior 4",
+  "geoInstalacion": "2.4349052830000915,-76.61860590299995",
+  "zonaInstalacion": "190004",
+  "estrato": "6",
+  "categoria": "residencial",
+  "ruta": "113615",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb85"
+  },
+  "serieIot": "e736c3c450ab8142",
+  "serieModuloComunicacion": "e736c3c450ab8142",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "297.50"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbbb"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13214026",
+  "cuentaContrato": "6465861",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb45"
+  },
+  "direccionInstalacion": "Diagonal 5N 45-91",
+  "geoInstalacion": "2.459795267000061,-76.58987907499994",
+  "zonaInstalacion": "190002",
+  "estrato": "3",
+  "categoria": "residencial",
+  "ruta": "138569",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb86"
+  },
+  "serieIot": "50bd9d1ff1f0d06d",
+  "serieModuloComunicacion": "50bd9d1ff1f0d06d",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "299.60"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbbc"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "16149172",
+  "cuentaContrato": "8947864",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb45"
+  },
+  "direccionInstalacion": "Calle 9 37-31 Bloque 17",
+  "geoInstalacion": "2.450149070000066,-76.62030847199992",
+  "zonaInstalacion": "190002",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "139739",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb87"
+  },
+  "serieIot": "81bf98da2604794e",
+  "serieModuloComunicacion": "81bf98da2604794e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "301.20"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbbd"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "16151282",
+  "cuentaContrato": "6828502",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3a"
+  },
+  "direccionInstalacion": "Transversal 8N 73-45 Interior 0",
+  "geoInstalacion": "2.4328844790000517,-76.62640618899991",
+  "zonaInstalacion": "190018",
+  "estrato": "2",
+  "categoria": "residencial",
+  "ruta": "122936",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb88"
+  },
+  "serieIot": "d3a30772a35d2fa4",
+  "serieModuloComunicacion": "d3a30772a35d2fa4",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "299.60"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbbe"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17800743",
+  "cuentaContrato": "7597175",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3a"
+  },
+  "direccionInstalacion": "Carrera 1N 57-85 Apartamento 09",
+  "geoInstalacion": "2.4408809780000524,-76.61427481899995",
+  "zonaInstalacion": "190003",
+  "estrato": "1",
+  "categoria": "residencial",
+  "ruta": "139987",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb89"
+  },
+  "serieIot": "350bb92d99250af5",
+  "serieModuloComunicacion": "350bb92d99250af5",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "302.30"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbbf"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "18435307",
+  "cuentaContrato": "6610796",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4c"
+  },
+  "direccionInstalacion": "Calle 9 48-41",
+  "geoInstalacion": "2.4529132330000607,-76.6350244219999",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "136176",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8a"
+  },
+  "serieIot": "f6a14d301dcbb3c5",
+  "serieModuloComunicacion": "f6a14d301dcbb3c5",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "299.50"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc0"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "11858522",
+  "cuentaContrato": "9960839",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb61"
+  },
+  "direccionInstalacion": "Diagonal 4N 47-46",
+  "geoInstalacion": "2.42665461200005,-76.60365907399995",
+  "zonaInstalacion": "190003",
+  "estrato": "4",
+  "categoria": "residencial",
+  "ruta": "139860",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8b"
+  },
+  "serieIot": "30d4999b8181d85f",
+  "serieModuloComunicacion": "30d4999b8181d85f",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "298.90"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc1"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17182895",
+  "cuentaContrato": "7144767",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3a"
+  },
+  "direccionInstalacion": "Transversal 1N 49-67 Interior 5",
+  "geoInstalacion": "2.442817016000049,-76.60086159399992",
+  "zonaInstalacion": "190002",
+  "estrato": "5",
+  "categoria": "residencial",
+  "ruta": "128053",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8c"
+  },
+  "serieIot": "1813b976f41c319e",
+  "serieModuloComunicacion": "1813b976f41c319e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": true,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "300.50"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc2"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "11172320",
+  "cuentaContrato": "5575344",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3e"
+  },
+  "direccionInstalacion": "Calle 2 59-96",
+  "geoInstalacion": "2.494772840000053,-76.57886723399992",
+  "zonaInstalacion": "190001",
+  "estrato": "2",
+  "categoria": "residencial",
+  "ruta": "139201",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8d"
+  },
+  "serieIot": "9ff36db13d00dc8e",
+  "serieModuloComunicacion": "9ff36db13d00dc8e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "298.50"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc3"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19065715",
+  "cuentaContrato": "9305367",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb47"
+  },
+  "direccionInstalacion": "Carrera 6 Bis 97-29 Interior 4",
+  "geoInstalacion": "2.5115557140000533,-76.5820932339999",
+  "zonaInstalacion": "190008",
+  "estrato": "1",
+  "categoria": "industrial",
+  "ruta": "102721",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8e"
+  },
+  "serieIot": "68ad943681271b6d",
+  "serieModuloComunicacion": "68ad943681271b6d",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "30504.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc4"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13716527",
+  "cuentaContrato": "5164200",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4b"
+  },
+  "direccionInstalacion": "Diagonal 9N 76-06",
+  "geoInstalacion": "2.4504045820000897,-76.59541683899994",
+  "zonaInstalacion": "190002",
+  "estrato": "6",
+  "categoria": "industrial",
+  "ruta": "106194",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb8f"
+  },
+  "serieIot": "54ac0064bb029668",
+  "serieModuloComunicacion": "54ac0064bb029668",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "31926.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc5"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12364443",
+  "cuentaContrato": "6313290",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb56"
+  },
+  "direccionInstalacion": "Avenida 0N 78-42 Apartamento 08",
+  "geoInstalacion": "2.4475314430000594,-76.62607897999993",
+  "zonaInstalacion": "190004",
+  "estrato": "6",
+  "categoria": "industrial",
+  "ruta": "104898",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb90"
+  },
+  "serieIot": "e45611c2d48d478c",
+  "serieModuloComunicacion": "e45611c2d48d478c",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "31664.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc6"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19530076",
+  "cuentaContrato": "5843577",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb52"
+  },
+  "direccionInstalacion": "Calle 3 50-97 Bloque 78",
+  "geoInstalacion": "2.45317278400006,-76.63176656299993",
+  "zonaInstalacion": "190004",
+  "estrato": "4",
+  "categoria": "industrial",
+  "ruta": "131526",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb91"
+  },
+  "serieIot": "3ec408698b3e84a5",
+  "serieModuloComunicacion": "3ec408698b3e84a5",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "31067.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc7"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "17853870",
+  "cuentaContrato": "7589831",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb36"
+  },
+  "direccionInstalacion": "Calle 9 56-40 Manzana 58",
+  "geoInstalacion": "2.4564371590000746,-76.58581170899993",
+  "zonaInstalacion": "190002",
+  "estrato": "6",
+  "categoria": "industrial",
+  "ruta": "144383",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb92"
+  },
+  "serieIot": "82ae82d1b3a56b0f",
+  "serieModuloComunicacion": "82ae82d1b3a56b0f",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "32183.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc8"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12000632",
+  "cuentaContrato": "9443262",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb4e"
+  },
+  "direccionInstalacion": "Carrera 6 Bis 99-94 Entrada 11",
+  "geoInstalacion": "2.4747434310000926,-76.56726687799994",
+  "zonaInstalacion": "190017",
+  "estrato": "5",
+  "categoria": "industrial",
+  "ruta": "126233",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb93"
+  },
+  "serieIot": "0b2234104c1ff19e",
+  "serieModuloComunicacion": "0b2234104c1ff19e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "30887.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbc9"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "13250165",
+  "cuentaContrato": "6685529",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb3a"
+  },
+  "direccionInstalacion": "Carrera 4 33-44 Interior 8",
+  "geoInstalacion": "2.479644333000067,-76.57658514099995",
+  "zonaInstalacion": "190001",
+  "estrato": "2",
+  "categoria": "industrial",
+  "ruta": "134963",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb94"
+  },
+  "serieIot": "969e523a6b36780e",
+  "serieModuloComunicacion": "969e523a6b36780e",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "31638.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbca"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "18502091",
+  "cuentaContrato": "7153607",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb50"
+  },
+  "direccionInstalacion": "Avenida 8 69-06 Interior 2",
+  "geoInstalacion": "2.4360366280000676,-76.59923586199994",
+  "zonaInstalacion": "190002",
+  "estrato": "6",
+  "categoria": "industrial",
+  "ruta": "127400",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb95"
+  },
+  "serieIot": "5dac8d24f25c989f",
+  "serieModuloComunicacion": "5dac8d24f25c989f",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "30936.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbcb"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "19711188",
+  "cuentaContrato": "5279330",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb35"
+  },
+  "direccionInstalacion": "Avenida 4 82-57",
+  "geoInstalacion": "2.45313079400006,-76.63743764799995",
+  "zonaInstalacion": "190004",
+  "estrato": "2",
+  "categoria": "industrial",
+  "ruta": "114360",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb96"
+  },
+  "serieIot": "545a2d1238b5cbd1",
+  "serieModuloComunicacion": "545a2d1238b5cbd1",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "30206.00"
+},{
+  "_id": {
+    "$oid": "66dfc13dd5045dcf3cbecbcc"
+  },
+  "proyecto": {
+    "$oid": "66dfc13ad5045dcf3cbecb2a"
+  },
+  "matricula": "12045108",
+  "cuentaContrato": "9642543",
+  "cliente": {
+    "$oid": "66dfc13cd5045dcf3cbecb40"
+  },
+  "direccionInstalacion": "Avenida 1 47-73 Bloque 69",
+  "geoInstalacion": "2.4252349320000803,-76.60341855799993",
+  "zonaInstalacion": "190003",
+  "estrato": "2",
+  "categoria": "industrial",
+  "ruta": "144177",
+  "serieMedidor": {
+    "$oid": "66dfc13cd5045dcf3cbecb97"
+  },
+  "serieIot": "c64add6c2a16a4a3",
+  "serieModuloComunicacion": "c64add6c2a16a4a3",
+  "modulo": {
+    "$oid": "66dfc133d5045dcf3cbec665"
+  },
+  "estadoInstalacion": "proyectado",
+  "fechaActivacion": "2024-01-01T05:00:00.000Z",
+  "fechaUltimoReporte": "2024-09-07T05:00:00.000Z",
+  "factorCorreccion": 1,
+  "alarmaReportada": false,
+  "intervaloTx": 12,
+  "__v": 0,
+  "ultimaMedicion": "30439.00"
+}]

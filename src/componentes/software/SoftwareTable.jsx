@@ -9,9 +9,11 @@ import {
   CCard,
   CCardHeader,
   CCardBody,
+  CButton,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import { cibDocusign } from "@coreui/icons";
+import { cilPencil } from "@coreui/icons";
 import "./ColumnVisibilityDropdown.scss";
 import { exportToCsv } from "../../helpers";
 
@@ -25,7 +27,7 @@ const initialColumns = [
   //   { key: 'dependencia', label: 'Distancia Siembra (m)', visible: true },
 ];
 
-const SoftwareTable = ({ allSoftware }) => {
+const SoftwareTable = ({ allSoftware, onEditar }) => {
   const [columns, setColumns] = useState(initialColumns);
   const [data, setData] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -78,7 +80,29 @@ const SoftwareTable = ({ allSoftware }) => {
     exportToCsv(exportData, "software.csv");
   };
 
-  const visibleCols = columns.filter((col) => col.visible);
+  const visibleCols = [
+    ...columns.filter((col) => col.visible),
+    ...(onEditar ? [{ key: "acciones", label: "Acciones", filter: false, sorter: false }] : []),
+  ];
+
+  const scopedCols = onEditar
+    ? {
+        acciones: (item) => (
+          <td>
+            <CButton
+              color="warning"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEditar(item)}
+              title="Editar software"
+            >
+              <CIcon icon={cilPencil} className="me-1" />
+              Editar
+            </CButton>
+          </td>
+        ),
+      }
+    : undefined;
 
   return (
     <CCard>
@@ -141,6 +165,7 @@ const SoftwareTable = ({ allSoftware }) => {
           paginationProps={{
             className: "smart-pagination justify-content-start",
           }}
+          scopedColumns={scopedCols}
         />
       </CCardBody>
     </CCard>

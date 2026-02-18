@@ -13,6 +13,9 @@ export const useEquipoStore = () => {
   const startLoadEquiposDetalle = EquipoStore(
     (state) => state.startLoadEquiposDetalle
   );
+  const asignarResponsableStore = EquipoStore((state) => state.asignarResponsable);
+  const actualizarEquipoStore = EquipoStore((state) => state.actualizarEquipo);
+  const eliminarEquipoStore = EquipoStore((state) => state.eliminarEquipo);
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -49,16 +52,32 @@ export const useEquipoStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
+  const actualizarEquipo = async (equipoId, payload) => {
+    const ok = await actualizarEquipoStore(equipoId, payload);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+  const asignarResponsable = async (equipoId, usuarioResponsableId) => {
+    const ok = await asignarResponsableStore(equipoId, usuarioResponsableId);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+  const eliminarEquipo = async (equipoId) => {
+    const ok = await eliminarEquipoStore(equipoId);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
 
-  ////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////
   return {
     cargarEquipos,
     cargarEquiposByDependencia,
     crearEquipo,
     cargarEquipoHv,
     cargarEstadosEquipo,
-    cargarEquiposDetalle
+    cargarEquiposDetalle,
+    actualizarEquipo,
+    asignarResponsable,
+    eliminarEquipo,
   };
   ////////////////////////////////////////////////////////////////
 };

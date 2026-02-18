@@ -59,7 +59,17 @@ const usuarioResponsableApi = (set) => ({
   },
 
   ///////////////////////////////////////////////////////////////
-
+  actualizarUsuarioResponsable: async (usuarioId, payload) => {
+    const { ok, errorMessage } = await UsuarioResponsableService.actualizarUsuarioResponsable(usuarioId, payload);
+    if (!ok) throw errorMessage || "Error al actualizar usuario responsable";
+    return ok;
+  },
+  ///////////////////////////////////////////////////////////////
+  asignarDependencia: async (usuarioId, dependenciaId) => {
+    const { ok, errorMessage } = await UsuarioResponsableService.asignarDependencia(usuarioId, dependenciaId);
+    if (!ok) throw errorMessage || "Error al asignar dependencia";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 
   ///////////////////////////////////////////////////////////////

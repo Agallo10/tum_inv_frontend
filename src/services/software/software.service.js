@@ -57,4 +57,13 @@ export class SoftwareService {
       };
     }
   };
+
+  static actualizarSoftware = async (id, payload) => {
+    try {
+      const resp = await iotApi.put(`/software/${id}`, payload);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo actualizar el software" };
+    }
+  };
 }

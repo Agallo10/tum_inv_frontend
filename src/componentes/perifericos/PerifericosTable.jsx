@@ -9,9 +9,11 @@ import {
   CCard,
   CCardHeader,
   CCardBody,
+  CButton,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import { cibDocusign } from "@coreui/icons";
+import { cilPencil, cilLink } from "@coreui/icons";
 import "./ColumnVisibilityDropdown.scss";
 import { exportToCsv } from "../../helpers";
 
@@ -25,7 +27,7 @@ const initialColumns = [
   //   { key: 'dependencia', label: 'Distancia Siembra (m)', visible: true },
 ];
 
-const PerifericosTable = ({ perifericos }) => {
+const PerifericosTable = ({ perifericos, onEditar, onReasignar }) => {
   const [columns, setColumns] = useState(initialColumns);
   const [data, setData] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -78,7 +80,46 @@ const PerifericosTable = ({ perifericos }) => {
     exportToCsv(exportData, "perifericos.csv");
   };
 
-  const visibleCols = columns.filter((col) => col.visible);
+  const tieneAcciones = onEditar || onReasignar;
+
+  const visibleCols = [
+    ...columns.filter((col) => col.visible),
+    ...(tieneAcciones ? [{ key: "acciones", label: "Acciones", filter: false, sorter: false }] : []),
+  ];
+
+  const scopedCols = tieneAcciones
+    ? {
+        acciones: (item) => (
+          <td>
+            {onEditar && (
+              <CButton
+                color="warning"
+                variant="ghost"
+                size="sm"
+                onClick={() => onEditar(item)}
+                title="Editar periférico"
+                className="me-1"
+              >
+                <CIcon icon={cilPencil} className="me-1" />
+                Editar
+              </CButton>
+            )}
+            {onReasignar && (
+              <CButton
+                color="info"
+                variant="ghost"
+                size="sm"
+                onClick={() => onReasignar(item)}
+                title="Reasignar a otro equipo"
+              >
+                <CIcon icon={cilLink} className="me-1" />
+                Reasignar
+              </CButton>
+            )}
+          </td>
+        ),
+      }
+    : undefined;
 
   return (
     <CCard>
@@ -141,6 +182,7 @@ const PerifericosTable = ({ perifericos }) => {
           paginationProps={{
             className: "smart-pagination justify-content-start",
           }}
+          scopedColumns={scopedCols}
         />
       </CCardBody>
     </CCard>

@@ -57,4 +57,24 @@ export class UsuarioResponsableService {
       };
     }
   };
+
+  static actualizarUsuarioResponsable = async (usuarioId, payload) => {
+    try {
+      const resp = await iotApi.put(`/usuarios-responsables/${usuarioId}`, payload);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo actualizar el usuario responsable" };
+    }
+  };
+
+  static asignarDependencia = async (usuarioId, dependenciaId) => {
+    try {
+      const resp = await iotApi.patch(`/usuarios-responsables/${usuarioId}/asignar-dependencia`, {
+        DependenciaID: dependenciaId,
+      });
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo asignar la dependencia" };
+    }
+  };
 }
