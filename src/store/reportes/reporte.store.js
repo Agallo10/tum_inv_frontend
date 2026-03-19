@@ -68,9 +68,23 @@ const reporteApi = (set) => ({
     }
   },
   ///////////////////////////////////////////////////////////////
-
+  subirFirmado: async (reporteId, archivo) => {
+    const { ok, errorMessage } = await ReporteService.subirFirmado(reporteId, archivo);
+    if (!ok) throw errorMessage || "Error al subir PDF firmado";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
-
+  descargarFirmado: async (reporteId) => {
+    const { ok, errorMessage } = await ReporteService.descargarFirmado(reporteId);
+    if (!ok) throw errorMessage || "Error al descargar PDF firmado";
+    return ok;
+  },
+  ///////////////////////////////////////////////////////////////
+  reabrirReporte: async (reporteId) => {
+    const { ok, errorMessage } = await ReporteService.reabrirReporte(reporteId);
+    if (!ok) throw errorMessage || "Error al reabrir el reporte";
+    return ok;
+  },
   ///////////////////////////////////////////////////////////////
 });
 ///////////////////////////////////////////////////////////////

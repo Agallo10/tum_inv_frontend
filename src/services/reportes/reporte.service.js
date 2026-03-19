@@ -86,4 +86,43 @@ export class ReporteService {
       };
     }
   };
+
+  ///////////////////////////////////////////////////////////////////
+  static subirFirmado = async (reporteId, archivo) => {
+    try {
+      const formData = new FormData();
+      formData.append('archivo', archivo);
+      const resp = await iotApi.post(
+        `/reportes-servicio/${reporteId}/subir-firmado`,
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo subir el PDF firmado" };
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////////
+  static descargarFirmado = async (reporteId) => {
+    try {
+      const resp = await iotApi.get(`/reportes-servicio/${reporteId}/descargar-firmado`);
+      const { url } = resp.data;
+      // Abrir en nueva pestaña para descargar
+      window.open(url, '_blank');
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo descargar el PDF firmado" };
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////////
+  static reabrirReporte = async (reporteId) => {
+    try {
+      const resp = await iotApi.post(`/reportes-servicio/${reporteId}/reabrir`);
+      return { ok: true, datos: resp.data };
+    } catch (error) {
+      return { ok: false, errorMessage: "No se pudo reabrir el reporte" };
+    }
+  };
 }

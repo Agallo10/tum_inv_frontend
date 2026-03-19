@@ -13,6 +13,15 @@ export const useReporteStore = () => {
   const descargarPdf = ReporteStore(
     (state) => state.descargarPdfReporte
   );
+  const subirFirmadoStore = ReporteStore(
+    (state) => state.subirFirmado
+  );
+  const descargarFirmadoStore = ReporteStore(
+    (state) => state.descargarFirmado
+  );
+  const reabrirReporteStore = ReporteStore(
+    (state) => state.reabrirReporte
+  );
 
   /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////
@@ -38,12 +47,29 @@ export const useReporteStore = () => {
     return ok;
   };
   ////////////////////////////////////////////////////////////////
+  const subirFirmado = async (reporteId, archivo) => {
+    const ok = await subirFirmadoStore(reporteId, archivo);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+  const descargarFirmado = async (reporteId) => {
+    const ok = await descargarFirmadoStore(reporteId);
+    return ok;
+  };
+  ////////////////////////////////////////////////////////////////
+  const reabrirReporte = async (reporteId) => {
+    const ok = await reabrirReporteStore(reporteId);
+    return ok;
+  };
   ////////////////////////////////////////////////////////////////
   return {
     cargarReportes,
     cargarReportesByEquipos,
     crearReporte,
     descargarPdfReporte,
+    subirFirmado,
+    descargarFirmado,
+    reabrirReporte,
   };
   ////////////////////////////////////////////////////////////////
 };

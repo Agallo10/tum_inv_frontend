@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   CForm,
   CRow,
@@ -20,6 +20,8 @@ import {
   CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CSpinner,
+  CTooltip,
 } from "@coreui/react-pro";
 import CIcon from "@coreui/icons-react";
 import {
@@ -31,6 +33,9 @@ import {
   cilClipboard,
   cilLocationPin,
   cilCloudDownload,
+  cilCloudUpload,
+  cilLockLocked,
+  cilLockUnlocked,
 } from "@coreui/icons";
 
 import { useReporteStore } from "../../hook/reportes/useReporteStore";
@@ -39,9 +44,11 @@ import { useNotificacion } from "../../hook";
 
 const ReportesTab = ({ equipo }) => {
   const { ID } = equipo;
-  const { crearReporte, cargarReportesByEquipos, descargarPdfReporte } = useReporteStore();
+  const { crearReporte, cargarReportesByEquipos, descargarPdfReporte, subirFirmado, descargarFirmado, reabrirReporte } = useReporteStore();
   const user = AuthStore((state) => state.user);
   const { mostrarExito, mostrarError, mostrarAdvertencia } = useNotificacion();
+  const fileInputRef = useRef(null);
+  const [reporteSubiendo, setReporteSubiendo] = useState(null);
 
   const uid = ID;
   const dependenciaNombre = localStorage.getItem("dependencia-nombre");
@@ -178,6 +185,58 @@ const ReportesTab = ({ equipo }) => {
   useEffect(() => {
     cargarReportesEquipo();
   }, [uid]);
+
+  // === Handler para subir PDF firmado ===
+  const reporteParaSubirRef = useRef(null);
+
+  const handleSubirFirmado = (reporteId) => {
+    reporteParaSubirRef.current = reporteId;
+    fileInputRef.current.value = '';
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e) => {
+    const archivo = e.target.files[0];
+    const reporteId = reporteParaSubirRef.current;
+    if (!archivo || !reporteId) return;
+
+    if (archivo.type !== 'application/pdf') {
+      mostrarError('Solo se permiten archivos PDF');
+      e.target.value = '';
+      return;
+    }
+
+    setReporteSubiendo(reporteId);
+    try {
+      await subirFirmado(reporteId, archivo);
+      mostrarExito('PDF firmado subido correctamente. El reporte ha sido cerrado.');
+      await cargarReportesEquipo();
+    } catch (error) {
+      mostrarError(error || 'Error al subir el PDF firmado');
+    } finally {
+      e.target.value = '';
+      setReporteSubiendo(null);
+      reporteParaSubirRef.current = null;
+    }
+  };
+
+  const handleDescargarFirmado = async (reporteId) => {
+    try {
+      await descargarFirmado(reporteId);
+    } catch (error) {
+      mostrarError(error || 'Error al descargar el PDF firmado');
+    }
+  };
+
+  const handleReabrirReporte = async (reporteId) => {
+    try {
+      await reabrirReporte(reporteId);
+      mostrarExito('Reporte reabierto. Puede subir un nuevo PDF firmado.');
+      await cargarReportesEquipo();
+    } catch (error) {
+      mostrarError(error || 'Error al reabrir el reporte');
+    }
+  };
 
   return (
     <CForm onSubmit={handleSubmit}>
@@ -702,7 +761,7 @@ const ReportesTab = ({ equipo }) => {
                       <CTableHeaderCell>Tipo</CTableHeaderCell>
                       <CTableHeaderCell>Repuestos</CTableHeaderCell>
                       <CTableHeaderCell>Diagnóstico</CTableHeaderCell>
-                      <CTableHeaderCell>Actividad</CTableHeaderCell>
+                      <CTableHeaderCell>Estado</CTableHeaderCell>
                       <CTableHeaderCell>Acciones</CTableHeaderCell>
                     </CTableRow>
                   </CTableHead>
@@ -742,23 +801,73 @@ const ReportesTab = ({ equipo }) => {
                           </span>
                         </CTableDataCell>
                         <CTableDataCell>
-                          <span
-                            className="text-truncate d-inline-block"
-                            style={{ maxWidth: "200px" }}
-                          >
-                            {reporte.actividad_realizada}
-                          </span>
+                          {reporte.cerrado ? (
+                            <CTooltip content={`Cerrado: ${reporte.fecha_cierre}`}>
+                              <CBadge color="success" shape="rounded-pill">
+                                <CIcon icon={cilLockLocked} size="sm" className="me-1" />
+                                Cerrado
+                              </CBadge>
+                            </CTooltip>
+                          ) : (
+                            <CBadge color="warning" shape="rounded-pill">
+                              <CIcon icon={cilLockUnlocked} size="sm" className="me-1" />
+                              Abierto
+                            </CBadge>
+                          )}
                         </CTableDataCell>
                         <CTableDataCell>
-                          <CButton
-                            color="danger"
-                            size="sm"
-                            variant="ghost"
-                            title="Descargar PDF"
-                            onClick={() => descargarPdfReporte(reporte.id, usuarioId)}
-                          >
-                            <CIcon icon={cilCloudDownload} />
-                          </CButton>
+                          <div className="d-flex gap-1">
+                            <CTooltip content="Descargar PDF">
+                              <CButton
+                                color="danger"
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => descargarPdfReporte(reporte.id, usuarioId)}
+                              >
+                                <CIcon icon={cilCloudDownload} />
+                              </CButton>
+                            </CTooltip>
+                            {!reporte.cerrado ? (
+                              <CTooltip content="Subir PDF firmado y cerrar reporte">
+                                <CButton
+                                  color="success"
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() => handleSubirFirmado(reporte.id)}
+                                  disabled={reporteSubiendo === reporte.id}
+                                >
+                                  {reporteSubiendo === reporte.id ? (
+                                    <CSpinner size="sm" />
+                                  ) : (
+                                    <CIcon icon={cilCloudUpload} />
+                                  )}
+                                </CButton>
+                              </CTooltip>
+                            ) : (
+                              <>
+                                <CTooltip content="Descargar PDF firmado">
+                                  <CButton
+                                    color="info"
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={() => handleDescargarFirmado(reporte.id)}
+                                  >
+                                    <CIcon icon={cilLockLocked} />
+                                  </CButton>
+                                </CTooltip>
+                                <CTooltip content="Reabrir reporte (permite subir otro PDF)">
+                                  <CButton
+                                    color="warning"
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={() => handleReabrirReporte(reporte.id)}
+                                  >
+                                    <CIcon icon={cilReload} />
+                                  </CButton>
+                                </CTooltip>
+                              </>
+                            )}
+                          </div>
                         </CTableDataCell>
                       </CTableRow>
                     ))}
@@ -769,6 +878,15 @@ const ReportesTab = ({ equipo }) => {
           </CCard>
         </CCol>
       </CRow>
+
+      {/* Input oculto para subir PDF firmado */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        accept="application/pdf"
+        onChange={handleFileChange}
+      />
     </CForm>
   );
 };
